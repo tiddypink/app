@@ -20,15 +20,13 @@ document.addEventListener("DOMContentLoaded", function () {
   $('#image').attr('src', `assets/${defaultImage.name}.${ext}`); 
   defaultImage.viewed = true
 
-console.log(images)
-
-
   $('.go').click(function() {
     opcion = $(this).attr('id');
     image = (($('#image').attr('src')).split('/')[1]).split('.')[0]
     if (!image) {
       return
     }
+
     image = images.find(item => item.name == image)
       if (opcion == image?.correct) {
       score++;
@@ -40,9 +38,11 @@ console.log(images)
 
       $('#image').addClass('fade-out')
       setTimeout(() => {
-        $('#image').attr('src', `assets/n${image.name}.${ext}`); 
-        $('#image').removeClass('fade-out');
-      }, 300);
+        setTimeout(() => {
+          $('#image').removeClass('fade-out');
+        }, 250);  
+        $('#image').attr('src', `assets/n${image.name}.${ext}`);
+      }, 250);
 
       if (images.ia_generated) {
           $('.ia-tag').fadeIn();
@@ -133,11 +133,13 @@ function next(){
       }
     });
 
-    $('#image').addClass('fade-out')
-    setTimeout(() => {
-      $('#image').attr('src', `assets/${image.name}.${ext}`); 
-      $('#image').removeClass('fade-out');
-    }, 300);
+      $('#image').addClass('fade-out')
+      setTimeout(() => {
+        setTimeout(() => {
+          $('#image').removeClass('fade-out');
+        }, 250);  
+        $('#image').attr('src', `assets/${image.name}.${ext}`);
+      }, 250);
 
     //console.log(image)
     if (image.ia_generated) {

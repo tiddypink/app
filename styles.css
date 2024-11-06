@@ -308,7 +308,7 @@ body {
 }
 
 img {
-  transition: opacity 0.3s ease-in-out; /* Ajusta la duración como desees */
+  transition: opacity 0.25s ease-in-out; /* Ajusta la duración como desees */
   opacity: 1;
 }
 
