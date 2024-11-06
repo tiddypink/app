@@ -15,7 +15,8 @@ document.addEventListener("DOMContentLoaded", function () {
   $('#next').hide();
   $('.ia-tag').hide();
   let defaultImage = images.find(item => item.name == 82)
-  images = setArray(images, 100)
+  images = setArray(images, 99)
+  images.push(defaultImage)
   $('#image').attr('src', `assets/${defaultImage.name}.${ext}`); 
   defaultImage.viewed = true
 
@@ -78,16 +79,16 @@ console.log(images)
     $('.correct').on('mousedown mouseleave', function() {
       $(this).css('filter', 'brightness(1)'); 
     }).on('mouseup mouseenter', function() {
-      if (opcion == correct) {
+      if (opcion == image?.correct) {
         $(this).css('filter', 'brightness(0.8)');
       }
     });
   
     $('.correct').on('mousedown', function() {
-      $('#image').attr('src', `assets/${image}.${ext}`);
+      $('#image').attr('src', `assets/${image.name}.${ext}`);
     }).on('mouseup mouseleave', function() {
-      if (opcion === correct) {
-        $('#image').attr('src', `assets/n${image}.${ext}`); 
+      if (opcion === image?.correct) {
+        $('#image').attr('src', `assets/n${image.name}.${ext}`); 
       }
     });
 
