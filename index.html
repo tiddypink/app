@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiddypink</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap">
+</head>
+<body>
+    <header class="header">
+        <h1 class="logo">Tiddypink</h1>
+
+        <button class="menu-toggle" aria-label="Toggle navigation">&#9776;</button>
+
+        <nav class="nav">
+            <a href="#home">Jugar</a>
+            <a href="#about">Sobre nosotros</a>
+            <a href="galery.html">Galería</a>
+            <a href="#contact">Contacto</a>
+        </nav>
+
+        <div id="language-selector">
+            <select name="language" id="language">
+                <option value="es">Español</option>
+                <option value="en">English</option>
+                <option value="fr">Français</option>
+            </select>
+        </div>
+
+    </header>
+
+    <!-- <section class="welcome-section" id="home">
+        <h2 id="title"></h2>
+        <p id="description"></p>
+        <a href="#gallery" class="button" id="action"></a>
+    </section> -->
+
+    <section class="gallery" id="gallery">
+        <!-- <h2 id="galery"></h2> -->
+        <h2 class="score" id="score"></h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <span class="showprev">click</span>
+                <img id="image" alt="imagen" style="width: 100%; height: auto;" draggable="false">
+                <span class="ia-tag">Generada por IA</span>
+                <div class="next" id="next"></div>
+            </div>
+            <div class="actions-container">
+
+
+                <div class="go" id="1" style="background-color: #ffdbcc;"></div>
+                <div class="go" id="2" style="background-color: #ffbfb5;"></div>
+                <div class="go" id="3" style="background-color: #d28880;"></div>
+                <div class="go" id="4" style="background-color: #95534d;"></div>
+                <div class="go" id="5" style="background-color: #4d2522;"></div>
+                <div class="go" id="6" style="background-color: #2d0e0a;"></div>
+<!-- 
+                <div class="go" id="1" style="background-color: black;"></div>
+                <div class="go" id="2" style="background-color: black;"></div>
+                <div class="go" id="3" style="background-color: black;"></div>
+                <div class="go" id="4" style="background-color: black;"></div>
+                <div class="go" id="5" style="background-color: black;"></div>
+                <div class="go" id="6" style="background-color: black;"></div> -->
+                
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>© 2024 Zona Prohibida - Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
