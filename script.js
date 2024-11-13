@@ -4,7 +4,7 @@ var correct;
 var score = 0;
 var opcion;
 var currentLanguage
-var totalItems = 2
+var totalItems = 20
 var images;
 var exitIndex = 0
 var music;
