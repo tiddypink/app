@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
     score = 0
     exitIndex = 0
     stopMusic()
-    sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 3, .05, true);
+    sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, .03, true);
     $('.score').text('Score: ' + Math.floor(score));
     imagesFull.forEach(obj => obj.viewed = false);
     totalItems--
@@ -185,7 +185,7 @@ closeModal.click(function() {
 });
 closeAcept.click(function() {
   modal.hide();
-  sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 3, .1, true);
+  sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, .03, true);
   //sound(`assets/audio/music2.mp3`, 3, .2);
 });
 
