@@ -4,9 +4,10 @@ var correct;
 var score = 0;
 var opcion;
 var currentLanguage
-var totalItems = 28
+var totalItems = 2
 var images;
 var exitIndex = 0
+var music;
 
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelector('.menu-toggle').addEventListener('click', function() {
@@ -102,17 +103,17 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    $('.correct').on('mousedown mouseleave', function() {
+    $('.correct').on('mousedown mouseleave touchstart touchcancel', function() {
       $(this).css('filter', 'brightness(1)'); 
-    }).on('mouseup mouseenter', function() {
+    }).on('mouseup mouseenter touchend touchstart', function() {
       if (opcion == image?.correct) {
         $(this).css('filter', 'brightness(0.8)');
       }
     });
   
-    $('.correct').on('mousedown', function() {
+    $('.correct').on('mousedown touchstart', function() {
       $('#image').attr('src', `assets/${image.name}.${ext}`);
-    }).on('mouseup mouseleave', function() {
+    }).on('mouseup mouseleave touchend touchcancel', function() {
       if (opcion === image?.correct) {
         $('#image').attr('src', `assets/n${image.name}.${ext}`); 
       }
@@ -127,12 +128,15 @@ document.addEventListener("DOMContentLoaded", function () {
   $('.restart').click(function() {
     score = 0
     exitIndex = 0
+    stopMusic()
+    sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 3, .2, true);
     $('.score').text('Score: ' + Math.floor(score));
     imagesFull.forEach(obj => obj.viewed = false);
     totalItems--
     let defaultImage = imagesFull.find(item => item.name == 82)
     images = setArray(imagesFull, totalItems)
     defaultImage.viewed = true
+    image = defaultImage
     images.push(defaultImage)
     totalItems++
     $('#image').attr('src', `assets/${defaultImage.name}.${ext}`); 
@@ -171,7 +175,7 @@ const modal = $("#modal");
 const openModal = $("#openModal");
 const closeModal = $(".close");
 const closeAcept = $(".acept");
-//modal.show();
+modal.show();
 openModal.click(function() {
     modal.show();
 });
@@ -181,6 +185,8 @@ closeModal.click(function() {
 });
 closeAcept.click(function() {
   modal.hide();
+  sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 3, .2, true);
+  //sound(`assets/audio/music2.mp3`, 3, .2);
 });
 
 $(window).click(function(event) {
@@ -196,9 +202,9 @@ $(window).click(function(event) {
   
 });
 
-// document.addEventListener('contextmenu', function (e) {
-//   e.preventDefault();
-// });
+document.addEventListener('contextmenu', function (e) {
+  e.preventDefault();
+});
 
 function next(){
   sound('assets/audio/next.mp3');
@@ -246,6 +252,7 @@ function next(){
     }
 
   } else {
+    stopMusic()
     $(".gallery-grid").hide()
     if (score == 100) {
       let seconds = 20;
@@ -325,7 +332,15 @@ function setArray(images, limit) {
   return result;
 }
 
-function sound(path,loops = 1, volume = 1){
+function sound(path,loops = 1, volume = 1, isMusic = false){
+
+  if (isMusic) {
+    music = new Audio(path);
+    music.volume = volume;
+    music.play();
+    return 
+  }
+
   const sound = new Audio(path);
   sound.volume = volume;
   sound.play();
@@ -338,6 +353,10 @@ function sound(path,loops = 1, volume = 1){
       sound.play();
     }
   });
+}
+function stopMusic(){
+  music.pause();
+  music.currentTime = 0;
 }
 
 function getCorrectSoundRandom(){
@@ -372,6 +391,24 @@ function getEndfailSoundRandom(){
     { value: 3, weight: 0.20 },
     { value: 4, weight: 0.15 },
     { value: 5, weight: 0.15 }
+  ];
+  let random = Math.random();
+  for (let i = 0; i < numbers.length; i++) {
+    random -= numbers[i].weight;
+    if (random <= 0) {
+      return numbers[i].value;
+    }
+  }
+}
+
+function getMusicSoundRandom(){
+  const numbers = [
+    { value: 1, weight: 0.01 },
+    { value: 2, weight: 0.32 },
+    { value: 3, weight: 0.50 },
+    { value: 4, weight: 0.07 },
+    { value: 5, weight: 0.03 },
+    { value: 6, weight: 0.07 }
   ];
   let random = Math.random();
   for (let i = 0; i < numbers.length; i++) {
