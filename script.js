@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if(!isLocal){
     const img = document.getElementById('image');
     img.onload = function() {
+      image.onload = null;
               const canvas = document.createElement('canvas');
               const ctx = canvas.getContext('2d');
               canvas.width = img.width;
