@@ -39,7 +39,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   $('.go').click(function() {
     opcion = $(this).attr('id');
-    //image = (($('#image').attr('src')).split('/')[1]).split('.')[0]
     if (!image.name) {
       return
     }
