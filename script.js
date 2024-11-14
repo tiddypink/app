@@ -11,7 +11,6 @@ var music;
 var musicOn = true;
 const isLocal = window.location.protocol === "file:";
 
-
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelector('.menu-toggle').addEventListener('click', function() {
     const nav = document.querySelector('.nav');
@@ -30,10 +29,21 @@ document.addEventListener("DOMContentLoaded", function () {
   totalItems--
   images = setArray(imagesFull, totalItems)
 
-  isLocal ? $('#image').attr('src', `assets/${defaultImage.name}.${ext}`) : getImage(`assets/${defaultImage.name}.${ext}`);
-  // imagefile = getImage(`assets/${defaultImage.name}.${ext}`)
-  // imageFile = `assets/n${image.name}.${ext}`
-  // $('#image').attr('src', imagefile); 
+  $('#image').attr('src', `assets/${defaultImage.name}.${ext}`); 
+  if(!isLocal){
+    const img = document.getElementById('image');
+    img.onload = function() {
+              const canvas = document.createElement('canvas');
+              const ctx = canvas.getContext('2d');
+              canvas.width = img.width;
+              canvas.height = img.height;
+              ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+              const base64Image = canvas.toDataURL('image/webp'); // O 'image/png' si es una imagen PNG
+              console.log(base64Image);
+              $('#image').attr('src', base64Image); 
+          };
+  }
+
 
   defaultImage.viewed = true
   images.push(defaultImage)
@@ -168,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function () {
       exitIndex = 2
     }
     
-    alert(languages[currentLanguage].exitMessage[exitIndex])
+    //alert(languages[currentLanguage].exitMessage[exitIndex])
     exitIndex++
   });
 
