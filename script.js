@@ -22,8 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
   $('.ia-tag').hide();
   $(".suceess-image").hide()
   $(".final-actions").hide()
-  $(".gallery-item").click();
-  $("#image").click();
+
 
   let defaultImage = imagesFull.find(item => item.name == 82)
   totalItems--
@@ -200,6 +199,8 @@ closeModal.click(function() {
 closeAcept.click(function() {
   modal.hide();
   sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
+  $(".gallery-item").click();
+  $("#image").click();
   //sound(`assets/audio/music5.mp3`, 1000, 1,true);
 });
 

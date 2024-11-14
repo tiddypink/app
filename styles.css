@@ -12,6 +12,9 @@ body {
   height: 100%;
 }
 
+body { -webkit-touch-callout: none !important; }
+a { -webkit-user-select: none !important; }
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -21,7 +24,7 @@ body {
   color: #ddd;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 10000;
 }
 
 .logo {
@@ -225,7 +228,6 @@ body {
   cursor: pointer;
   box-shadow: 0px 0px 30px 16px rgba(0, 0, 0, 0.85);
   animation: pulse 1s infinite;
-  z-index: 100;
 }
 
 .next:hover {
@@ -290,9 +292,10 @@ body {
 }
 
 #language-selector select {
-  padding: 0.5rem 1.5rem;
+  padding: 0.5rem 1.3rem 0.5rem .7rem;
   font-size: 1rem;
   color: #fff;
+  font-family: 'Fredoka One', cursive;
   background-color: #0a0a0a;
   border: 2px solid #ff206e;
   border-radius: 25px;
@@ -314,8 +317,9 @@ body {
 #language-selector::after {
   content: '▼';
   position: absolute;
-  right: 1rem;
+  right: 1.5rem;
   top: 50%;
+  font-size: .9rem;
   transform: translateY(-50%);
   pointer-events: none;
   color: #ff206e;
@@ -441,7 +445,7 @@ img.fade-out {
   width: 60px;
   height: 34px;
   vertical-align: middle; /* Alineación vertical */
-  margin-right: 10px; /* Espacio entre el interruptor y la etiqueta */
+  margin-right: 2px; /* Espacio entre el interruptor y la etiqueta */
 }
 
 /* Ocultar el checkbox predeterminado */
@@ -521,6 +525,32 @@ input:checked + .slider:before {
     margin: .5rem;
   }
 
+  .logo {
+    font-size: 1.3rem;
+  }
+  .switch {
+    width: 40px;
+    height: 24px;
+  }
+  .slider:before {
+    height: 16px;
+    width: 16px;
+  }
+  input:checked + .slider:before {
+    transform: translateX(16px);
+  }
+  .label-text {
+    font-size: 12px;
+  }
+  #language-selector select {
+    font-size: .7rem;
+    padding: 0.2rem 1.3rem 0.3rem .5rem;
+  }
+  #language-selector::after {
+    font-size: .7rem;
+  }
+  
+
 }
 
 .header {
@@ -553,11 +583,11 @@ input:checked + .slider:before {
       top: 50px; /* Ajusta según el alto del header */
       left: 0;
       right: 0;
-      width: 64%;
-      border-radius: 0 0 120px 0;
+      width: 45%;
+      border-radius: 0 0 80px 0;
       background-color: #000;
       padding: 10px 0; /* Espaciado interno */
-      z-index: 200;
+      z-index: 22000;
   }
 
   .nav a {
