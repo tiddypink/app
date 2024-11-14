@@ -30,28 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
   images = setArray(imagesFull, totalItems)
 
   $('#image').attr('src', `assets/${defaultImage.name}.${ext}`); 
-  if(!isLocal){
-    const img = document.getElementById('image');
-    img.addEventListener('load', function() {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      
-      // Establecer las dimensiones del canvas a las de la imagen
-      canvas.width = img.naturalWidth;  // Usar naturalWidth y naturalHeight para las dimensiones originales
-      canvas.height = img.naturalHeight;
-
-      // Dibujar la imagen en el canvas sin deformarla
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-      // Obtener la imagen en formato base64
-      const base64Image = canvas.toDataURL('image/webp'); // O 'image/png' si es una imagen PNG
-
-      // Mostrar la imagen base64 en la consola
-      $('#image').attr('src', base64Image); 
-      console.log(base64Image);
-  }, { once: true });
-  }
-
+  shelterImage()
 
   defaultImage.viewed = true
   images.push(defaultImage)
@@ -88,6 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
           $('#image').removeClass('fade-out');
         }, 250);  
         $('#image').attr('src', `assets/n${image.name}.${ext}`);
+        shelterImage()
       }, 250);
 
       if (images.ia_generated) {
@@ -140,9 +120,11 @@ document.addEventListener("DOMContentLoaded", function () {
   
     $('.correct').on('mousedown touchstart', function() {
       $('#image').attr('src', `assets/${image.name}.${ext}`);
+      shelterImage()
     }).on('mouseup mouseleave touchend touchcancel', function() {
       if (opcion === image?.correct) {
-        $('#image').attr('src', `assets/n${image.name}.${ext}`); 
+        $('#image').attr('src', `assets/n${image.name}.${ext}`);
+        shelterImage() 
       }
     });
 
@@ -166,8 +148,8 @@ document.addEventListener("DOMContentLoaded", function () {
     image = defaultImage
     images.push(defaultImage)
     totalItems++
-    $('#image').attr('src', `assets/${defaultImage.name}.${ext}`); 
-    console.log(images)
+    $('#image').attr('src', `assets/${defaultImage.name}.${ext}`);
+    shelterImage() 
     $(".final-actions").hide()
     $("#end").hide()
     $(".gallery-grid").fadeIn()
@@ -285,6 +267,7 @@ function next(){
           $('#image').removeClass('fade-out');
         }, 250);  
         $('#image').attr('src', `assets/${image.name}.${ext}`);
+        shelterImage()
       }, 250);
 
     //console.log(image)
@@ -410,18 +393,20 @@ function stopMusic(){
   music.currentTime = 0;
 }
 
-function getImage(path){
-  fetch(path)
-  .then(response => response.blob())
-  .then(blob => {
-    const reader = new FileReader();
-    reader.onloadend = function() {
-      const base64Image = reader.result;
-      return base64Image
-    };
-    reader.readAsDataURL(blob);
-  })
-  .catch(error => console.log('Cant get image.', error));
+function shelterImage() {
+  if(isLocal){
+    return
+  }
+  const img = document.getElementById('image');
+  img.addEventListener('load', function() {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    const base64Image = canvas.toDataURL('image/webp');
+    $('#image').attr('src', base64Image); 
+  }, { once: true });
 }
 
 function getCorrectSoundRandom(){
