@@ -69,7 +69,8 @@ document.addEventListener("DOMContentLoaded", function () {
         setTimeout(() => {
           $('#image').removeClass('fade-out');
         }, 250);
-        $('#image').attr('src', `assets/n${image.name}.${ext}`);
+        isLocal ? $('#image').attr('src', `assets/n${defaultImage.name}.${ext}`) : shelterImage(`assets/n${defaultImage.name}.${ext}`)
+  
         shelterImage()
       }, 250);
 
@@ -122,11 +123,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     $('.correct').on('mousedown touchstart', function () {
-      $('#image').attr('src', `assets/${image.name}.${ext}`);
+      isLocal ? $('#image').attr('src', `assets/${defaultImage.name}.${ext}`) : shelterImage(`assets/${defaultImage.name}.${ext}`)
+  
       shelterImage()
     }).on('mouseup mouseleave touchend touchcancel', function () {
       if (opcion === image?.correct) {
-        $('#image').attr('src', `assets/n${image.name}.${ext}`);
+        isLocal ? $('#image').attr('src', `assets/n${defaultImage.name}.${ext}`) : shelterImage(`assets/n${defaultImage.name}.${ext}`)
         shelterImage()
       }
     });
@@ -151,7 +153,7 @@ document.addEventListener("DOMContentLoaded", function () {
     image = defaultImage
     images.push(defaultImage)
     totalItems++
-    $('#image').attr('src', `assets/${defaultImage.name}.${ext}`);
+    isLocal ? $('#image').attr('src', `assets/${defaultImage.name}.${ext}`) : shelterImage(`assets/${defaultImage.name}.${ext}`)
     shelterImage()
     $(".final-actions").hide()
     $("#end").hide()
@@ -269,7 +271,7 @@ function next() {
       setTimeout(() => {
         $('#image').removeClass('fade-out');
       }, 250);
-      $('#image').attr('src', `assets/${image.name}.${ext}`);
+      isLocal ? $('#image').attr('src', `assets/${defaultImage.name}.${ext}`) : shelterImage(`assets/${defaultImage.name}.${ext}`)
       shelterImage()
     }, 250);
 
