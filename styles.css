@@ -12,6 +12,9 @@ body {
   height: 100%;
 }
 
+body { -webkit-touch-callout: none !important; }
+a { -webkit-user-select: none !important; }
+
 .header {
   display: flex;
   justify-content: space-between;
