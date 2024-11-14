@@ -4,10 +4,11 @@ var correct;
 var score = 0;
 var opcion;
 var currentLanguage
-var totalItems = 20
+var totalItems = 32
 var images;
 var exitIndex = 0
 var music;
+var musicOn = true;
 
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelector('.menu-toggle').addEventListener('click', function() {
@@ -37,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return
     }
     if (Math.random() < 0.005) {
-      sound(`assets/audio/mistry.mp3`, 2, .09);
+      sound(`assets/audio/mistry.mp3`, 2, .3);
     }
     if (Math.random() < 0.005) {
       sound(`assets/audio/mistry2.mp3`, 3, .3);
@@ -129,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
     score = 0
     exitIndex = 0
     stopMusic()
-    sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, .03, true);
+    sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
     $('.score').text('Score: ' + Math.floor(score));
     imagesFull.forEach(obj => obj.viewed = false);
     totalItems--
@@ -171,6 +172,16 @@ document.addEventListener("DOMContentLoaded", function () {
     return array;
   }
 
+  $(".switch input").change(function() {
+    if ($(this).is(":checked")) {
+      musicOn = false
+      sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
+    } else {
+      musicOn = true
+      sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
+    }
+  });
+
 const modal = $("#modal");
 const openModal = $("#openModal");
 const closeModal = $(".close");
@@ -182,16 +193,18 @@ openModal.click(function() {
 
 closeModal.click(function() {
     modal.hide();
+    sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
 });
 closeAcept.click(function() {
   modal.hide();
-  sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, .03, true);
-  //sound(`assets/audio/music2.mp3`, 3, .2);
+  sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
+  //sound(`assets/audio/music5.mp3`, 1000, 1,true);
 });
 
 $(window).click(function(event) {
     if ($(event.target).is(modal)) {
         modal.hide();
+        sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
     }
 });
   window.onclick = function(event) {
@@ -202,9 +215,9 @@ $(window).click(function(event) {
   
 });
 
-document.addEventListener('contextmenu', function (e) {
-  e.preventDefault();
-});
+// document.addEventListener('contextmenu', function (e) {
+//   e.preventDefault();
+// });
 
 function next(){
   sound('assets/audio/next.mp3');
@@ -291,8 +304,8 @@ function next(){
       $('#count').text(` ${Math.floor(score)}`)
     }
   }
-}
 
+}
 
 function setLanguage(currentLanguage) {
   Object.entries(languages[currentLanguage]).forEach(([key, value]) => {
@@ -333,11 +346,22 @@ function setArray(images, limit) {
 }
 
 function sound(path,loops = 1, volume = 1, isMusic = false){
-
+  if(musicOn == false){
+    stopMusic();
+    return
+  }
+  let index = 0;
   if (isMusic) {
     music = new Audio(path);
     music.volume = volume;
     music.play();
+    music.addEventListener('ended', function() {
+      index++;
+      
+      if (index < loops) {
+        music.play();
+      }
+    });
     return 
   }
 
@@ -345,7 +369,6 @@ function sound(path,loops = 1, volume = 1, isMusic = false){
   sound.volume = volume;
   sound.play();
 
-  let index = 0;
   sound.addEventListener('ended', function() {
     index++;
     
@@ -406,9 +429,9 @@ function getMusicSoundRandom(){
     { value: 1, weight: 0.01 },
     { value: 2, weight: 0.32 },
     { value: 3, weight: 0.50 },
-    { value: 4, weight: 0.07 },
-    { value: 5, weight: 0.03 },
-    { value: 6, weight: 0.07 }
+    { value: 4, weight: 0.04 },
+    { value: 5, weight: 0.10 },
+    { value: 6, weight: 0.02 }
   ];
   let random = Math.random();
   for (let i = 0; i < numbers.length; i++) {

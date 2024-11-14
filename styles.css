@@ -432,6 +432,69 @@ img.fade-out {
 .close:hover {
   color: white;
 }
+
+
+/* Contenedor del interruptor */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  vertical-align: middle; /* Alineación vertical */
+  margin-right: 10px; /* Espacio entre el interruptor y la etiqueta */
+}
+
+/* Ocultar el checkbox predeterminado */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* El slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ff206e;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+/* Círculo dentro del slider */
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+/* Cambiar el fondo cuando está activado */
+input:checked + .slider {
+  background-color: #ccc;
+}
+
+/* Mover el slider a la derecha cuando está activado */
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+/* Estilo de la etiqueta de texto */
+.label-text {
+  font-size: 16px;
+  color: white;
+  vertical-align: middle; /* Alineación vertical */
+}
+
+
 /* Apilar elementos en pantallas de tamaño tablet o móvil */
 @media (max-width: 992px) {
   .gallery-grid {
