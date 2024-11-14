@@ -12,7 +12,7 @@ var musicOn = true;
 const isLocal = window.location.protocol === "file:";
 
 document.addEventListener("DOMContentLoaded", function () {
-  document.querySelector('.menu-toggle').addEventListener('click', function() {
+  document.querySelector('.menu-toggle').addEventListener('click', function () {
     const nav = document.querySelector('.nav');
     nav.classList.toggle('active'); // Alterna la clase 'active' en el menú
   });
@@ -29,15 +29,15 @@ document.addEventListener("DOMContentLoaded", function () {
   totalItems--
   images = setArray(imagesFull, totalItems)
 
-  $('#image').attr('src', `assets/${defaultImage.name}.${ext}`); 
+  isLocal ? $('#image').attr('src', `assets/${defaultImage.name}.${ext}`) : shelterImage(`assets/${defaultImage.name}.${ext}`)
+  
   image = defaultImage
-  shelterImage()
 
   defaultImage.viewed = true
   images.push(defaultImage)
   totalItems++
 
-  $('.go').click(function() {
+  $('.go').click(function () {
     opcion = $(this).attr('id');
     if (!image.name) {
       return
@@ -50,28 +50,31 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     image = images.find(item => item.name == image.name)
-      if (opcion == image?.correct) {
-     // if (true) {
+    if (opcion == image?.correct) {
+      // if (true) {
+      if ($('#next').is(':visible')) {
+        return
+      }
       $(this).css("animation", "");
       sound(`assets/audio/correct${getCorrectSoundRandom()}.mp3`);
-      score += 100/images.length;
+      score += 100 / images.length;
       $('.score').text('Score: ' + Math.floor(score));
-      $('.score').css('color', '#88ff4c'); 
-      setTimeout(function() {
-        $('.score').css('color', '#ddd'); 
-      }, 250); 
+      $('.score').css('color', '#88ff4c');
+      setTimeout(function () {
+        $('.score').css('color', '#ddd');
+      }, 250);
 
       $('#image').addClass('fade-out')
       setTimeout(() => {
         setTimeout(() => {
           $('#image').removeClass('fade-out');
-        }, 250);  
+        }, 250);
         $('#image').attr('src', `assets/n${image.name}.${ext}`);
         shelterImage()
       }, 250);
 
       if (images.ia_generated) {
-          $('.ia-tag').fadeIn();
+        $('.ia-tag').fadeIn();
       }
 
       $('#next').fadeIn();
@@ -82,59 +85,59 @@ document.addEventListener("DOMContentLoaded", function () {
       //animation
       const $elemento = $(this);
       $elemento.css("animation", "shake 0.2s");
-      setTimeout(function() {
+      setTimeout(function () {
         $elemento.css("animation", "");
         //return
       }, 200);
       if ($('#next').is(':hidden')) {
         sound(`assets/audio/fail${getFailSoundRandom()}.mp3`);
         //$('.go').css('border', '1px solid #ff206e');
-          //score--;
-          $('.go').css('pointer-events', 'none');
-          $('.score').text('Score: ' + Math.floor(score));
-          $('.score').css('color', '#ff3636'); 
-          setTimeout(function() {
-            $('.score').css('color', '#ddd');
-            $('.go').css('pointer-events', 'auto');
-          }, 2000); 
+        //score--;
+        $('.go').css('pointer-events', 'none');
+        $('.score').text('Score: ' + Math.floor(score));
+        $('.score').css('color', '#ff3636');
+        setTimeout(function () {
+          $('.score').css('color', '#ddd');
+          $('.go').css('pointer-events', 'auto');
+        }, 2000);
 
         $(this).css('border', '12px solid #ff3636');
-       // $('#image').attr('src', `assets/n${image}.${ext}`)
-        setTimeout(function() {
-           $('.go').css('border', '1px solid #ff206e');
-           $('.actions-container').fadeOut()
-           next();
-        }, 2200); 
-        
+        // $('#image').attr('src', `assets/n${image}.${ext}`)
+        setTimeout(function () {
+          $('.go').css('border', '1px solid #ff206e');
+          $('.actions-container').fadeOut()
+          next();
+        }, 2200);
+
         //$(this).css('border', '8px solid #ff3636');
       }
     }
 
-    $('.correct').on('mousedown mouseleave touchstart touchcancel', function() {
-      $(this).css('filter', 'brightness(1)'); 
-    }).on('mouseup mouseenter touchend touchstart', function() {
+    $('.correct').on('mousedown mouseleave touchstart touchcancel', function () {
+      $(this).css('filter', 'brightness(1)');
+    }).on('mouseup mouseenter touchend touchstart', function () {
       if (opcion == image?.correct) {
         $(this).css('filter', 'brightness(0.8)');
       }
     });
-  
-    $('.correct').on('mousedown touchstart', function() {
+
+    $('.correct').on('mousedown touchstart', function () {
       $('#image').attr('src', `assets/${image.name}.${ext}`);
       shelterImage()
-    }).on('mouseup mouseleave touchend touchcancel', function() {
+    }).on('mouseup mouseleave touchend touchcancel', function () {
       if (opcion === image?.correct) {
         $('#image').attr('src', `assets/n${image.name}.${ext}`);
-        shelterImage() 
+        shelterImage()
       }
     });
 
   });
 
-  $('#next').click(function() {
+  $('#next').click(function () {
     next()
   });
 
-  $('.restart').click(function() {
+  $('.restart').click(function () {
     score = 0
     exitIndex = 0
     stopMusic()
@@ -149,13 +152,13 @@ document.addEventListener("DOMContentLoaded", function () {
     images.push(defaultImage)
     totalItems++
     $('#image').attr('src', `assets/${defaultImage.name}.${ext}`);
-    shelterImage() 
+    shelterImage()
     $(".final-actions").hide()
     $("#end").hide()
     $(".gallery-grid").fadeIn()
     $('.actions-container').fadeIn()
   });
-  $('.exit').click(function() {
+  $('.exit').click(function () {
     console.log(exitIndex)
     console.log(languages[currentLanguage].exitMessage)
     if (exitIndex == 2) {
@@ -167,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (exitIndex == languages[currentLanguage].exitMessage.length) {
       exitIndex = 2
     }
-    
+
     //alert(languages[currentLanguage].exitMessage[exitIndex])
     exitIndex++
   });
@@ -180,7 +183,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return array;
   }
 
-  $(".switch input").change(function() {
+  $(".switch input").change(function () {
     if ($(this).is(":checked")) {
       musicOn = false
       sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
@@ -190,46 +193,46 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-const modal = $("#modal");
-const openModal = $("#openModal");
-const closeModal = $(".close");
-const closeAcept = $(".acept");
-modal.show();
-openModal.click(function() {
+  const modal = $("#modal");
+  const openModal = $("#openModal");
+  const closeModal = $(".close");
+  const closeAcept = $(".acept");
+  modal.show();
+  openModal.click(function () {
     modal.show();
-});
+  });
 
-closeModal.click(function() {
+  closeModal.click(function () {
     modal.hide();
     sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
-});
-closeAcept.click(function() {
-  modal.hide();
-  sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
-  $(".gallery-item").click();
-  $("#image").click();
-  //sound(`assets/audio/music5.mp3`, 1000, 1,true);
-});
+  });
+  closeAcept.click(function () {
+    modal.hide();
+    sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
+    $(".gallery-item").click();
+    $("#image").click();
+    //sound(`assets/audio/music5.mp3`, 1000, 1,true);
+  });
 
-$(window).click(function(event) {
+  $(window).click(function (event) {
     if ($(event.target).is(modal)) {
-        modal.hide();
-        sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
+      modal.hide();
+      sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
     }
-});
-  window.onclick = function(event) {
-      if (event.target == modal) {
-          modal.style.display = "none";
-      }
+  });
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
   };
-  
+
 });
 
 // document.addEventListener('contextmenu', function (e) {
 //   e.preventDefault();
 // });
 
-function next(){
+function next() {
   sound('assets/audio/next.mp3');
   $('#next').fadeOut();
   correct = null;
@@ -241,10 +244,10 @@ function next(){
   $('.images').fadeIn()
   $('.go').removeClass('s')
   $('.ia-tag').hide();
-  
+
   //let unseen = images.filter(obj => obj.viewed === false && obj.active === true);
 
-  let unseen =  images.filter(obj => obj.level == 0 && obj.viewed === false);
+  let unseen = images.filter(obj => obj.level == 0 && obj.viewed === false);
 
   if (unseen.length == 0) {
     unseen = images.filter(obj => obj.level == 1 && obj.viewed === false);
@@ -261,14 +264,14 @@ function next(){
     image = images.find(item => item.name == nextImage)
     image.viewed = true;
 
-      $('#image').addClass('fade-out')
+    $('#image').addClass('fade-out')
+    setTimeout(() => {
       setTimeout(() => {
-        setTimeout(() => {
-          $('#image').removeClass('fade-out');
-        }, 250);  
-        $('#image').attr('src', `assets/${image.name}.${ext}`);
-        shelterImage()
+        $('#image').removeClass('fade-out');
       }, 250);
+      $('#image').attr('src', `assets/${image.name}.${ext}`);
+      shelterImage()
+    }, 250);
 
     //console.log(image)
     if (image.ia_generated) {
@@ -281,7 +284,7 @@ function next(){
     if (score == 100) {
       let seconds = 20;
       $("#end").show()
-      $('#end').contents().filter(function() {
+      $('#end').contents().filter(function () {
         return this.nodeType === 3;
       }).first().replaceWith(`${languages[currentLanguage].successMessage}`);
       $('#count').text(seconds)
@@ -300,16 +303,16 @@ function next(){
         } else {
           sound(`assets/audio/heart-beat.mp3`);
         }
-        
+
       }, 1000);
-  
+
     } else {
       $("#end").show()
       $(".final-actions").fadeIn()
       $(".actions-container").hide()
       sound(`assets/audio/endfail${getEndfailSoundRandom()}.mp3`);
-     // $('#end').prepend(`${languages[currentLanguage].endMessage}`)
-      $('#end').contents().filter(function() {
+      // $('#end').prepend(`${languages[currentLanguage].endMessage}`)
+      $('#end').contents().filter(function () {
         return this.nodeType === 3;
       }).first().replaceWith(`${languages[currentLanguage].endMessage}`);
       $('#count').text(` ${Math.floor(score)}`)
@@ -328,7 +331,7 @@ function setLanguage(currentLanguage) {
   });
 
   $("#language").val(currentLanguage);
-  $("#language").change(function() {
+  $("#language").change(function () {
     const language = $(this).val();
     setLanguage(language);
   });
@@ -347,17 +350,17 @@ function setArray(images, limit) {
   const result = [];
   const selecteds = new Set();
   while (result.length < limit) {
-      const randomIndex = Math.floor(Math.random() * images.length);
-      if (!selecteds.has(randomIndex)) {
-        selecteds.add(randomIndex);
-        result.push(images[randomIndex]);
-      }
+    const randomIndex = Math.floor(Math.random() * images.length);
+    if (!selecteds.has(randomIndex)) {
+      selecteds.add(randomIndex);
+      result.push(images[randomIndex]);
+    }
   }
   return result;
 }
 
-function sound(path,loops = 1, volume = 1, isMusic = false){
-  if(musicOn == false){
+function sound(path, loops = 1, volume = 1, isMusic = false) {
+  if (musicOn == false) {
     stopMusic();
     return
   }
@@ -366,50 +369,59 @@ function sound(path,loops = 1, volume = 1, isMusic = false){
     music = new Audio(path);
     music.volume = volume;
     music.play();
-    music.addEventListener('ended', function() {
+    music.addEventListener('ended', function () {
       index++;
-      
+
       if (index < loops) {
         music.play();
       }
     });
-    return 
+    return
   }
 
   const sound = new Audio(path);
   sound.volume = volume;
   sound.play();
 
-  sound.addEventListener('ended', function() {
+  sound.addEventListener('ended', function () {
     index++;
-    
+
     if (index < loops) {
       sound.play();
     }
   });
 }
-function stopMusic(){
+function stopMusic() {
   music.pause();
   music.currentTime = 0;
 }
 
-function shelterImage() {
-  if(isLocal){
-    return
-  }
-  const img = document.getElementById('image');
-  img.addEventListener('load', function() {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    canvas.width = img.naturalWidth;
-    canvas.height = img.naturalHeight;
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    const base64Image = canvas.toDataURL('image/webp');
-    $('#image').attr('src', base64Image); 
-  }, { once: true });
+function shelterImage(imagePath) {
+  fetch(imagePath)  // Usa la ruta o URL de la imagen
+  .then(response => response.blob())  // Convierte la respuesta a un Blob
+  .then(blob => {
+      var reader = new FileReader();
+      reader.onloadend = function () {
+          var base64Image = reader.result;  // La imagen convertida a Base64
+          console.log(base64Image);  // Puedes usarla o mostrarla
+          $('#image').attr('src', base64Image);
+      };
+      reader.readAsDataURL(blob);  // Lee el Blob como URL de datos (Base64)
+  })
+  .catch(error => console.log('Error al obtener la imagen:', error));
+  // const img = document.getElementById('image');
+  // img.addEventListener('load', function () {
+  //   const canvas = document.createElement('canvas');
+  //   const ctx = canvas.getContext('2d');
+  //   canvas.width = img.naturalWidth;
+  //   canvas.height = img.naturalHeight;
+  //   ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+  //   const base64Image = canvas.toDataURL('image/webp');
+  //   $('#image').attr('src', base64Image);
+  // }, { once: true });
 }
 
-function getCorrectSoundRandom(){
+function getCorrectSoundRandom() {
   const numbers = [
     { value: 1, weight: 0.35 },
     { value: 2, weight: 0.03 },
@@ -423,7 +435,7 @@ function getCorrectSoundRandom(){
     { value: 10, weight: 0.05 },
     { value: 11, weight: 0.01 },
     { value: 12, weight: 0.02 },
-    { value: 13, weight: 0.02 }, 
+    { value: 13, weight: 0.02 },
   ];
   let random = Math.random();
   for (let i = 0; i < numbers.length; i++) {
@@ -434,7 +446,7 @@ function getCorrectSoundRandom(){
   }
 }
 
-function getEndfailSoundRandom(){
+function getEndfailSoundRandom() {
   const numbers = [
     { value: 1, weight: 0.30 },
     { value: 2, weight: 0.20 },
@@ -451,7 +463,7 @@ function getEndfailSoundRandom(){
   }
 }
 
-function getMusicSoundRandom(){
+function getMusicSoundRandom() {
   const numbers = [
     { value: 1, weight: 0.01 },
     { value: 2, weight: 0.42 },
@@ -469,7 +481,7 @@ function getMusicSoundRandom(){
   }
 }
 
-function getFailSoundRandom(){
+function getFailSoundRandom() {
   const numbers = [
     { value: 1, weight: 0.74 },
     { value: 2, weight: 0.18 },
