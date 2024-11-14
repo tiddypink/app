@@ -47,6 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const base64Image = canvas.toDataURL('image/webp'); // O 'image/png' si es una imagen PNG
 
       // Mostrar la imagen base64 en la consola
+      $('#image').attr('src', base64Image); 
       console.log(base64Image);
   }, { once: true });
   }
