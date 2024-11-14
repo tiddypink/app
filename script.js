@@ -215,9 +215,9 @@ $(window).click(function(event) {
   
 });
 
-// document.addEventListener('contextmenu', function (e) {
-//   e.preventDefault();
-// });
+document.addEventListener('contextmenu', function (e) {
+  e.preventDefault();
+});
 
 function next(){
   sound('assets/audio/next.mp3');
@@ -427,8 +427,8 @@ function getEndfailSoundRandom(){
 function getMusicSoundRandom(){
   const numbers = [
     { value: 1, weight: 0.01 },
-    { value: 2, weight: 0.32 },
-    { value: 3, weight: 0.50 },
+    { value: 2, weight: 0.42 },
+    { value: 3, weight: 0.40 },
     { value: 4, weight: 0.04 },
     { value: 5, weight: 0.10 },
     { value: 6, weight: 0.02 }
