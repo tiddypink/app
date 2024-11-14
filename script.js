@@ -32,17 +32,23 @@ document.addEventListener("DOMContentLoaded", function () {
   $('#image').attr('src', `assets/${defaultImage.name}.${ext}`); 
   if(!isLocal){
     const img = document.getElementById('image');
-    img.onload = function() {
-      img.onload = null;
-              const canvas = document.createElement('canvas');
-              const ctx = canvas.getContext('2d');
-              canvas.width = img.width;
-              canvas.height = img.height;
-              ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-              const base64Image = canvas.toDataURL('image/webp'); // O 'image/png' si es una imagen PNG
-              console.log(base64Image);
-              $('#image').attr('src', base64Image); 
-          };
+    img.addEventListener('load', function() {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      
+      // Establecer las dimensiones del canvas a las de la imagen
+      canvas.width = img.naturalWidth;  // Usar naturalWidth y naturalHeight para las dimensiones originales
+      canvas.height = img.naturalHeight;
+
+      // Dibujar la imagen en el canvas sin deformarla
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+      // Obtener la imagen en formato base64
+      const base64Image = canvas.toDataURL('image/webp'); // O 'image/png' si es una imagen PNG
+
+      // Mostrar la imagen base64 en la consola
+      console.log(base64Image);
+  }, { once: true });
   }
 
 
