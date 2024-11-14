@@ -32,6 +32,8 @@ a { -webkit-user-select: none !important; }
   color: #ff206e;
   text-transform: uppercase;
   font-weight: bold;
+  margin-top: 5px;
+  margin-right: 3px;
 }
 
 .nav a {

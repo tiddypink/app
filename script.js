@@ -9,6 +9,8 @@ var images;
 var exitIndex = 0
 var music;
 var musicOn = true;
+const isLocal = window.location.protocol === "file:";
+
 
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelector('.menu-toggle').addEventListener('click', function() {
@@ -27,7 +29,12 @@ document.addEventListener("DOMContentLoaded", function () {
   let defaultImage = imagesFull.find(item => item.name == 82)
   totalItems--
   images = setArray(imagesFull, totalItems)
-  $('#image').attr('src', `assets/${defaultImage.name}.${ext}`); 
+
+  isLocal ? $('#image').attr('src', `assets/${defaultImage.name}.${ext}`) : getImage(`assets/${defaultImage.name}.${ext}`);
+  // imagefile = getImage(`assets/${defaultImage.name}.${ext}`)
+  // imageFile = `assets/n${image.name}.${ext}`
+  // $('#image').attr('src', imagefile); 
+
   defaultImage.viewed = true
   images.push(defaultImage)
   totalItems++
@@ -218,9 +225,9 @@ $(window).click(function(event) {
   
 });
 
-document.addEventListener('contextmenu', function (e) {
-  e.preventDefault();
-});
+// document.addEventListener('contextmenu', function (e) {
+//   e.preventDefault();
+// });
 
 function next(){
   sound('assets/audio/next.mp3');
@@ -383,6 +390,20 @@ function sound(path,loops = 1, volume = 1, isMusic = false){
 function stopMusic(){
   music.pause();
   music.currentTime = 0;
+}
+
+function getImage(path){
+  fetch(path)
+  .then(response => response.blob())
+  .then(blob => {
+    const reader = new FileReader();
+    reader.onloadend = function() {
+      const base64Image = reader.result;
+      return base64Image
+    };
+    reader.readAsDataURL(blob);
+  })
+  .catch(error => console.log('Cant get image.', error));
 }
 
 function getCorrectSoundRandom(){
@@ -625,14 +646,14 @@ var imagesFull = [
     level: 2,
     active: true
   },
-  {
-    name: '10',
-    correct: "2",
-    viewed: true,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
+  // {
+  //   name: '10',
+  //   correct: "2",
+  //   viewed: true,
+  //   ia_generated: false,
+  //   level: 0,
+  //   active: true
+  // },
   {
     name: '11',
     correct: "1",
@@ -2059,14 +2080,14 @@ var imagesFull = [
     level: 2,
     active: true
   },
-  {
-    name: '188',
-    correct: "5",
-    viewed: true,
-    ia_generated: false,
-    level: 1,
-    active: true
-  },
+  // {
+  //   name: '188',
+  //   correct: "5",
+  //   viewed: true,
+  //   ia_generated: false,
+  //   level: 1,
+  //   active: true
+  // },
   {
     name: '189',
     correct: "5",
@@ -2179,14 +2200,14 @@ var imagesFull = [
     level: 1,
     active: true
   },
-  {
-    name: '203',
-    correct: "1",
-    viewed: true,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
+  // {
+  //   name: '203',
+  //   correct: "1",
+  //   viewed: true,
+  //   ia_generated: false,
+  //   level: 0,
+  //   active: true
+  // },
   {
     name: '204',
     correct: "2",
@@ -2235,14 +2256,14 @@ var imagesFull = [
     level: 0,
     active: true
   },
-  {
-    name: '210',
-    correct: "3",
-    viewed: true,
-    ia_generated: false,
-    level: 1,
-    active: true
-  },
+  // {
+  //   name: '210',
+  //   correct: "3",
+  //   viewed: true,
+  //   ia_generated: false,
+  //   level: 1,
+  //   active: true
+  // },
   {
     name: '211',
     correct: "2",
@@ -2291,14 +2312,14 @@ var imagesFull = [
     level: 2,
     active: true
   },
-  {
-    name: '217',
-    correct: "6",
-    viewed: true,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
+  // {
+  //   name: '217',
+  //   correct: "6",
+  //   viewed: true,
+  //   ia_generated: false,
+  //   level: 0,
+  //   active: true
+  // },
   {
     name: '218',
     correct: "3",
@@ -3919,14 +3940,14 @@ var imagesFull = [
     level: 0,
     active: true
   },
-  {
-    name: '419',
-    correct: "2",
-    viewed: true,
-    ia_generated: false,
-    level: 1,
-    active: true
-  },
+  // {
+  //   name: '419',
+  //   correct: "2",
+  //   viewed: true,
+  //   ia_generated: false,
+  //   level: 1,
+  //   active: true
+  // },
   {
     name: '420',
     correct: "4",
@@ -4335,14 +4356,14 @@ var imagesFull = [
     level: 0,
     active: true
   },
-  {
-    name: '471',
-    correct: "3",
-    viewed: true,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
+  // {
+  //   name: '471',
+  //   correct: "3",
+  //   viewed: true,
+  //   ia_generated: false,
+  //   level: 0,
+  //   active: true
+  // },
   {
     name: '472',
     correct: "3",
@@ -4415,14 +4436,14 @@ var imagesFull = [
     level: 2,
     active: true
   },
-  {
-    name: '481',
-    correct: "4",
-    viewed: true,
-    ia_generated: false,
-    level: 1,
-    active: true
-  },
+  // {
+  //   name: '481',
+  //   correct: "4",
+  //   viewed: true,
+  //   ia_generated: false,
+  //   level: 1,
+  //   active: true
+  // },
   {
     name: '482',
     correct: "3",
@@ -4881,3 +4902,6 @@ var imagesFull = [
   },
 ];
 
+/*References
+273
+*/
