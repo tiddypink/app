@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
   images = setArray(imagesFull, totalItems)
 
   $('#image').attr('src', `assets/${defaultImage.name}.${ext}`); 
+  image = defaultImage
   shelterImage()
 
   defaultImage.viewed = true
@@ -38,8 +39,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   $('.go').click(function() {
     opcion = $(this).attr('id');
-    image = (($('#image').attr('src')).split('/')[1]).split('.')[0]
-    if (!image) {
+    //image = (($('#image').attr('src')).split('/')[1]).split('.')[0]
+    if (!image.name) {
       return
     }
     if (Math.random() < 0.005) {
@@ -49,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
       sound(`assets/audio/mistry2.mp3`, 3, .3);
     }
 
-    image = images.find(item => item.name == image)
+    image = images.find(item => item.name == image.name)
       if (opcion == image?.correct) {
      // if (true) {
       $(this).css("animation", "");
