@@ -22,6 +22,8 @@ document.addEventListener("DOMContentLoaded", function () {
   $('.ia-tag').hide();
   $(".suceess-image").hide()
   $(".final-actions").hide()
+  $(".gallery-item").click();
+  $("#image").click();
 
   let defaultImage = imagesFull.find(item => item.name == 82)
   totalItems--
