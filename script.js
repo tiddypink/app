@@ -69,9 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
         setTimeout(() => {
           $('#image').removeClass('fade-out');
         }, 250);
-        isLocal ? $('#image').attr('src', `assets/n${defaultImage.name}.${ext}`) : shelterImage(`assets/n${defaultImage.name}.${ext}`)
-  
-        shelterImage()
+        isLocal ? $('#image').attr('src', `assets/n${image.name}.${ext}`) : shelterImage(`assets/n${image.name}.${ext}`)
       }, 250);
 
       if (images.ia_generated) {
@@ -114,25 +112,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    $('.correct').on('mousedown mouseleave touchstart touchcancel', function () {
-      $(this).css('filter', 'brightness(1)');
-    }).on('mouseup mouseenter touchend touchstart', function () {
-      if (opcion == image?.correct) {
-        $(this).css('filter', 'brightness(0.8)');
-      }
-    });
-
-    $('.correct').on('mousedown touchstart', function () {
-      isLocal ? $('#image').attr('src', `assets/${defaultImage.name}.${ext}`) : shelterImage(`assets/${defaultImage.name}.${ext}`)
-  
-      shelterImage()
-    }).on('mouseup mouseleave touchend touchcancel', function () {
-      if (opcion === image?.correct) {
-        isLocal ? $('#image').attr('src', `assets/n${defaultImage.name}.${ext}`) : shelterImage(`assets/n${defaultImage.name}.${ext}`)
-        shelterImage()
-      }
-    });
-
   });
 
   $('#next').click(function () {
@@ -154,7 +133,6 @@ document.addEventListener("DOMContentLoaded", function () {
     images.push(defaultImage)
     totalItems++
     isLocal ? $('#image').attr('src', `assets/${defaultImage.name}.${ext}`) : shelterImage(`assets/${defaultImage.name}.${ext}`)
-    shelterImage()
     $(".final-actions").hide()
     $("#end").hide()
     $(".gallery-grid").fadeIn()
@@ -271,8 +249,7 @@ function next() {
       setTimeout(() => {
         $('#image').removeClass('fade-out');
       }, 250);
-      isLocal ? $('#image').attr('src', `assets/${defaultImage.name}.${ext}`) : shelterImage(`assets/${defaultImage.name}.${ext}`)
-      shelterImage()
+      isLocal ? $('#image').attr('src', `assets/${image.name}.${ext}`) : shelterImage(`assets/${image.name}.${ext}`)
     }, 250);
 
     //console.log(image)
