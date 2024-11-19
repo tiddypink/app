@@ -311,6 +311,10 @@ a { -webkit-user-select: none !important; }
   margin-left: .8rem;
 }
 
+.label-stat{
+  margin-bottom: 30px;
+}
+
 .suceess-image {
   width: 50%;
   margin: auto;
@@ -575,7 +579,14 @@ input:checked + .slider:before {
   #language-selector::after {
     font-size: .7rem;
   }
-  
+
+  .label-stat{
+    margin-top: 1rem;
+    display: grid;
+  }
+  .analitics-frame .gallery-item{
+    height: 100%;
+  }
 
 }
 

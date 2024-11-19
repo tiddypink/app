@@ -535,8 +535,8 @@ function setAnaliticsLabels(){
   $('#wmatchesx').text(analitics.wmatches)
   $('#correctsx').text(analitics.corrects)
   $('#mistakesx').text(analitics.mistakes)
-  $('#seenimagesx').text(analitics.seenimages.length + ' de '+imagesFull.length)
-  $('#seennimagesx').text(analitics.seennimages.length + ' de '+imagesFull.length)
+  $('#seenimagesx').text(analitics.seenimages.length + ' de '+ (imagesFull.length + 22))
+  $('#seennimagesx').text(analitics.seennimages.length + ' de '+ (imagesFull.length + 22))
 }
 
 
@@ -564,7 +564,7 @@ const languages = {
     corrects: "Asiertos totales:  ",
     mistakes: "Fallos totales:  ",
     seenimages: "Imágenes diferentes vistas:  ",
-    seennimages: "Imagenes diferentes desnudas vistas:  ",
+    seennimages: "Imagenes diferentes d vistas:  ",
     successMessage: "Increible, has acertado todas las imágenes 😳 tengo un premio para ti 🥵 aparecerá en: ",
     exitMessage: [
       "Este boton no hace nada :v",
