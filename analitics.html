@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="name"></title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap">
+</head>
+<body>
+    <header class="header">
+        <div class="menu-toggle" aria-label="Toggle navigation" style="display: flex;">
+            <h1 class="logo">Tiddypink</h1>
+            <button class="menu-toggle" aria-label="Toggle navigation">&#9776;</button>
+        </div>
+
+        <nav class="nav">
+            <a id="home" href="index.html"></a>
+            <a id="howto" href="howto.html"></a>
+            <a id="more" href="more.html"></a>
+            <a id="analitics" href="more.html"></a>
+        </nav>
+        <div><label class="switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+          </label>
+          <span class="label-text">Music On</span>
+        </div>
+        
+
+        <div id="language-selector">
+            <select id="language-select">
+                <option value="es">Español</option>
+                <option value="en">English</option>
+                <option value="fr">Français</option>
+            </select>
+        </div>
+    </header>
+    <section class="gallery" id="gallery">
+        <h2 class="score" id="score"></h2>
+        <div class="gallery-grid analitics-frame">
+            <div class="gallery-item images">
+                <div style="font-size: 1.2rem;display: grid;">
+                    <span id="matches" style="margin-bottom: 30px;"><span class="stat" id="matchesx"></span></span>
+                    <span id="wmatches" style="margin-bottom: 30px;"><span class="stat" id="wmatchesx"></span></span>
+                    <span id="corrects" style="margin-bottom: 30px;"><span class="stat" id="correctsx"></span></span>
+                    <span id="mistakes" style="margin-bottom: 30px;"><span class="stat" id="mistakesx"></span></span>
+                    <span id="seenimages" style="margin-bottom: 30px;"><span class="stat" id="seenimagesx"></span></span>
+                    <span id="seennimages" style="margin-bottom: 30px;"><span class="stat" id="seennimagesx"></span></span>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p id="footer"></p>
+    </footer>
+</body>
+</html>

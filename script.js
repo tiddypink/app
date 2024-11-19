@@ -1,28 +1,51 @@
-const ext = 'webp'
+const ext = 'wbp'
 var image;
 var correct;
 var score = 0;
 var opcion;
 var currentLanguage
-var totalItems = 32
+var totalItems = 22
 var images;
 var exitIndex = 0
 var music;
 var musicOn = true;
 const isLocal = window.location.protocol === "file:";
+var analitics = {
+    matches: 0,
+    wmatches: 0,
+    corrects: 0,
+    mistakes: 0,
+    seenimages: [],
+    seennimages: [],
+}
 
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelector('.menu-toggle').addEventListener('click', function () {
     const nav = document.querySelector('.nav');
-    nav.classList.toggle('active'); // Alterna la clase 'active' en el menú
+    nav.classList.toggle('active');
   });
   currentLanguage = (navigator.language || navigator.userLanguage).split("-")[0];
   setLanguage(currentLanguage);
+
+  $('#language-select').on('change', function() {
+    const language = $(this).val();
+    currentLanguage = language
+    setLanguage(language);
+    $('.score').text(getScoreLabel());
+  });
+ 
+  //localStorage.removeItem('td-zx5sk-stats');
+  if (localStorage.getItem("td-zx5sk-stats") !== null) {
+    analitics = getAnalitics()
+    setAnaliticsLabels()
+  }
 
   $('#next').hide();
   $('.ia-tag').hide();
   $(".suceess-image").hide()
   $(".final-actions").hide()
+  $("#end").hide()
+  $("#score").hide()
 
 
   let defaultImage = imagesFull.find(item => item.name == 82)
@@ -30,6 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
   images = setArray(imagesFull, totalItems)
 
   isLocal ? $('#image').attr('src', `assets/${defaultImage.name}.${ext}`) : shelterImage(`assets/${defaultImage.name}.${ext}`)
+  setAnalitics(defaultImage.name,false,false,false)
   
   image = defaultImage
 
@@ -42,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!image.name) {
       return
     }
-    if (Math.random() < 0.005) {
+    if (Math.random() < 0.002) {
       sound(`assets/audio/mistry.mp3`, 2, .3);
     }
     if (Math.random() < 0.005) {
@@ -58,7 +82,8 @@ document.addEventListener("DOMContentLoaded", function () {
       $(this).css("animation", "");
       sound(`assets/audio/correct${getCorrectSoundRandom()}.mp3`);
       score += 100 / images.length;
-      $('.score').text('Score: ' + Math.floor(score));
+      $('.score').show()
+      $('.score').text(getScoreLabel());
       $('.score').css('color', '#88ff4c');
       setTimeout(function () {
         $('.score').css('color', '#ddd');
@@ -70,6 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
           $('#image').removeClass('fade-out');
         }, 250);
         isLocal ? $('#image').attr('src', `assets/n${image.name}.${ext}`) : shelterImage(`assets/n${image.name}.${ext}`)
+        setAnalitics(image.name,true,false,true)
       }, 250);
 
       if (images.ia_generated) {
@@ -82,6 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
       //$('.actions-container').hide()
     } else {
       //animation
+      setAnalitics(image.name, assert = false,true,false)
       const $elemento = $(this);
       $elemento.css("animation", "shake 0.2s");
       setTimeout(function () {
@@ -90,10 +117,8 @@ document.addEventListener("DOMContentLoaded", function () {
       }, 200);
       if ($('#next').is(':hidden')) {
         sound(`assets/audio/fail${getFailSoundRandom()}.mp3`);
-        //$('.go').css('border', '1px solid #ff206e');
-        //score--;
         $('.go').css('pointer-events', 'none');
-        $('.score').text('Score: ' + Math.floor(score));
+        $('.score').text(getScoreLabel());
         $('.score').css('color', '#ff3636');
         setTimeout(function () {
           $('.score').css('color', '#ddd');
@@ -101,14 +126,11 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 2000);
 
         $(this).css('border', '12px solid #ff3636');
-        // $('#image').attr('src', `assets/n${image}.${ext}`)
         setTimeout(function () {
           $('.go').css('border', '1px solid #ff206e');
           $('.actions-container').fadeOut()
           next();
         }, 2200);
-
-        //$(this).css('border', '8px solid #ff3636');
       }
     }
 
@@ -123,7 +145,7 @@ document.addEventListener("DOMContentLoaded", function () {
     exitIndex = 0
     stopMusic()
     sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
-    $('.score').text('Score: ' + Math.floor(score));
+    $('.score').text(getScoreLabel());
     imagesFull.forEach(obj => obj.viewed = false);
     totalItems--
     let defaultImage = imagesFull.find(item => item.name == 82)
@@ -133,14 +155,13 @@ document.addEventListener("DOMContentLoaded", function () {
     images.push(defaultImage)
     totalItems++
     isLocal ? $('#image').attr('src', `assets/${defaultImage.name}.${ext}`) : shelterImage(`assets/${defaultImage.name}.${ext}`)
+    setAnalitics(image.name,false,false,false)
     $(".final-actions").hide()
     $("#end").hide()
     $(".gallery-grid").fadeIn()
     $('.actions-container').fadeIn()
   });
   $('.exit').click(function () {
-    console.log(exitIndex)
-    console.log(languages[currentLanguage].exitMessage)
     if (exitIndex == 2) {
       rumbleArray(languages[currentLanguage].exitMessage)
     }
@@ -151,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
       exitIndex = 2
     }
 
-    //alert(languages[currentLanguage].exitMessage[exitIndex])
+    alert(languages[currentLanguage].exitMessage[exitIndex])
     exitIndex++
   });
 
@@ -232,7 +253,6 @@ function next() {
   if (unseen.length == 0) {
     unseen = images.filter(obj => obj.level == 1 && obj.viewed === false);
   }
-
   if (unseen.length == 0) {
     unseen = images.filter(obj => obj.level == 2 && obj.viewed === false);
   }
@@ -250,9 +270,9 @@ function next() {
         $('#image').removeClass('fade-out');
       }, 250);
       isLocal ? $('#image').attr('src', `assets/${image.name}.${ext}`) : shelterImage(`assets/${image.name}.${ext}`)
+      setAnalitics(image.name,false,false,false)
     }, 250);
 
-    //console.log(image)
     if (image.ia_generated) {
       $('.ia-tag').fadeIn();
     }
@@ -261,6 +281,7 @@ function next() {
     stopMusic()
     $(".gallery-grid").hide()
     if (score == 100) {
+      setAnalitics(image.name,false,false,false,true,true)
       let seconds = 20;
       $("#end").show()
       $('#end').contents().filter(function () {
@@ -286,14 +307,15 @@ function next() {
       }, 1000);
 
     } else {
+      setAnalitics(image.name,false,false,false,true,false)
       $("#end").show()
       $(".final-actions").fadeIn()
       $(".actions-container").hide()
       sound(`assets/audio/endfail${getEndfailSoundRandom()}.mp3`);
-      // $('#end').prepend(`${languages[currentLanguage].endMessage}`)
+      console.log(currentLanguage)
       $('#end').contents().filter(function () {
         return this.nodeType === 3;
-      }).first().replaceWith(`${languages[currentLanguage].endMessage}`);
+      }).first().replaceWith(`${languages[currentLanguage].end}`);
       $('#count').text(` ${Math.floor(score)}`)
     }
   }
@@ -301,20 +323,24 @@ function next() {
 }
 
 function setLanguage(currentLanguage) {
+
   Object.entries(languages[currentLanguage]).forEach(([key, value]) => {
-
-    const element = $(`#${key}`);
+    const element = document.getElementById(key);
     if (element) {
-      element.text(value);
+        // Verifica si el primer hijo es un nodo de texto
+        const firstChild = element.firstChild;
+        
+        if (firstChild && firstChild.nodeType === Node.TEXT_NODE) {
+            // Si ya existe un nodo de texto como primer hijo, actualízalo
+            firstChild.nodeValue = value;
+        } else {
+            // Si no hay un nodo de texto, crea uno y agrégalo al inicio
+            element.insertBefore(document.createTextNode(value), firstChild);
+        }
     }
-  });
-
-  $("#language").val(currentLanguage);
-  $("#language").change(function () {
-    const language = $(this).val();
-    setLanguage(language);
-  });
+});
 }
+
 function getElementToWrite(text) {
   const elements = document.body.getElementsByTagName("*");
   for (let i = 0; i < elements.length; i++) {
@@ -382,22 +408,47 @@ function shelterImage(imagePath) {
       var reader = new FileReader();
       reader.onloadend = function () {
           var base64Image = reader.result;  // La imagen convertida a Base64
-          console.log(base64Image);  // Puedes usarla o mostrarla
           $('#image').attr('src', base64Image);
       };
       reader.readAsDataURL(blob);  // Lee el Blob como URL de datos (Base64)
   })
-  .catch(error => console.log('Error al obtener la imagen:', error));
-  // const img = document.getElementById('image');
-  // img.addEventListener('load', function () {
-  //   const canvas = document.createElement('canvas');
-  //   const ctx = canvas.getContext('2d');
-  //   canvas.width = img.naturalWidth;
-  //   canvas.height = img.naturalHeight;
-  //   ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-  //   const base64Image = canvas.toDataURL('image/webp');
-  //   $('#image').attr('src', base64Image);
-  // }, { once: true });
+  .catch(error => console.log('Error getting image', error));
+}
+
+function setAnalitics(image,assert,fail,nd,match,wmatch){
+  if (localStorage.getItem("d-zx5sk-stats") !== null) {
+    currentAnalitics = getAnalitics()
+    analitics = currentAnalitics;
+  }
+  if (assert) {
+    analitics.corrects++
+  } 
+  if(fail) {
+    analitics.mistakes++
+  }
+  if(match) {
+    analitics.matches++
+  }
+  if(wmatch) {
+    analitics.wmatches++
+  }
+  if (!analitics.seenimages.includes(image) && !nd) {
+    analitics.seenimages.push(image)
+  }
+  if (!analitics.seennimages.includes(image) && nd) {
+    analitics.seennimages.push(image)
+  }
+  console.log(analitics)
+  localStorage.setItem('td-zx5sk-stats', JSON.stringify(analitics));
+  // matches: "Partidas jugadas:",
+  // corrects: "Asiertos totales:",
+  // mistakes: "Fallos totales:",
+  // seenimages: "Imágenes vistas:",
+  // seennimages: "",
+}
+function getAnalitics(){
+  var analitics = JSON.parse(localStorage.getItem("td-zx5sk-stats"));
+  return analitics;
 }
 
 function getCorrectSoundRandom() {
@@ -446,7 +497,7 @@ function getMusicSoundRandom() {
   const numbers = [
     { value: 1, weight: 0.01 },
     { value: 2, weight: 0.42 },
-    { value: 3, weight: 0.40 },
+    { value: 3, weight: 0.41 },
     { value: 4, weight: 0.04 },
     { value: 5, weight: 0.10 },
     { value: 6, weight: 0.02 }
@@ -475,16 +526,45 @@ function getFailSoundRandom() {
   }
 }
 
+function getScoreLabel(){
+  return languages[currentLanguage].score + Math.floor(score)
+}
+
+function setAnaliticsLabels(){
+  $('#matchesx').text(analitics.matches)
+  $('#wmatchesx').text(analitics.wmatches)
+  $('#correctsx').text(analitics.corrects)
+  $('#mistakesx').text(analitics.mistakes)
+  $('#seenimagesx').text(analitics.seenimages.length + ' de '+imagesFull.length)
+  $('#seennimagesx').text(analitics.seennimages.length + ' de '+imagesFull.length)
+}
+
 
 const languages = {
   es: {
-    title: "{{title}}",
-    description: "{{description}}",
-    action: "{{action}}",
-    galery: "{{galery}}",
+    name: "TiddyPink",
     next: "Siguiente",
+    restart: "Volver a intertarlo",
+    exit: "Salir",
+    purchase: "Obtener todas las imágenes",
+    modal_title: "Instruccions para jugar",
+    modal_content: "Debes adiveinar el color",
+    acept: "Aceptar",
+    ia_tag: "Generada por IA",
+    footer: "Todos los derechos reservados - 2024",
+    score: "Puntuación: ",
+    home: "Inicio",
+    howto: "Como jugar",
+    more: "Saber más",
+    analitics: "Mis estadísticas",
     showprev: "Mostrar imagen anterior",
-    endMessage: "Haz fallado estrepitosamente tu puntuación ha sido de:",
+    end: "Haz fallado estrepitosamente tu puntuación ha sido de:",
+    matches: "Partidas jugadas:  ",
+    wmatches: "Partidas ganadas:  ",
+    corrects: "Asiertos totales:  ",
+    mistakes: "Fallos totales:  ",
+    seenimages: "Imágenes diferentes vistas:  ",
+    seennimages: "Imagenes diferentes desnudas vistas:  ",
     successMessage: "Increible, has acertado todas las imágenes 😳 tengo un premio para ti 🥵 aparecerá en: ",
     exitMessage: [
       "Este boton no hace nada :v",
@@ -550,12 +630,86 @@ const languages = {
     ],
   },
   en: {
-    title: "Guess it",
-    description: "You should guess the most levels you can",
-    action: "Start",
-    galery: "Gallery",
-    endMessage: "Mostrar imagen anterior"
-  }
+    name: "TiddyPink",
+    next: "Next",
+    restart: "Try Again",
+    exit: "Exit",
+    purchase: "Get all the images",
+    modal_title: "Instructions to play",
+    modal_content: "You must guess the color",
+    acept: "Accept",
+    footer: "All rights reserved - 2024",
+    score: "Score: ",
+    home: "Home",
+    howto: "How to play",
+    more: "Learn more",
+    analitics: "My analitics",
+    showprev: "Show previous image",
+    end: "You have failed miserably, your score is:",
+    successMessage: "Amazing, you guessed all the images 😳 I have a prize for you 🥵 it will appear in: ",
+    exitMessage: [
+        "This button does nothing :v",
+        "I told you this button does nothing.",
+        "Please listen to me. This button does nothing.",
+        "(The button still does nothing *)",
+        "This button still does nothing, like your ex.",
+        "Press carefully, this button has low self-esteem.",
+        "This button is like her feelings, empty...",
+        "For every time you press this button, a kitten dies somewhere in the world.",
+        "This button has feelings and they are about to break.",
+        "This button is here just for decoration.",
+        "If you press this button again, you're g4y.",
+        "I knew it...",
+        "Intelligence is chasing you, but you're faster.",
+        "I lost her when I loved her the most.",
+        "Messirve...",
+        "Remember you have important things to do uwu.",
+        "Siiuuuuuuuu",
+        "Each click on this button is a reminder that nothing lasts forever.",
+        "Thank you for your valuable time, but nothing still happens.",
+        "Please, look for happiness elsewhere.",
+        "Press again to waste another second of your life.",
+        "What doesn’t break this button makes it stronger.",
+        "This button promises to do nothing and delivers.",
+        "This button is as useful as an umbrella in the desert.",
+        "This button has goals, but it says it starts tomorrow.",
+        "Sometimes you just have to accept that not everything goes your way.",
+        "This button is not broken; it just does nothing.",
+        "I see you like feeling digitally ignored.",
+        "This button feels flattered... but still does nothing.",
+        "The world keeps moving while you insist on this...",
+        "Nothing changes... everything stays the same...",
+        "This button does nothing, but you still have faith.",
+        "Each click is a small victory.",
+        "0 results were produced.",
+        "Some people are slow to understand.",
+        "This button does nothing, but you already knew that.",
+        "This button does nothing in the morning and rests in the afternoon.",
+        "This button is emptier than your bank account.",
+        "This button is more absent than her love.",
+        "This button is more lost than your phone when left on silent.",
+        "This button is more broken than your New Year's resolutions.",
+        "This button is more stuck than your progress with her.",
+        "This button is emptier than your inbox.",
+        "This button needs its space...",
+        "This button is more tense than you when someone grabs your phone.",
+        "This button is getting uncomfortable.",
+        "This button is emptier than your chat with the one you like.",
+        "Don't even try.",
+        "Better luck next time.",
+        "Don't worry, you'll do fine.",
+        "Don't panic, just let yourself go.",
+        "Well done, do you dare to try again?",
+        "I promise this button will never do anything.",
+        "Don't worry, this button is empty inside too.",
+        "There’s effort, but talent is missing.",
+        "This button is like the one you like, it doesn’t respond.",
+        "Look at you... you're not aware and still insist on showing the world what you can do... as if you've already proven it.",
+        "Even the strongest opponent always has a weakness.",
+        "No one cared who I was until I put on a mask.",
+        "All efforts are useless if you don't believe in yourself."
+    ],
+}
 };
 
 var imagesFull = [
@@ -1194,7 +1348,6 @@ var imagesFull = [
     level: 1,
     active: true
   },
-  //---//
   {
     name: '79',
     correct: "2",
@@ -1531,7 +1684,6 @@ var imagesFull = [
     level: 2,
     active: true
   },
-  /////////////////////////////////////////
   {
     name: '121',
     correct: "4",
@@ -1884,11 +2036,6 @@ var imagesFull = [
     level: 2,
     active: true
   },
-  /******************************************* x*/
-
-
-
-
   {
     name: '165',
     correct: "4",
@@ -1961,7 +2108,6 @@ var imagesFull = [
     level: 0,
     active: true
   },
-  ///
   {
     name: '174',
     correct: "3",
@@ -2330,7 +2476,6 @@ var imagesFull = [
     level: 0,
     active: true
   },
-  //---//
   {
     name: '220',
     correct: "1",
@@ -2524,7 +2669,6 @@ var imagesFull = [
     level: 0,
     active: true
   },
-  //---//
   {
     name: '244',
     correct: "3",
@@ -2861,7 +3005,6 @@ var imagesFull = [
     level: 1,
     active: true
   },
-  /////////////////////////////////////////
   {
     name: '286',
     correct: "2",
@@ -4894,8 +5037,2888 @@ var imagesFull = [
     level: 0,
     active: true
   },
+
+  /**
+   * 
+   * 
+   * 
+  */
+
+  {
+    name: '539',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '540',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '541',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '542',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '543',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '544',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '545',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '546',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '547',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '548',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '549',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '550',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 1,
+    active: true
+  },
+  {
+    name: '551',
+    correct: "2",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    name: '552',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '553',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '554',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '555',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '556',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '557',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '558',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '559',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '560',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '561',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '562',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '563',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '564',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '565',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '566',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '567',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '568',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '569',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '570',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '571',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '572',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '573',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '574',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '575',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '576',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '577',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '578',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '579',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '580',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '581',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '582',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '583',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '584',
+    correct: "6",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '585',
+    correct: "6",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '586',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '587',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '588',
+    correct: "6",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '589',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '590',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '591',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '591',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '592',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '593',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '594',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '595',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '596',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '597',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '598',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '599',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '600',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '601',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '602',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '603',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '604',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '605',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '606',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '607',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '608',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '609',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '610',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '611',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '612',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '613',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '614',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '615',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '616',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '617',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '618',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '619',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '620',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '621',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '622',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '623',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '624',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '625',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '626',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '627',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '628',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '629',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '630',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '631',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '632',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '633',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '634',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '635',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '636',
+    correct: "6",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '637',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '638',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '639',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '640',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '641',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '642',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '643',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '644',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '645',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '646',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '647',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '648',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '649',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '650',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '651',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '652',
+    correct: "6",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '653',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '654',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '655',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '656',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '657',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '658',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '659',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '660',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '661',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '662',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '663',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '664',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '665',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '666',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '667',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '668',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '669',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '670',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '671',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '672',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '673',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '674',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '675',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  // {
+  //   name: '676',
+  //   correct: "3",
+  //   viewed: false,
+  //   ia_generated: false,
+  //   level: 0,
+  //   active: true
+  // },
+  {
+    name: '677',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '678',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '679',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '680',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '681',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '682',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '683',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '684',
+    correct: "1",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '685',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '686',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '687',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '688',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '689',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '690',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '691',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '692',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '693',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '694',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '695',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '696',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '697',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '698',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '699',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '700',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '701',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '702',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '703',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '704',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '705',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '706',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '707',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '708',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '709',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '710',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '711',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '712',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '713',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '714',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '715',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '716',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '717',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '718',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '719',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '720',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '721',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '722',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '723',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '724',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '725',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '726',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '727',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '728',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '729',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '730',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '731',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '732',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '733',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '734',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '735',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '736',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '737',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '738',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '739',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '740',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '741',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '742',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '743',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '744',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '745',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '746',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '747',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '748',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '749',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '750',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '751',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '752',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '753',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '754',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '755',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '756',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '757',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '758',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '759',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '760',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '761',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '762',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '763',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '764',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '765',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '766',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '767',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '768',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '769',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  // {
+  //   name: '770',
+  //   correct: "3",
+  //   viewed: false,
+  //   ia_generated: false,
+  //   level: 1,
+  //   active: true
+  // },
+  // {
+  //   name: '771',
+  //   correct: "3",
+  //   viewed: false,
+  //   ia_generated: false,
+  //   level: 0,
+  //   active: true
+  // },
+  // {
+  //   name: '772',
+  //   correct: "2",
+  //   viewed: false,
+  //   ia_generated: false,
+  //   level: 0,
+  //   active: true
+  // },
+  // {
+  //   name: '773',
+  //   correct: "2",
+  //   viewed: false,
+  //   ia_generated: false,
+  //   level: 0,
+  //   active: true
+  // },
+  // {
+  //   name: '774',
+  //   correct: "2",
+  //   viewed: false,
+  //   ia_generated: false,
+  //   level: 1,
+  //   active: true
+  // },
+  // {
+  //   name: '775',
+  //   correct: "2",
+  //   viewed: false,
+  //   ia_generated: false,
+  //   level: 0,
+  //   active: true
+  // },
+  // {
+  //   name: '776',
+  //   correct: "2",
+  //   viewed: false,
+  //   ia_generated: false,
+  //   level: 1,
+  //   active: true
+  // },
+  // {
+  //   name: '777',
+  //   correct: "2",
+  //   viewed: false,
+  //   ia_generated: false,
+  //   level: 1,
+  //   active: true
+  // },
+  // {
+  //   name: '778',
+  //   correct: "2",
+  //   viewed: false,
+  //   ia_generated: false,
+  //   level: 0,
+  //   active: true
+  // },
+  // {
+  //   name: '779',
+  //   correct: "5",
+  //   viewed: false,
+  //   ia_generated: false,
+  //   level: 0,
+  //   active: true
+  // },
+  {
+    name: '780',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '781',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '782',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '783',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '784',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '785',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '786',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '787',
+    correct: "6",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '788',
+    correct: "6",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '789',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '790',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '791',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '792',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '793',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '794',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '795',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '796',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '797',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '798',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '799',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '800',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '801',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '802',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '803',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '804',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '805',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '806',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '807',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '808',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '809',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '810',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '811',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '812',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '813',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '814',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '815',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '816',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '817',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '818',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '819',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '820',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '821',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '822',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '823',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '824',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '825',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '826',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '827',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '828',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '829',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '830',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '831',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '832',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '833',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '834',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '835',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 1,
+    active: true
+  },
+  {
+    name: '836',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 1,
+    active: true
+  },
+  {
+    name: '837',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    name: '838',
+    correct: "4",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    name: '839',
+    correct: "4",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    name: '840',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    name: '841',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    name: '842',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    name: '843',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    name: '844',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    name: '845',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    name: '846',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 1,
+    active: true
+  },
+  {
+    name: '847',
+    correct: "5",
+    viewed: false,
+    ia_generated: true,
+    level: 2,
+    active: true
+  },
+  {
+    name: '848',
+    correct: "5",
+    viewed: false,
+    ia_generated: true,
+    level: 1,
+    active: true
+  },
+  {
+    name: '849',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 2,
+    active: true
+  },
+  {
+    name: '850',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 1,
+    active: true
+  },
+  {
+    name: '851',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 1,
+    active: true
+  },
+  {
+    name: '852',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 1,
+    active: true
+  },
+  {
+    name: '853',
+    correct: "4",
+    viewed: false,
+    ia_generated: true,
+    level: 2,
+    active: true
+  },
+  {
+    name: '854',
+    correct: "4",
+    viewed: false,
+    ia_generated: true,
+    level: 1,
+    active: true
+  },
+  {
+    name: '855',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 1,
+    active: true
+  },
+  {
+    name: '856',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    name: '857',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    name: '858',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 1,
+    active: true
+  },
+  {
+    name: '859',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 1,
+    active: true
+  },
+  {
+    name: '860',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 2,
+    active: true
+  },
+  {
+    name: '861',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    name: '862',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    name: '863',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '864',
+    correct: "4",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    name: '865',
+    correct: "5",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    name: '866',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    name: '857',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 1,
+    active: true
+  },
+  {
+    name: '868',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    name: '869',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    name: '870',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 1,
+    active: true
+  },
+  {
+    name: '871',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 2,
+    active: true
+  },
+  {
+    name: '872',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    name: '873',
+    correct: "2",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    name: '874',
+    correct: "4",
+    viewed: false,
+    ia_generated: true,
+    level: 1,
+    active: true
+  },
+  {
+    name: '875',
+    correct: "4",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    name: '876',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    name: '877',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    name: '878',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 1,
+    active: true
+  },//
+  {
+    name: '879',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 2,
+    active: true
+  },
+  {
+    name: '880',
+    correct: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    name: '881',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '882',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '883',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '884',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '885',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '886',
+    correct: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '887',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  // {
+  //   name: '888',
+  //   correct: "2",
+  //   viewed: false,
+  //   ia_generated: false,
+  //   level: 0,
+  //   active: true
+  // },
+  {
+    name: '889',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '890',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '891',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '892',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '893',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  // {
+  //   name: '894',
+  //   correct: "3",
+  //   viewed: false,
+  //   ia_generated: false,
+  //   level: 1,
+  //   active: true
+  // },
+  {
+    name: '895',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '896',
+    correct: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  }
 ];
 
 /*References
 273
+272
 */
