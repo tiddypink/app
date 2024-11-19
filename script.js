@@ -1,5 +1,6 @@
 const ext = 'webp'
 var image;
+var stepIndex = 1;
 var correct;
 var score = 0;
 var opcion;
@@ -34,7 +35,8 @@ document.addEventListener("DOMContentLoaded", function () {
     $('.score').text(getScoreLabel());
   });
 
- 
+ $('#steps').text(`${stepIndex} / ${totalItems}`)
+
   //localStorage.removeItem('td-zx5sk-stats');
   if (localStorage.getItem("td-zx5sk-stats") !== null) {
     analitics = getAnalitics()
@@ -67,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!image.name) {
       return
     }
-    if (Math.random() < 0.002) {
+    if (Math.random() < 0.001) {
       sound(`assets/audio/mistry.mp3`, 2, .3);
     }
     if (Math.random() < 0.005) {
@@ -144,6 +146,8 @@ document.addEventListener("DOMContentLoaded", function () {
   $('.restart').click(function () {
     score = 0
     exitIndex = 0
+    stepIndex = 1
+    $('#steps').text(`${stepIndex} / ${totalItems}`)
     stopMusic()
     sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
     $('.score').text(getScoreLabel());
@@ -246,6 +250,9 @@ function next() {
   $('.images').fadeIn()
   $('.go').removeClass('s')
   $('.ia-tag').hide();
+
+  stepIndex++
+  $('#steps').text(`${stepIndex} / ${totalItems}`)
 
   //let unseen = images.filter(obj => obj.viewed === false && obj.active === true);
 
@@ -1375,7 +1382,7 @@ var imagesFull = [
   },
   {
     name: '82',
-    correct: "1",
+    correct: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
@@ -7649,7 +7656,7 @@ var imagesFull = [
     name: '863',
     correct: "3",
     viewed: false,
-    ia_generated: false,
+    ia_generated: true,
     level: 0,
     active: true
   },
@@ -7793,7 +7800,7 @@ var imagesFull = [
     name: '881',
     correct: "3",
     viewed: false,
-    ia_generated: false,
+    ia_generated: true,
     level: 2,
     active: true
   },
@@ -7801,7 +7808,7 @@ var imagesFull = [
     name: '882',
     correct: "4",
     viewed: false,
-    ia_generated: false,
+    ia_generated: true,
     level: 2,
     active: true
   },
@@ -7809,7 +7816,7 @@ var imagesFull = [
     name: '883',
     correct: "4",
     viewed: false,
-    ia_generated: false,
+    ia_generated: true,
     level: 1,
     active: true
   },
@@ -7817,7 +7824,7 @@ var imagesFull = [
     name: '884',
     correct: "3",
     viewed: false,
-    ia_generated: false,
+    ia_generated: true,
     level: 2,
     active: true
   },
@@ -7825,7 +7832,7 @@ var imagesFull = [
     name: '885',
     correct: "3",
     viewed: false,
-    ia_generated: false,
+    ia_generated: true,
     level: 2,
     active: true
   },
@@ -7833,7 +7840,7 @@ var imagesFull = [
     name: '886',
     correct: "4",
     viewed: false,
-    ia_generated: false,
+    ia_generated: true,
     level: 2,
     active: true
   },
@@ -7841,7 +7848,7 @@ var imagesFull = [
     name: '887',
     correct: "3",
     viewed: false,
-    ia_generated: false,
+    ia_generated: true,
     level: 1,
     active: true
   },
@@ -7857,7 +7864,7 @@ var imagesFull = [
     name: '889',
     correct: "3",
     viewed: false,
-    ia_generated: false,
+    ia_generated: true,
     level: 2,
     active: true
   },
@@ -7865,7 +7872,7 @@ var imagesFull = [
     name: '890',
     correct: "3",
     viewed: false,
-    ia_generated: false,
+    ia_generated: true,
     level: 1,
     active: true
   },
@@ -7873,7 +7880,7 @@ var imagesFull = [
     name: '891',
     correct: "3",
     viewed: false,
-    ia_generated: false,
+    ia_generated: true,
     level: 2,
     active: true
   },
