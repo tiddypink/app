@@ -210,6 +210,10 @@ a { -webkit-user-select: none !important; }
   transform: rotate(1deg) scale(1.05);
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.6);
 }
+.stats-frame:hover {
+  transform: none;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.6);
+}
 
 .footer {
   text-align: center;
@@ -431,6 +435,10 @@ img.fade-out {
   width: 300px;
 }
 
+.acept:hover, .restart:hover, .exit:hover, .purchase:hover {
+  transform: scale(1.08);
+}
+
 .modal {
   display: none; /* Oculto por defecto */
   position: fixed;
@@ -582,10 +590,15 @@ input:checked + .slider:before {
 
   .label-stat{
     margin-top: 1rem;
+    margin-bottom: 14px;
     display: grid;
   }
+  
   .analitics-frame .gallery-item{
     height: 100%;
+  }
+  .acept{
+    width: 40%;
   }
 
 }

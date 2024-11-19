@@ -1,10 +1,10 @@
-const ext = 'wbp'
+const ext = 'webp'
 var image;
 var correct;
 var score = 0;
 var opcion;
 var currentLanguage
-var totalItems = 22
+var totalItems = 25
 var images;
 var exitIndex = 0
 var music;
@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
     setLanguage(language);
     $('.score').text(getScoreLabel());
   });
+
  
   //localStorage.removeItem('td-zx5sk-stats');
   if (localStorage.getItem("td-zx5sk-stats") !== null) {
