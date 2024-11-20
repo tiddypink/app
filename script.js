@@ -5,7 +5,7 @@ var correct;
 var score = 0;
 var opcion;
 var currentLanguage
-var totalItems = 878
+var totalItems = 30
 var images;
 var exitIndex = 0
 var music;
@@ -49,6 +49,8 @@ document.addEventListener("DOMContentLoaded", function () {
   $(".final-actions").hide()
   $("#end").hide()
   $("#score").hide()
+  $('#loading-circle').hide();
+  $('#status').hide()
 
 
   let defaultImage = imagesFull.find(item => item.name == 82)
@@ -77,8 +79,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     image = images.find(item => item.name == image.name)
-    //if (opcion == image?.correct) {
-       if (true) {
+    if (opcion == image?.correct) {
+    //   if (true) {
       if ($('#next').is(':visible')) {
         return
       }
@@ -92,10 +94,10 @@ document.addEventListener("DOMContentLoaded", function () {
         $('.score').css('color', '#ddd');
       }, 250);
 
-      $('#image').addClass('fade-out')
+      $('.gallery-item').addClass('fade-out')
       setTimeout(() => {
         setTimeout(() => {
-          $('#image').removeClass('fade-out');
+          $('.gallery-item').removeClass('fade-out');
         }, 250);
         isLocal ? $('#image').attr('src', `assets/n${image.name}.${ext}`) : shelterImage(`assets/n${image.name}.${ext}`)
         setAnalitics(image.name,true,false,true)
@@ -213,11 +215,11 @@ document.addEventListener("DOMContentLoaded", function () {
     sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
   });
   closeAcept.click(function () {
-    modal.hide();
-    sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
-    $(".gallery-item").click();
-    $("#image").click();
-    //sound(`assets/audio/music5.mp3`, 1000, 1,true);
+    $('#loading-circle').show();
+    $('#status').show()
+    sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true, function () {
+      modal.hide();
+    });
   });
 
   $(window).click(function (event) {
@@ -272,10 +274,10 @@ function next() {
     image = images.find(item => item.name == nextImage)
     image.viewed = true;
 
-    $('#image').addClass('fade-out')
+    $('.gallery-item').addClass('fade-out')
     setTimeout(() => {
       setTimeout(() => {
-        $('#image').removeClass('fade-out');
+        $('.gallery-item').removeClass('fade-out');
       }, 250);
       isLocal ? $('#image').attr('src', `assets/${image.name}.${ext}`) : shelterImage(`assets/${image.name}.${ext}`)
       setAnalitics(image.name,false,false,false)
@@ -372,7 +374,7 @@ function setArray(images, limit) {
   return result;
 }
 
-function sound(path, loops = 1, volume = 1, isMusic = false) {
+function sound(path, loops = 1, volume = 1, isMusic = false, callback ) {
   if (musicOn == false) {
     stopMusic();
     return
@@ -380,6 +382,11 @@ function sound(path, loops = 1, volume = 1, isMusic = false) {
   let index = 0;
   if (isMusic) {
     music = new Audio(path);
+    music.addEventListener('canplaythrough', function () {
+      $('#loading-circle').hide();
+      $('#status').hide()
+      $('#play-button').show();
+  });
     music.volume = volume;
     music.play();
     music.addEventListener('ended', function () {
@@ -389,6 +396,7 @@ function sound(path, loops = 1, volume = 1, isMusic = false) {
         music.play();
       }
     });
+    callback();
     return
   }
 
