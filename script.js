@@ -386,8 +386,8 @@ function sound(path, loops = 1, volume = 1, isMusic = false, initialLoad = false
       let sound = new Audio(path);
       sound.addEventListener('canplaythrough', function() {
       audiosLoaded++;
+      alert(audiosLoaded)
       if (audiosLoaded === totalAudios) {
-        alert('in')
         $('#loading-circle').hide();
         $('#status').hide();
         $('#play-button').show();
