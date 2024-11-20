@@ -13,12 +13,12 @@ var musicOn = true;
 var sounds = []
 const isLocal = window.location.protocol === "file:";
 var analitics = {
-    matches: 0,
-    wmatches: 0,
-    corrects: 0,
-    mistakes: 0,
-    seenimages: [],
-    seennimages: [],
+  matches: 0,
+  wmatches: 0,
+  corrects: 0,
+  mistakes: 0,
+  seenimages: [],
+  seennimages: [],
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -29,14 +29,14 @@ document.addEventListener("DOMContentLoaded", function () {
   currentLanguage = (navigator.language || navigator.userLanguage).split("-")[0];
   setLanguage(currentLanguage);
 
-  $('#language-select').on('change', function() {
+  $('#language-select').on('change', function () {
     const language = $(this).val();
     currentLanguage = language
     setLanguage(language);
     $('.score').text(getScoreLabel());
   });
 
- $('#steps').text(`${stepIndex} / ${totalItems}`)
+  $('#steps').text(`${stepIndex} / ${totalItems}`)
 
   //localStorage.removeItem('td-zx5sk-stats');
   if (localStorage.getItem("td-zx5sk-stats") !== null) {
@@ -59,8 +59,8 @@ document.addEventListener("DOMContentLoaded", function () {
   images = setArray(imagesFull, totalItems)
 
   isLocal ? $('#image').attr('src', `assets/${defaultImage.name}.${ext}`) : shelterImage(`assets/${defaultImage.name}.${ext}`)
-  setAnalitics(defaultImage.name,false,false,false)
-  
+  setAnalitics(defaultImage.name, false, false, false)
+
   image = defaultImage
 
   defaultImage.viewed = true
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     image = images.find(item => item.name == image.name)
     if (opcion == image?.correct) {
-    //   if (true) {
+      //   if (true) {
       if ($('#next').is(':visible')) {
         return
       }
@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
           $('.gallery-item').removeClass('fade-out');
         }, 250);
         isLocal ? $('#image').attr('src', `assets/n${image.name}.${ext}`) : shelterImage(`assets/n${image.name}.${ext}`)
-        setAnalitics(image.name,true,false,true)
+        setAnalitics(image.name, true, false, true)
       }, 250);
 
       if (images.ia_generated) {
@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
       //$('.actions-container').hide()
     } else {
       //animation
-      setAnalitics(image.name, assert = false,true,false)
+      setAnalitics(image.name, assert = false, true, false)
       const $elemento = $(this);
       $elemento.css("animation", "shake 0.2s");
       setTimeout(function () {
@@ -163,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
     images.push(defaultImage)
     totalItems++
     isLocal ? $('#image').attr('src', `assets/${defaultImage.name}.${ext}`) : shelterImage(`assets/${defaultImage.name}.${ext}`)
-    setAnalitics(image.name,false,false,false)
+    setAnalitics(image.name, false, false, false)
     $(".final-actions").hide()
     $("#end").hide()
     $(".gallery-grid").fadeIn()
@@ -217,7 +217,7 @@ document.addEventListener("DOMContentLoaded", function () {
     $('#loading-circle').show();
     $('#status').show()
     //(path, loops = 1, volume = 1, isMusic = false, initialLoad = false, callback)
-    sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true, true ,function () {
+    sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true, true, function () {
       modal.hide();
     });
   });
@@ -225,7 +225,7 @@ document.addEventListener("DOMContentLoaded", function () {
   $(window).click(function (event) {
     if ($(event.target).is(modal)) {
       modal.hide();
-      sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true, true,true);
+      sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true, true, true);
     }
   });
   window.onclick = function (event) {
@@ -279,7 +279,7 @@ function next() {
         $('.gallery-item').removeClass('fade-out');
       }, 250);
       isLocal ? $('#image').attr('src', `assets/${image.name}.${ext}`) : shelterImage(`assets/${image.name}.${ext}`)
-      setAnalitics(image.name,false,false,false)
+      setAnalitics(image.name, false, false, false)
     }, 250);
 
     if (image.ia_generated) {
@@ -290,7 +290,7 @@ function next() {
     stopMusic()
     $(".gallery-grid").hide()
     if (score == 100) {
-      setAnalitics(image.name,false,false,false,true,true)
+      setAnalitics(image.name, false, false, false, true, true)
       let seconds = 20;
       $("#end").show()
       $('#end').contents().filter(function () {
@@ -316,7 +316,7 @@ function next() {
       }, 1000);
 
     } else {
-      setAnalitics(image.name,false,false,false,true,false)
+      setAnalitics(image.name, false, false, false, true, false)
       $("#end").show()
       $(".final-actions").fadeIn()
       $(".actions-container").hide()
@@ -335,18 +335,18 @@ function setLanguage(currentLanguage) {
   Object.entries(languages[currentLanguage]).forEach(([key, value]) => {
     const element = document.getElementById(key);
     if (element) {
-        // Verifica si el primer hijo es un nodo de texto
-        const firstChild = element.firstChild;
-        
-        if (firstChild && firstChild.nodeType === Node.TEXT_NODE) {
-            // Si ya existe un nodo de texto como primer hijo, actualízalo
-            firstChild.nodeValue = value;
-        } else {
-            // Si no hay un nodo de texto, crea uno y agrégalo al inicio
-            element.insertBefore(document.createTextNode(value), firstChild);
-        }
+      // Verifica si el primer hijo es un nodo de texto
+      const firstChild = element.firstChild;
+
+      if (firstChild && firstChild.nodeType === Node.TEXT_NODE) {
+        // Si ya existe un nodo de texto como primer hijo, actualízalo
+        firstChild.nodeValue = value;
+      } else {
+        // Si no hay un nodo de texto, crea uno y agrégalo al inicio
+        element.insertBefore(document.createTextNode(value), firstChild);
+      }
     }
-});
+  });
 }
 
 function getElementToWrite(text) {
@@ -378,50 +378,49 @@ function sound(path, loops = 1, volume = 1, isMusic = false, initialLoad = false
     return
   }
   let index = 0;
-  let audiosLoaded = 0;
   if (initialLoad) {
     const totalAudios = soundsPaths.length;
 
-    soundsPaths.forEach(function(path) {
-      let sound = new Audio(path);
-      sound.addEventListener('canplaythrough', function() {
-      audiosLoaded++;
-      alert(audiosLoaded)
-      if (audiosLoaded === totalAudios) {
+    let promises = soundsPaths.map(function (path) {
+      return new Promise(function (resolve, reject) {
+        let sound = new Audio(path);
+        sound.addEventListener('canplaythrough', function () {
+          sounds.push(sound);
+          resolve(); // Indica que este sonido está listo
+        });
+        sound.addEventListener('error', function () {
+          reject('Error al cargar el sonido');
+        });
+      });
+    });
+
+    Promise.all(promises)
+      .then(function () {
+        // Una vez que todos los sonidos estén listos
         $('#loading-circle').hide();
         $('#status').hide();
         $('#play-button').show();
         callback();
-      }
+
+        var sound = sounds.find(item => item.attributes.src.value == path)
+
+        sound.volume = volume;
+        sound.play();
+
+        sound.addEventListener('ended', function () {
+          index++;
+
+          if (index < loops) {
+            sound.play();
+          }
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
       });
-      sounds.push(sound)
-    });
 
-  }
+  } else {
 
-  // if (isMusic) {
-  //   music = new Audio(path);
-  //   music.addEventListener('canplaythrough', function () {
-  //     $('#loading-circle').hide();
-  //     $('#status').hide()
-  //     $('#play-button').show();
-  //     callback();
-  // });
-
-  //   music.volume = volume;
-  //   music.play();
-  //   music.addEventListener('ended', function () {
-  //     index++;
-
-  //     if (index < loops) {
-  //       music.play();
-  //     }
-  //   });
-  //   return
-  // }
-
-  //const sound = new Audio(path);
-  
   var sound = sounds.find(item => item.attributes.src.value == path)
 
   sound.volume = volume;
@@ -434,6 +433,7 @@ function sound(path, loops = 1, volume = 1, isMusic = false, initialLoad = false
       sound.play();
     }
   });
+  }
 }
 function stopMusic() {
   sounds.forEach(sound => {
@@ -444,33 +444,33 @@ function stopMusic() {
 
 function shelterImage(imagePath) {
   fetch(imagePath)  // Usa la ruta o URL de la imagen
-  .then(response => response.blob())  // Convierte la respuesta a un Blob
-  .then(blob => {
+    .then(response => response.blob())  // Convierte la respuesta a un Blob
+    .then(blob => {
       var reader = new FileReader();
       reader.onloadend = function () {
-          var base64Image = reader.result;  // La imagen convertida a Base64
-          $('#image').attr('src', base64Image);
+        var base64Image = reader.result;  // La imagen convertida a Base64
+        $('#image').attr('src', base64Image);
       };
       reader.readAsDataURL(blob);  // Lee el Blob como URL de datos (Base64)
-  })
-  .catch(error => console.log('Error getting image', error));
+    })
+    .catch(error => console.log('Error getting image', error));
 }
 
-function setAnalitics(image,assert,fail,nd,match,wmatch){
+function setAnalitics(image, assert, fail, nd, match, wmatch) {
   if (localStorage.getItem("d-zx5sk-stats") !== null) {
     currentAnalitics = getAnalitics()
     analitics = currentAnalitics;
   }
   if (assert) {
     analitics.corrects++
-  } 
-  if(fail) {
+  }
+  if (fail) {
     analitics.mistakes++
   }
-  if(match) {
+  if (match) {
     analitics.matches++
   }
-  if(wmatch) {
+  if (wmatch) {
     analitics.wmatches++
   }
   if (!analitics.seenimages.includes(image) && !nd) {
@@ -486,7 +486,7 @@ function setAnalitics(image,assert,fail,nd,match,wmatch){
   // seenimages: "Imágenes vistas:",
   // seennimages: "",
 }
-function getAnalitics(){
+function getAnalitics() {
   var analitics = JSON.parse(localStorage.getItem("td-zx5sk-stats"));
   return analitics;
 }
@@ -566,17 +566,17 @@ function getFailSoundRandom() {
   }
 }
 
-function getScoreLabel(){
+function getScoreLabel() {
   return languages[currentLanguage].score + Math.floor(score)
 }
 
-function setAnaliticsLabels(){
+function setAnaliticsLabels() {
   $('#matchesx').text(analitics.matches)
   $('#wmatchesx').text(analitics.wmatches)
   $('#correctsx').text(analitics.corrects)
   $('#mistakesx').text(analitics.mistakes)
-  $('#seenimagesx').text(analitics.seenimages.length + ' de '+ (imagesFull.length + 22))
-  $('#seennimagesx').text(analitics.seennimages.length + ' de '+ (imagesFull.length + 22))
+  $('#seenimagesx').text(analitics.seenimages.length + ' de ' + (imagesFull.length + 22))
+  $('#seennimagesx').text(analitics.seennimages.length + ' de ' + (imagesFull.length + 22))
 }
 
 
@@ -619,7 +619,7 @@ var soundsPaths = [
   'assets/audio/music4.mp3',
   'assets/audio/music5.mp3',
   'assets/audio/music6.mp3',
-  
+
 ];
 
 const languages = {
@@ -730,68 +730,68 @@ const languages = {
     end: "You have failed miserably, your score is:",
     successMessage: "Amazing, you guessed all the images 😳 I have a prize for you 🥵 it will appear in: ",
     exitMessage: [
-        "This button does nothing :v",
-        "I told you this button does nothing.",
-        "Please listen to me. This button does nothing.",
-        "(The button still does nothing *)",
-        "This button still does nothing, like your ex.",
-        "Press carefully, this button has low self-esteem.",
-        "This button is like her feelings, empty...",
-        "For every time you press this button, a kitten dies somewhere in the world.",
-        "This button has feelings and they are about to break.",
-        "This button is here just for decoration.",
-        "If you press this button again, you're g4y.",
-        "I knew it...",
-        "Intelligence is chasing you, but you're faster.",
-        "I lost her when I loved her the most.",
-        "Messirve...",
-        "Remember you have important things to do uwu.",
-        "Siiuuuuuuuu",
-        "Each click on this button is a reminder that nothing lasts forever.",
-        "Thank you for your valuable time, but nothing still happens.",
-        "Please, look for happiness elsewhere.",
-        "Press again to waste another second of your life.",
-        "What doesn’t break this button makes it stronger.",
-        "This button promises to do nothing and delivers.",
-        "This button is as useful as an umbrella in the desert.",
-        "This button has goals, but it says it starts tomorrow.",
-        "Sometimes you just have to accept that not everything goes your way.",
-        "This button is not broken; it just does nothing.",
-        "I see you like feeling digitally ignored.",
-        "This button feels flattered... but still does nothing.",
-        "The world keeps moving while you insist on this...",
-        "Nothing changes... everything stays the same...",
-        "This button does nothing, but you still have faith.",
-        "Each click is a small victory.",
-        "0 results were produced.",
-        "Some people are slow to understand.",
-        "This button does nothing, but you already knew that.",
-        "This button does nothing in the morning and rests in the afternoon.",
-        "This button is emptier than your bank account.",
-        "This button is more absent than her love.",
-        "This button is more lost than your phone when left on silent.",
-        "This button is more broken than your New Year's resolutions.",
-        "This button is more stuck than your progress with her.",
-        "This button is emptier than your inbox.",
-        "This button needs its space...",
-        "This button is more tense than you when someone grabs your phone.",
-        "This button is getting uncomfortable.",
-        "This button is emptier than your chat with the one you like.",
-        "Don't even try.",
-        "Better luck next time.",
-        "Don't worry, you'll do fine.",
-        "Don't panic, just let yourself go.",
-        "Well done, do you dare to try again?",
-        "I promise this button will never do anything.",
-        "Don't worry, this button is empty inside too.",
-        "There’s effort, but talent is missing.",
-        "This button is like the one you like, it doesn’t respond.",
-        "Look at you... you're not aware and still insist on showing the world what you can do... as if you've already proven it.",
-        "Even the strongest opponent always has a weakness.",
-        "No one cared who I was until I put on a mask.",
-        "All efforts are useless if you don't believe in yourself."
+      "This button does nothing :v",
+      "I told you this button does nothing.",
+      "Please listen to me. This button does nothing.",
+      "(The button still does nothing *)",
+      "This button still does nothing, like your ex.",
+      "Press carefully, this button has low self-esteem.",
+      "This button is like her feelings, empty...",
+      "For every time you press this button, a kitten dies somewhere in the world.",
+      "This button has feelings and they are about to break.",
+      "This button is here just for decoration.",
+      "If you press this button again, you're g4y.",
+      "I knew it...",
+      "Intelligence is chasing you, but you're faster.",
+      "I lost her when I loved her the most.",
+      "Messirve...",
+      "Remember you have important things to do uwu.",
+      "Siiuuuuuuuu",
+      "Each click on this button is a reminder that nothing lasts forever.",
+      "Thank you for your valuable time, but nothing still happens.",
+      "Please, look for happiness elsewhere.",
+      "Press again to waste another second of your life.",
+      "What doesn’t break this button makes it stronger.",
+      "This button promises to do nothing and delivers.",
+      "This button is as useful as an umbrella in the desert.",
+      "This button has goals, but it says it starts tomorrow.",
+      "Sometimes you just have to accept that not everything goes your way.",
+      "This button is not broken; it just does nothing.",
+      "I see you like feeling digitally ignored.",
+      "This button feels flattered... but still does nothing.",
+      "The world keeps moving while you insist on this...",
+      "Nothing changes... everything stays the same...",
+      "This button does nothing, but you still have faith.",
+      "Each click is a small victory.",
+      "0 results were produced.",
+      "Some people are slow to understand.",
+      "This button does nothing, but you already knew that.",
+      "This button does nothing in the morning and rests in the afternoon.",
+      "This button is emptier than your bank account.",
+      "This button is more absent than her love.",
+      "This button is more lost than your phone when left on silent.",
+      "This button is more broken than your New Year's resolutions.",
+      "This button is more stuck than your progress with her.",
+      "This button is emptier than your inbox.",
+      "This button needs its space...",
+      "This button is more tense than you when someone grabs your phone.",
+      "This button is getting uncomfortable.",
+      "This button is emptier than your chat with the one you like.",
+      "Don't even try.",
+      "Better luck next time.",
+      "Don't worry, you'll do fine.",
+      "Don't panic, just let yourself go.",
+      "Well done, do you dare to try again?",
+      "I promise this button will never do anything.",
+      "Don't worry, this button is empty inside too.",
+      "There’s effort, but talent is missing.",
+      "This button is like the one you like, it doesn’t respond.",
+      "Look at you... you're not aware and still insist on showing the world what you can do... as if you've already proven it.",
+      "Even the strongest opponent always has a weakness.",
+      "No one cared who I was until I put on a mask.",
+      "All efforts are useless if you don't believe in yourself."
     ],
-}
+  }
 };
 
 var imagesFull = [
