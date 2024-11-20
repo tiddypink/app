@@ -179,8 +179,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (exitIndex == languages[currentLanguage].exitMessage.length) {
       exitIndex = 2
     }
-
-    alert(languages[currentLanguage].exitMessage[exitIndex])
     exitIndex++
   });
 
@@ -220,7 +218,6 @@ document.addEventListener("DOMContentLoaded", function () {
     $('#status').show()
     //(path, loops = 1, volume = 1, isMusic = false, initialLoad = false, callback)
     sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true, true ,function () {
-      alert()
       modal.hide();
     });
   });
@@ -271,7 +268,6 @@ function next() {
   }
 
   if (unseen.length > 0) {
-    // alert(unseen.length)
     let randomIndex = Math.floor(Math.random() * unseen.length);
     let nextImage = unseen[randomIndex].name;
     image = images.find(item => item.name == nextImage)
@@ -382,14 +378,15 @@ function sound(path, loops = 1, volume = 1, isMusic = false, initialLoad = false
     return
   }
   let index = 0;
-
+  let audiosLoaded = 0;
   if (initialLoad) {
-    let audiosLoaded = 0;
     const totalAudios = soundsPaths.length;
 
     function audioLoaded() {
-      audiosLoaded++;
+      audiosLoaded = audiosLoaded + 1;
+      alert('Audio0s loaded: '+audiosLoaded+' total audios: '+totalAudios)
       if (audiosLoaded === totalAudios) {
+        alert('in')
         $('#loading-circle').hide();
         $('#status').hide();
         $('#play-button').show();
@@ -398,10 +395,10 @@ function sound(path, loops = 1, volume = 1, isMusic = false, initialLoad = false
     }
 
     soundsPaths.forEach(function(path) {
-    let sound = new Audio(path);
-    sound.addEventListener('canplaythrough', audioLoaded);
-    sounds.push(sound)
-  });
+      let sound = new Audio(path);
+      sound.addEventListener('canplaythrough', audioLoaded);
+      sounds.push(sound)
+    });
 
   }
 
