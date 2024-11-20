@@ -416,7 +416,7 @@ function sound(path, loops = 1, volume = 1, isMusic = false, initialLoad = false
         });
       })
       .catch(function (error) {
-        console.log(error);
+        alert(error);
       });
 
   } else {
