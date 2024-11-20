@@ -68,7 +68,7 @@ a { -webkit-user-select: none !important; }
 }
 .steps {
   position: absolute;
-  font-size: 1rem;
+  font-size: 1.25rem;
   max-width: 80px;
   top: 2px; /* Mantiene el elemento cerca de la parte superior */
   right: 8px; /* Centra el elemento horizontalmente */
@@ -152,7 +152,7 @@ a { -webkit-user-select: none !important; }
 }
 
 .gallery-item {
-  width: 90%;
+  width: 100%;
   height:  calc(100vh - 180px);;
   background-color: #222;
   border-radius: 10px;
@@ -629,6 +629,11 @@ input:checked + .slider:before {
     padding: 4px;
     box-shadow: none;
     border: 2px solid #ff206e;
+  }
+  .ia-tag {
+    max-width: 75px;
+    padding: 5px 8px;
+    font-size: .8rem;
   }
 
 }

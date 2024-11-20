@@ -5,7 +5,7 @@ var correct;
 var score = 0;
 var opcion;
 var currentLanguage
-var totalItems = 25
+var totalItems = 878
 var images;
 var exitIndex = 0
 var music;
@@ -77,8 +77,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     image = images.find(item => item.name == image.name)
-    if (opcion == image?.correct) {
-      // if (true) {
+    //if (opcion == image?.correct) {
+       if (true) {
       if ($('#next').is(':visible')) {
         return
       }
