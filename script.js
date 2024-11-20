@@ -9,6 +9,7 @@ var totalItems = 30
 var images;
 var exitIndex = 0
 var music;
+var sounds = []
 var musicOn = true;
 const isLocal = window.location.protocol === "file:";
 var analitics = {
@@ -229,8 +230,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   $(window).click(function (event) {
     if ($(event.target).is(modal)) {
-      modal.hide();
-      sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
+      
+      (path, loops = 1, volume = 1, isMusic = false, initialLoad = false, callback) 
+      sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true, true, function () {
+        modal.hide();
+      });
     }
   });
   window.onclick = function (event) {
@@ -379,47 +383,68 @@ function setArray(images, limit) {
   return result;
 }
 
-function sound(path, loops = 1, volume = 1, isMusic = false, callback ) {
+function loadSounds() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      soundsPaths.forEach(function (path) {
+        let sound = new Audio(path);
+        sound.addEventListener('canplaythrough', function () {
+        });
+        sounds.push(sound)
+      });
+      resolve();
+    }, 2000);
+  });
+}
+
+function sound(path, loops = 1, volume = 1, isMusic = false, initialLoad = false, callback) {
   if (musicOn == false) {
     stopMusic();
     return
   }
   let index = 0;
-  if (isMusic) {
-    music = new Audio(path);
-    music.addEventListener('canplaythrough', function () {
+  if (initialLoad) {
+    loadSounds().then(() => {
       $('#loading-circle').hide();
-      $('#status').hide()
+      $('#status').hide();
       $('#play-button').show();
-  });
-    music.volume = volume;
-    music.play();
-    music.addEventListener('ended', function () {
+      $("#modal").hide()
+
+      var sound = sounds.find(item => item.attributes.src.value == path)
+
+      sound.volume = volume;
+      sound.play();
+
+      sound.addEventListener('ended', function () {
+        index++;
+
+        if (index < loops) {
+          sound.play();
+        }
+      });
+    })
+  } else {
+
+
+    var sound = sounds.find(item => item.attributes.src.value == path)
+
+    sound.volume = volume;
+    sound.play();
+
+    sound.addEventListener('ended', function () {
       index++;
 
       if (index < loops) {
-        music.play();
+        sound.play();
       }
     });
-    callback();
-    return
   }
-
-  const sound = new Audio(path);
-  sound.volume = volume;
-  sound.play();
-
-  sound.addEventListener('ended', function () {
-    index++;
-
-    if (index < loops) {
-      sound.play();
-    }
-  });
 }
 function stopMusic() {
-  music.pause();
-  music.currentTime = 0;
+  sounds.forEach(sound => {
+    sound.pause();
+    sound.currentTime = 0;
+  });
 }
 
 function shelterImage(imagePath) {
@@ -559,6 +584,48 @@ function setAnaliticsLabels(){
   $('#seenimagesx').text(analitics.seenimages.length + ' de '+ (imagesFull.length + 22))
   $('#seennimagesx').text(analitics.seennimages.length + ' de '+ (imagesFull.length + 22))
 }
+
+var soundsPaths = [
+  'assets/audio/correct1.mp3',
+  'assets/audio/correct2.mp3',
+  'assets/audio/correct3.mp3',
+  'assets/audio/correct4.mp3',
+  'assets/audio/correct5.mp3',
+  'assets/audio/correct6.mp3',
+  'assets/audio/correct7.mp3',
+  'assets/audio/correct8.mp3',
+  'assets/audio/correct9.mp3',
+  'assets/audio/correct10.mp3',
+  'assets/audio/correct11.mp3',
+  'assets/audio/correct12.mp3',
+  'assets/audio/correct13.mp3',
+
+  'assets/audio/endfail1.mp3',
+  'assets/audio/endfail2.mp3',
+  'assets/audio/endfail3.mp3',
+  'assets/audio/endfail4.mp3',
+  'assets/audio/endfail5.mp3',
+
+  'assets/audio/fail1.mp3',
+  'assets/audio/fail2.mp3',
+  'assets/audio/fail3.mp3',
+
+  'assets/audio/scream1.mp3',
+  'assets/audio/next.mp3',
+  'assets/audio/mistry.mp3',
+  'assets/audio/mistry2.mp3',
+  'assets/audio/mistry3.mp3',
+  'assets/audio/giveup.mp3',
+  'assets/audio/heart-beat.mp3',
+
+  'assets/audio/music1.mp3',
+  'assets/audio/music2.mp3',
+  'assets/audio/music3.mp3',
+  'assets/audio/music4.mp3',
+  'assets/audio/music5.mp3',
+  'assets/audio/music6.mp3',
+
+];
 
 
 const languages = {
