@@ -220,6 +220,7 @@ document.addEventListener("DOMContentLoaded", function () {
     $('#status').show()
     //(path, loops = 1, volume = 1, isMusic = false, initialLoad = false, callback)
     sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true, true ,function () {
+      alert()
       modal.hide();
     });
   });
