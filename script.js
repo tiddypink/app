@@ -382,9 +382,10 @@ function sound(path, loops = 1, volume = 1, isMusic = false, initialLoad = false
   if (initialLoad) {
     const totalAudios = soundsPaths.length;
 
-    function audioLoaded() {
-      audiosLoaded = audiosLoaded + 1;
-      alert('Audio0s loaded: '+audiosLoaded+' total audios: '+totalAudios)
+    soundsPaths.forEach(function(path) {
+      let sound = new Audio(path);
+      sound.addEventListener('canplaythrough', function() {
+      audiosLoaded++;
       if (audiosLoaded === totalAudios) {
         alert('in')
         $('#loading-circle').hide();
@@ -392,11 +393,7 @@ function sound(path, loops = 1, volume = 1, isMusic = false, initialLoad = false
         $('#play-button').show();
         callback();
       }
-    }
-
-    soundsPaths.forEach(function(path) {
-      let sound = new Audio(path);
-      sound.addEventListener('canplaythrough', audioLoaded);
+      });
       sounds.push(sound)
     });
 
