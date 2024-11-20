@@ -386,6 +386,7 @@ function sound(path, loops = 1, volume = 1, isMusic = false, callback ) {
       $('#loading-circle').hide();
       $('#status').hide()
       $('#play-button').show();
+      callback();
   });
     music.volume = volume;
     music.play();
@@ -396,7 +397,6 @@ function sound(path, loops = 1, volume = 1, isMusic = false, callback ) {
         music.play();
       }
     });
-    callback();
     return
   }
 
