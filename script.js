@@ -371,6 +371,20 @@ function setArray(images, limit) {
   }
   return result;
 }
+function loadSounds() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      soundsPaths.forEach(function (path) {
+        let sound = new Audio(path);
+        sound.addEventListener('canplaythrough', function () {
+        });
+        sounds.push(sound)
+        console.log(sounds.length)
+      });
+      resolve();
+    }, 2000);
+  });
+}
 
 function sound(path, loops = 1, volume = 1, isMusic = false, initialLoad = false, callback) {
   if (musicOn == false) {
@@ -379,60 +393,40 @@ function sound(path, loops = 1, volume = 1, isMusic = false, initialLoad = false
   }
   let index = 0;
   if (initialLoad) {
-    const totalAudios = soundsPaths.length;
+    loadSounds().then(() => {
+      $('#loading-circle').hide();
+      $('#status').hide();
+      $('#play-button').show();
+      callback();
 
-    let promises = soundsPaths.map(function (path) {
-      return new Promise(function (resolve, reject) {
-        let sound = new Audio(path);
-        sound.addEventListener('canplaythrough', function () {
-          sounds.push(sound);
-          resolve(); // Indica que este sonido está listo
-        });
-        sound.addEventListener('error', function () {
-          reject('Error al cargar el sonido');
-        });
+      var sound = sounds.find(item => item.attributes.src.value == path)
+
+      sound.volume = volume;
+      sound.play();
+
+      sound.addEventListener('ended', function () {
+        index++;
+
+        if (index < loops) {
+          sound.play();
+        }
       });
-    });
-
-    Promise.all(promises)
-      .then(function () {
-        // Una vez que todos los sonidos estén listos
-        $('#loading-circle').hide();
-        $('#status').hide();
-        $('#play-button').show();
-        callback();
-
-        var sound = sounds.find(item => item.attributes.src.value == path)
-
-        sound.volume = volume;
-        sound.play();
-
-        sound.addEventListener('ended', function () {
-          index++;
-
-          if (index < loops) {
-            sound.play();
-          }
-        });
-      })
-      .catch(function (error) {
-        alert(error);
-      });
-
+    })
   } else {
 
-  var sound = sounds.find(item => item.attributes.src.value == path)
 
-  sound.volume = volume;
-  sound.play();
+    var sound = sounds.find(item => item.attributes.src.value == path)
 
-  sound.addEventListener('ended', function () {
-    index++;
+    sound.volume = volume;
+    sound.play();
 
-    if (index < loops) {
-      sound.play();
-    }
-  });
+    sound.addEventListener('ended', function () {
+      index++;
+
+      if (index < loops) {
+        sound.play();
+      }
+    });
   }
 }
 function stopMusic() {
