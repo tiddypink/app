@@ -10,6 +10,7 @@ var images;
 var exitIndex = 0
 var music;
 var musicOn = true;
+var sounds = []
 const isLocal = window.location.protocol === "file:";
 var analitics = {
     matches: 0,
@@ -217,7 +218,8 @@ document.addEventListener("DOMContentLoaded", function () {
   closeAcept.click(function () {
     $('#loading-circle').show();
     $('#status').show()
-    sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true, function () {
+    //(path, loops = 1, volume = 1, isMusic = false, initialLoad = false, callback)
+    sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true, true ,function () {
       modal.hide();
     });
   });
@@ -225,7 +227,7 @@ document.addEventListener("DOMContentLoaded", function () {
   $(window).click(function (event) {
     if ($(event.target).is(modal)) {
       modal.hide();
-      sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
+      sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true, true,true);
     }
   });
   window.onclick = function (event) {
@@ -322,7 +324,6 @@ function next() {
       $(".final-actions").fadeIn()
       $(".actions-container").hide()
       sound(`assets/audio/endfail${getEndfailSoundRandom()}.mp3`);
-      console.log(currentLanguage)
       $('#end').contents().filter(function () {
         return this.nodeType === 3;
       }).first().replaceWith(`${languages[currentLanguage].end}`);
@@ -374,33 +375,60 @@ function setArray(images, limit) {
   return result;
 }
 
-function sound(path, loops = 1, volume = 1, isMusic = false, callback ) {
+function sound(path, loops = 1, volume = 1, isMusic = false, initialLoad = false, callback) {
   if (musicOn == false) {
     stopMusic();
     return
   }
   let index = 0;
-  if (isMusic) {
-    music = new Audio(path);
-    music.addEventListener('canplaythrough', function () {
-      $('#loading-circle').hide();
-      $('#status').hide()
-      $('#play-button').show();
-      callback();
-  });
-    music.volume = volume;
-    music.play();
-    music.addEventListener('ended', function () {
-      index++;
 
-      if (index < loops) {
-        music.play();
+  if (initialLoad) {
+    let audiosLoaded = 0;
+    const totalAudios = soundsPaths.length;
+
+    function audioLoaded() {
+      audiosLoaded++;
+      if (audiosLoaded === totalAudios) {
+        $('#loading-circle').hide();
+        $('#status').hide();
+        $('#play-button').show();
+        callback();
       }
-    });
-    return
+    }
+
+    soundsPaths.forEach(function(path) {
+    let sound = new Audio(path);
+    sound.addEventListener('canplaythrough', audioLoaded);
+    sounds.push(sound)
+  });
+
   }
 
-  const sound = new Audio(path);
+  // if (isMusic) {
+  //   music = new Audio(path);
+  //   music.addEventListener('canplaythrough', function () {
+  //     $('#loading-circle').hide();
+  //     $('#status').hide()
+  //     $('#play-button').show();
+  //     callback();
+  // });
+
+  //   music.volume = volume;
+  //   music.play();
+  //   music.addEventListener('ended', function () {
+  //     index++;
+
+  //     if (index < loops) {
+  //       music.play();
+  //     }
+  //   });
+  //   return
+  // }
+
+  //const sound = new Audio(path);
+  
+  var sound = sounds.find(item => item.attributes.src.value == path)
+
   sound.volume = volume;
   sound.play();
 
@@ -413,8 +441,10 @@ function sound(path, loops = 1, volume = 1, isMusic = false, callback ) {
   });
 }
 function stopMusic() {
-  music.pause();
-  music.currentTime = 0;
+  sounds.forEach(sound => {
+    sound.pause();
+    sound.currentTime = 0;
+  });
 }
 
 function shelterImage(imagePath) {
@@ -454,7 +484,6 @@ function setAnalitics(image,assert,fail,nd,match,wmatch){
   if (!analitics.seennimages.includes(image) && nd) {
     analitics.seennimages.push(image)
   }
-  console.log(analitics)
   localStorage.setItem('td-zx5sk-stats', JSON.stringify(analitics));
   // matches: "Partidas jugadas:",
   // corrects: "Asiertos totales:",
@@ -555,6 +584,48 @@ function setAnaliticsLabels(){
   $('#seennimagesx').text(analitics.seennimages.length + ' de '+ (imagesFull.length + 22))
 }
 
+
+var soundsPaths = [
+  'assets/audio/correct1.mp3',
+  'assets/audio/correct2.mp3',
+  'assets/audio/correct3.mp3',
+  'assets/audio/correct4.mp3',
+  'assets/audio/correct5.mp3',
+  'assets/audio/correct6.mp3',
+  'assets/audio/correct7.mp3',
+  'assets/audio/correct8.mp3',
+  'assets/audio/correct9.mp3',
+  'assets/audio/correct10.mp3',
+  'assets/audio/correct11.mp3',
+  'assets/audio/correct12.mp3',
+  'assets/audio/correct13.mp3',
+
+  'assets/audio/endfail1.mp3',
+  'assets/audio/endfail2.mp3',
+  'assets/audio/endfail3.mp3',
+  'assets/audio/endfail4.mp3',
+  'assets/audio/endfail5.mp3',
+
+  'assets/audio/fail1.mp3',
+  'assets/audio/fail2.mp3',
+  'assets/audio/fail3.mp3',
+
+  'assets/audio/scream1.mp3',
+  'assets/audio/next.mp3',
+  'assets/audio/mistry.mp3',
+  'assets/audio/mistry2.mp3',
+  'assets/audio/mistry3.mp3',
+  'assets/audio/giveup.mp3',
+  'assets/audio/heart-beat.mp3',
+
+  'assets/audio/music1.mp3',
+  'assets/audio/music2.mp3',
+  'assets/audio/music3.mp3',
+  'assets/audio/music4.mp3',
+  'assets/audio/music5.mp3',
+  'assets/audio/music6.mp3',
+  
+];
 
 const languages = {
   es: {
