@@ -577,15 +577,18 @@ function save() {
   document.getElementById('imagecanva').addEventListener('click', function() {
     const div = document.getElementById('imagecanva');
     html2canvas(div, {
-      scale: 1, // Asegurarse de que no se haga escalado, usa las dimensiones reales del div
-      width: div.offsetWidth, // Forzar las dimensiones del div
-      height: div.offsetHeight // Forzar las dimensiones del div
+      scale: window.devicePixelRatio, // Alta resolución
+      useCORS: true, // Soporte para imágenes de otros orígenes
+      logging: false // Desactivar logs innecesarios
     }).then(canvas => {
-      // Convertir el lienzo a una imagen
+      // Crear el enlace de descarga solo una vez
       const enlace = document.createElement('a');
-      enlace.href = canvas.toDataURL('image/jpg');
-      enlace.download = `i${Math.floor(Math.random() * (999 - 100 + 1)) + 100}${stepIndex+37}.jpg`; // Nombre de la imagen
+      enlace.href = canvas.toDataURL('image/png'); // PNG para mejor calidad
+      enlace.download = `i${Math.floor(Math.random() * (999 - 100 + 1)) + 100}${stepIndex+37}.png`; // Nombre de la imagen
+      // Asegurarse de que la descarga se dispare solo una vez
       enlace.click(); // Descargar la imagen
+      // Eliminar el enlace después de la descarga para evitar comportamientos repetidos
+      enlace.remove();
     });
   });
 }
