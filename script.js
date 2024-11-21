@@ -5,11 +5,10 @@ var correct;
 var score = 0;
 var opcion;
 var currentLanguage
-var totalItems = 30
+var totalItems = 25
 var images;
 var exitIndex = 0
 var music;
-var sounds = []
 var musicOn = true;
 const isLocal = window.location.protocol === "file:";
 var analitics = {
@@ -37,6 +36,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
  $('#steps').text(`${stepIndex} / ${totalItems}`)
 
+ $('#analitics').click(function() {
+    $('#gallery').hide()
+    $('.stats-page').show()
+ })
+ $('#home').click(function() {
+  $('#gallery').show()
+  $('.stats-page').hide()
+})
+
   //localStorage.removeItem('td-zx5sk-stats');
   if (localStorage.getItem("td-zx5sk-stats") !== null) {
     analitics = getAnalitics()
@@ -56,7 +64,8 @@ document.addEventListener("DOMContentLoaded", function () {
     $('#welcome').hide()
     $("body").css("overflow", "auto");
     $('#game').show()
-  }, Math.floor(Math.random() * (4200 - 1750 + 1)) + 1750);
+  //}, Math.floor(Math.random() * (4200 - 1750 + 1)) + 1750);
+}, 1);
 
 
   let defaultImage = imagesFull.find(item => item.name == 82)
@@ -67,12 +76,14 @@ document.addEventListener("DOMContentLoaded", function () {
   setAnalitics(defaultImage.name,false,false,false)
   
   image = defaultImage
+  $('.actions-container > :nth-child(2)').addClass('first');
 
   defaultImage.viewed = true
   images.push(defaultImage)
   totalItems++
 
   $('.go').click(function () {
+    $('.actions-container > :nth-child(2)').removeClass('first');
     opcion = $(this).attr('id');
     if (!image.name) {
       return
@@ -144,6 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 2200);
       }
     }
+    
 
   });
 
@@ -221,20 +233,16 @@ document.addEventListener("DOMContentLoaded", function () {
     sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
   });
   closeAcept.click(function () {
-    $('#loading-circle').show();
-    $('#status').show()
-    sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true, function () {
-      modal.hide();
-    });
+    // $('#loading-circle').show();
+    // $('#status').show()
+    sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
+    modal.hide();
   });
 
   $(window).click(function (event) {
     if ($(event.target).is(modal)) {
-      
-      (path, loops = 1, volume = 1, isMusic = false, initialLoad = false, callback) 
-      sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true, true, function () {
-        modal.hide();
-      });
+      modal.hide();
+      sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
     }
   });
   window.onclick = function (event) {
@@ -242,7 +250,7 @@ document.addEventListener("DOMContentLoaded", function () {
       modal.style.display = "none";
     }
   };
-
+  
 });
 
 // document.addEventListener('contextmenu', function (e) {
@@ -357,7 +365,15 @@ function setLanguage(currentLanguage) {
             element.insertBefore(document.createTextNode(value), firstChild);
         }
     }
+
 });
+$('#exnext').click(function() {  
+  $('#imageex').attr('src', `assets/${imagesFull[stepIndex-1].name}.${ext}`)
+  $('#imageex1').attr('src', `assets/n${imagesFull[stepIndex-1].name}.${ext}`)
+  stepIndex++
+  save()
+console.log(stepIndex)
+})
 }
 
 function getElementToWrite(text) {
@@ -383,68 +399,41 @@ function setArray(images, limit) {
   return result;
 }
 
-function loadSounds() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      soundsPaths.forEach(function (path) {
-        let sound = new Audio(path);
-        sound.addEventListener('canplaythrough', function () {
-        });
-        sounds.push(sound)
-      });
-      resolve();
-    }, 2000);
-  });
-}
-
-function sound(path, loops = 1, volume = 1, isMusic = false, initialLoad = false, callback) {
+function sound(path, loops = 1, volume = 1, isMusic = false) {
   if (musicOn == false) {
     stopMusic();
     return
   }
   let index = 0;
-  if (initialLoad) {
-    loadSounds().then(() => {
-      $('#loading-circle').hide();
-      $('#status').hide();
-      $('#play-button').show();
-      $("#modal").hide()
-
-      var sound = sounds.find(item => item.attributes.src.value == path)
-
-      sound.volume = volume;
-      sound.play();
-
-      sound.addEventListener('ended', function () {
-        index++;
-
-        if (index < loops) {
-          sound.play();
-        }
-      });
-    })
-  } else {
-
-
-    var sound = sounds.find(item => item.attributes.src.value == path)
-
-    sound.volume = volume;
-    sound.play();
-
-    sound.addEventListener('ended', function () {
+  if (isMusic) {
+    music = new Audio(path);
+    music.volume = volume;
+    music.play();
+    music.addEventListener('ended', function () {
       index++;
 
       if (index < loops) {
-        sound.play();
+        music.play();
       }
     });
+    return
   }
+
+  const sound = new Audio(path);
+  sound.volume = volume;
+  sound.play();
+
+  sound.addEventListener('ended', function () {
+    index++;
+
+    if (index < loops) {
+      sound.play();
+    }
+  });
 }
 function stopMusic() {
-  sounds.forEach(sound => {
-    sound.pause();
-    sound.currentTime = 0;
-  });
+  music.pause();
+  music.currentTime = 0;
 }
 
 function shelterImage(imagePath) {
@@ -542,11 +531,11 @@ function getEndfailSoundRandom() {
 function getMusicSoundRandom() {
   const numbers = [
     { value: 1, weight: 0.01 },
-    { value: 2, weight: 0.42 },
-    { value: 3, weight: 0.41 },
-    { value: 4, weight: 0.04 },
+    { value: 2, weight: 0.35 },
+    { value: 3, weight: 0.35 },
+    { value: 4, weight: 0.09 },
     { value: 5, weight: 0.10 },
-    { value: 6, weight: 0.02 }
+    { value: 6, weight: 0.15 }
   ];
   let random = Math.random();
   for (let i = 0; i < numbers.length; i++) {
@@ -585,49 +574,18 @@ function setAnaliticsLabels(){
   $('#seennimagesx').text(analitics.seennimages.length + ' de '+ (imagesFull.length + 22))
 }
 
-var soundsPaths = [
-  'assets/audio/correct1.mp3',
-  'assets/audio/correct2.mp3',
-  'assets/audio/correct3.mp3',
-  'assets/audio/correct4.mp3',
-  'assets/audio/correct5.mp3',
-  'assets/audio/correct6.mp3',
-  'assets/audio/correct7.mp3',
-  'assets/audio/correct8.mp3',
-  'assets/audio/correct9.mp3',
-  'assets/audio/correct10.mp3',
-  'assets/audio/correct11.mp3',
-  'assets/audio/correct12.mp3',
-  'assets/audio/correct13.mp3',
-
-  'assets/audio/endfail1.mp3',
-  'assets/audio/endfail2.mp3',
-  'assets/audio/endfail3.mp3',
-  'assets/audio/endfail4.mp3',
-  'assets/audio/endfail5.mp3',
-
-  'assets/audio/fail1.mp3',
-  'assets/audio/fail2.mp3',
-  'assets/audio/fail3.mp3',
-
-  'assets/audio/scream1.mp3',
-  'assets/audio/next.mp3',
-  'assets/audio/mistry.mp3',
-  'assets/audio/mistry2.mp3',
-  'assets/audio/mistry3.mp3',
-  'assets/audio/giveup.mp3',
-  'assets/audio/heart-beat.mp3',
-
-  'assets/audio/music1.mp3',
-  'assets/audio/music2.mp3',
-  'assets/audio/music3.mp3',
-  'assets/audio/music4.mp3',
-  'assets/audio/music5.mp3',
-  'assets/audio/music6.mp3',
-
-];
-
-
+function save () {
+  document.getElementById('imagecanva').addEventListener('click', function() {
+    const div = document.getElementById('imagecanva');
+    html2canvas(div).then(canvas => {
+      // Convertir el lienzo a una imagen
+      const enlace = document.createElement('a');
+      enlace.href = canvas.toDataURL('image/png');
+      enlace.download = 'image.png'; // Nombre de la imagen
+      enlace.click(); // Descargar la imagen
+    });
+  });
+}
 const languages = {
   es: {
     name: "TiddyPink",

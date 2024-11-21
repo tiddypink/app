@@ -9,8 +9,10 @@
     <link rel="stylesheet" href="styles.css">
     <script src="script.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap">
 </head>
+
 <body>
     <div id="welcome" class="">Tiddypink</div>
     <div id="game">
@@ -21,18 +23,18 @@
             </div>
 
             <nav class="nav">
-                <a id="home" href="index.html"></a>
+                <a id="home"></a>
                 <a id="howto" href="howto.html"></a>
                 <a id="more" href="more.html"></a>
-                <a id="analitics" href="analitics.html"></a>
+                <a id="analitics"></a>
             </nav>
             <div><label class="switch">
-                <input type="checkbox">
-                <span class="slider"></span>
-            </label>
-            <span class="label-text">Music On</span>
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+                <span class="label-text">Music On</span>
             </div>
-            
+
 
             <div id="language-selector">
                 <select id="language-select">
@@ -59,16 +61,8 @@
                     <div class="go" id="3" style="background-color: #d28880;"></div>
                     <div class="go" id="4" style="background-color: #95534d;"></div>
                     <div class="go" id="5" style="background-color: #4d2522;"></div>
-                    <div class="go" id="6" style="background-color: #2d0e0a;"></div> 
+                    <div class="go" id="6" style="background-color: #2d0e0a;"></div>
                     <div class="next" id="next"></div>
-                
-
-                    <!-- <div class="go" id="1" style="background-color: black;"></div>
-                    <div class="go" id="2" style="background-color: black;"></div>
-                    <div class="go" id="3" style="background-color: black;"></div>
-                    <div class="go" id="4" style="background-color: black;"></div>
-                    <div class="go" id="5" style="background-color: black;"></div>
-                    <div class="go" id="6" style="background-color: black;"></div> -->
 
                 </div>
             </div>
@@ -78,26 +72,58 @@
             <div class="final-actions">
                 <div id="restart" class="restart"></div>
                 <div id="purchase" class="purchase"></div>
-                <!-- <div id="exit" class="exit"></div> -->
             </div>
             <img class="suceess-image gallery-item" alt="success image" style="height: auto;" draggable="false">
         </section>
+        <section class="gallery stats-page" id="gallery">
+            <div class="gallery-grid analitics-frame">
+                <div class="gallery-item stats-frame images">
+                    <div style="font-size: 1.2rem;display: grid;">
+                        <span id="matches" class="label-stat"><span class="stat" id="matchesx"></span></span>
+                        <span id="wmatches" class="label-stat"><span class="stat" id="wmatchesx"></span></span>
+                        <span id="corrects" class="label-stat"><span class="stat" id="correctsx"></span></span>
+                        <span id="mistakes" class="label-stat"><span class="stat" id="mistakesx"></span></span>
+                        <span id="seenimages" class="label-stat"><span class="stat" id="seenimagesx"></span></span>
+                        <span id="seennimages" class="label-stat"><span class="stat" id="seennimagesx"></span></span>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </section>
 
-        <!-- Modal -->
-        <div id="modal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2 id="modal_title"></h2>
-                <p id="modal_content"></p>
-                <div id="loading-circle"></div>
-                <div id="status">Cargando...</div>
-                <div id="acept" class="acept"></div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modal_title"></h2>
+            <p id="modal_content"></p>
+            <div id="loading-circle"></div>
+            <div id="status">Cargando...</div>
+            <div id="acept" class="acept"></div>
+        </div>
+    </div>
+
+
+
+
+    <section class="gallery" id="gallery">
+
+        <div id="imagecanva" class="gallery-grid imagecanva">
+            <div class="gallery-item image imagecanvaitem">
+                <img id="imageex" alt="imagen" style="width: 100%; height: auto;" draggable="false">
+            </div>
+            <div class="gallery-item image imagecanvaitem">
+                <img id="imageex1" alt="imagen" style="width: 100%; height: auto;" draggable="false">
             </div>
         </div>
+        <div id="exnext">next</div>
+    </section>
 
-        <footer class="footer">
-            <p id="footer"></p>
-        </footer>
+
+    <footer class="footer">
+        <p id="footer"></p>
+    </footer>
     </div>
 </body>
+
 </html>
