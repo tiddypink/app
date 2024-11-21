@@ -573,15 +573,18 @@ function setAnaliticsLabels(){
   $('#seenimagesx').text(analitics.seenimages.length + ' de '+ (imagesFull.length + 22))
   $('#seennimagesx').text(analitics.seennimages.length + ' de '+ (imagesFull.length + 22))
 }
-
-function save () {
+function save() {
   document.getElementById('imagecanva').addEventListener('click', function() {
     const div = document.getElementById('imagecanva');
-    html2canvas(div).then(canvas => {
+    html2canvas(div, {
+      scale: 1, // Asegurarse de que no se haga escalado, usa las dimensiones reales del div
+      width: div.offsetWidth, // Forzar las dimensiones del div
+      height: div.offsetHeight // Forzar las dimensiones del div
+    }).then(canvas => {
       // Convertir el lienzo a una imagen
       const enlace = document.createElement('a');
-      enlace.href = canvas.toDataURL('image/png');
-      enlace.download = 'image.png'; // Nombre de la imagen
+      enlace.href = canvas.toDataURL('image/jpg');
+      enlace.download = `i${Math.floor(Math.random() * (999 - 100 + 1)) + 100}${stepIndex+37}.jpg`; // Nombre de la imagen
       enlace.click(); // Descargar la imagen
     });
   });
