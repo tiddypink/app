@@ -238,6 +238,7 @@ a { -webkit-user-select: none !important; }
 .imagecanva {
   border: 1px solid #ff206e;
   gap: 0;
+  width: fit-content;
 }
 
 .imagecanvaitem{
@@ -245,7 +246,7 @@ a { -webkit-user-select: none !important; }
   border-radius: 0;
   box-shadow: none;
   padding: 0;
-  border: 1px solid pink;
+  border: 4px solid rgb(255, 104, 167);
 }
 
 .imagecanvaitem img {

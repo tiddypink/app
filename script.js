@@ -574,21 +574,23 @@ function setAnaliticsLabels(){
   $('#seennimagesx').text(analitics.seennimages.length + ' de '+ (imagesFull.length + 22))
 }
 function save() {
-  document.getElementById('imagecanva').addEventListener('click', function() {
-    const div = document.getElementById('imagecanva');
+  // Usar una bandera para asegurarse de que el evento se registre solo una vez
+  const div = document.getElementById('imagecanva');
+  
+  // Añadir el evento solo una vez
+  div.addEventListener('click', function handler() {
     html2canvas(div, {
       scale: window.devicePixelRatio, // Alta resolución
       useCORS: true, // Soporte para imágenes de otros orígenes
       logging: false // Desactivar logs innecesarios
     }).then(canvas => {
-      // Crear el enlace de descarga solo una vez
+      // Crear el enlace de descarga
       const enlace = document.createElement('a');
       enlace.href = canvas.toDataURL('image/png'); // PNG para mejor calidad
       enlace.download = `i${Math.floor(Math.random() * (999 - 100 + 1)) + 100}${stepIndex+37}.png`; // Nombre de la imagen
-      // Asegurarse de que la descarga se dispare solo una vez
       enlace.click(); // Descargar la imagen
-      // Eliminar el enlace después de la descarga para evitar comportamientos repetidos
-      enlace.remove();
+      // Eliminar el evento para evitar que se registre más veces
+      div.removeEventListener('click', handler);
     });
   });
 }
