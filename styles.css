@@ -226,7 +226,6 @@ a { -webkit-user-select: none !important; }
 }
 
 #imageex, #imageex1 {
-  max-width: 100%; 
   max-height: 100%; 
   width: auto; 
   height: auto; 
@@ -234,23 +233,12 @@ a { -webkit-user-select: none !important; }
   display: block; 
   z-index: 0;
   border-radius: 0;
-}
-.imagecanva {
-  border: 1px solid #ff206e;
-  gap: 0;
-  width: fit-content;
-}
-
-.imagecanvaitem{
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
-  padding: 0;
   border: 4px solid rgb(255, 104, 167);
 }
-
-.imagecanvaitem img {
-  padding: 0;
+.imagecanva {
+  gap: 0;
+  width: fit-content;
+  display: flex;
 }
 
 .actions-container{
