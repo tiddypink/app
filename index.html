@@ -23,10 +23,10 @@
             </div>
 
             <nav class="nav">
-                <a id="home"></a>
-                <a id="howto" href="howto.html"></a>
-                <a id="more" href="more.html"></a>
-                <a id="analitics"></a>
+                <a href="#playsection" id="home"></a>
+                <a href="#howtosection" id="howto" href="howto.html"></a>
+                <a id="more" href="#moresection"></a>
+                <a href="#statssection" id="analitics"></a>
             </nav>
             <div><label class="switch">
                     <input type="checkbox">
@@ -44,10 +44,10 @@
                 </select>
             </div>
         </header>
-        <section class="gallery" id="gallery">
+        <section class="gallery" id="playsection">
             <!-- <h2 class="score" id="score"></h2> -->
             <div class="gallery-grid">
-                <div class="gallery-item images">
+                <div class="gallery-item gallery-item-animation images">
                     <span class="showprev">click</span>
                     <img id="image" alt="imagen" style="width: 100%; height: auto;" draggable="false">
                     <span id="ia_tag" class="ia-tag"></span>
@@ -75,7 +75,17 @@
             </div>
             <img class="suceess-image gallery-item" alt="success image" style="height: auto;" draggable="false">
         </section>
-        <section class="gallery stats-page" id="gallery">
+        <section class="gallery howtopage" id="howtosection">
+            <div class="gallery-grid analitics-frame">
+                <div class="gallery-item stats-frame images">
+                    <div style="font-size: 1.2rem;display: grid;">
+                        <span id="titlehowto" class=""></span>
+                        <span id="texthowto" class=""></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="gallery stats-page" id="statssection">
             <div class="gallery-grid analitics-frame">
                 <div class="gallery-item stats-frame images">
                     <div style="font-size: 1.2rem;display: grid;">
@@ -88,6 +98,18 @@
                     </div>
                 </div>
             </div>
+        </section>
+        <section class="gallery howtopage" id="moresection">
+            <div class="gallery-grid analitics-frame">
+                <div class="gallery-item stats-frame images">
+                    <div style="font-size: 1.2rem;display: grid;">
+                        <span id="moretitle" class=""></span>
+                        <span id="moretext" class=""></span>
+                        <div id="purchase1" class="purchase"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
     </section>
 

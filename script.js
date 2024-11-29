@@ -36,18 +36,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
  $('#steps').text(`${stepIndex} / ${totalItems}`)
 
- $('#analitics').click(function() {
-    $('#gallery').hide()
-    $('.stats-page').show()
- })
- $('#home').click(function() {
-  $('#gallery').show()
-  $('.stats-page').hide()
-})
+ if ('connection' in navigator) {
+  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+
+  // Verificar si la conexión es lenta
+  if (connection.effectiveType === '3g' || connection.effectiveType === 'slow-3g') {
+    musicOn = false
+  } 
+}
 
   //localStorage.removeItem('td-zx5sk-stats');
   if (localStorage.getItem("td-zx5sk-stats") !== null) {
     analitics = getAnalitics()
+    setAnaliticsLabels()
+  }else{
     setAnaliticsLabels()
   }
 
@@ -111,10 +113,10 @@ document.addEventListener("DOMContentLoaded", function () {
         $('.score').css('color', '#ddd');
       }, 250);
 
-      $('.gallery-item').addClass('fade-out')
+      $('.gallery-item-animation').addClass('fade-out')
       setTimeout(() => {
         setTimeout(() => {
-          $('.gallery-item').removeClass('fade-out');
+          $('.gallery-item-animation').removeClass('fade-out');
         }, 250);
         isLocal ? $('#image').attr('src', `assets/n${image.name}.${ext}`) : shelterImage(`assets/n${image.name}.${ext}`)
         setAnalitics(image.name,true,false,true)
@@ -149,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         $(this).css('border', '12px solid #ff3636');
         setTimeout(function () {
-          $('.go').css('border', '1px solid #ff206e');
+          $('.go').css('border', '2px solid #ff206e');
           $('.actions-container').fadeOut()
           next();
         }, 2200);
@@ -263,10 +265,10 @@ function next() {
   $('#next').fadeOut();
   correct = null;
   opcion = -1;
-  $('.go').css('border', '1px solid #ff206e');
+  $('.go').css('border', '2px solid #ff206e');
   $('.actions-container').fadeIn()
   $('#image').removeClass('correct');
-  $('.gallery-item').css('border', '1px solid #ff206e');
+  $('.gallery-item').css('border', '3px solid #ff206e');
   $('.images').fadeIn()
   $('.go').removeClass('s')
   $('.ia-tag').hide();
@@ -292,10 +294,10 @@ function next() {
     image = images.find(item => item.name == nextImage)
     image.viewed = true;
 
-    $('.gallery-item').addClass('fade-out')
+    $('.gallery-item-animation').addClass('fade-out')
     setTimeout(() => {
       setTimeout(() => {
-        $('.gallery-item').removeClass('fade-out');
+        $('.gallery-item-animation').removeClass('fade-out');
       }, 250);
       isLocal ? $('#image').attr('src', `assets/${image.name}.${ext}`) : shelterImage(`assets/${image.name}.${ext}`)
       setAnalitics(image.name,false,false,false)
@@ -579,6 +581,7 @@ const languages = {
     restart: "Volver a intertarlo",
     exit: "Salir",
     purchase: "Obtener todas las imágenes",
+    purchase1: "Obtener todas las imágenes",
     modal_title: "Instruccions para jugar",
     modal_content: "Debes adiveinar el color",
     acept: "Aceptar",
@@ -587,7 +590,7 @@ const languages = {
     score: "Puntuación: ",
     musicOn: "Música",
     MusicOff: "Música",
-    home: "Inicio",
+    home: "Jugar",
     howto: "Como jugar",
     more: "Saber más",
     analitics: "Mis estadísticas",
@@ -599,6 +602,10 @@ const languages = {
     mistakes: "Fallos totales:  ",
     seenimages: "Imágenes diferentes vistas:  ",
     seennimages: "Imagenes diferentes d vistas:  ",
+    titlehowto: "Como jugar",
+    texthowto: "debes hacer click en los recuadros",
+    moretitle: "Obtener mas",
+    moretext: "Puedes obtener todas las imágenes",
     successMessage: "Increible, has acertado todas las imágenes 😳 tengo un premio para ti 🥵 aparecerá en: ",
     exitMessage: [
       "Este boton no hace nada :v",
