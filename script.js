@@ -66,8 +66,8 @@ document.addEventListener("DOMContentLoaded", function () {
     $('#welcome').hide()
     $("body").css("overflow", "auto");
     $('#game').show()
-  //}, Math.floor(Math.random() * (4200 - 1750 + 1)) + 1750);
-}, 1);
+  }, Math.floor(Math.random() * (4200 - 1750 + 1)) + 1750);
+//}, 1);
 
 
   let defaultImage = imagesFull.find(item => item.name == 82)
@@ -185,7 +185,7 @@ document.addEventListener("DOMContentLoaded", function () {
     setAnalitics(image.name,false,false,false)
     $(".final-actions").hide()
     $("#end").hide()
-    $(".gallery-grid").fadeIn()
+    $(".game").fadeIn()
     $('.actions-container').fadeIn()
   });
   $('.exit').click(function () {
@@ -221,6 +221,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  $('#start').click(function () {
+    sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
+  })
+
   const modal = $("#modal");
   const openModal = $("#openModal");
   const closeModal = $(".close");
@@ -237,7 +241,7 @@ document.addEventListener("DOMContentLoaded", function () {
   closeAcept.click(function () {
     // $('#loading-circle').show();
     // $('#status').show()
-    sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
+    //sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
     modal.hide();
   });
 
@@ -309,7 +313,7 @@ function next() {
 
   } else {
     stopMusic()
-    $(".gallery-grid").hide()
+    $(".game").hide()
     if (score == 100) {
       setAnalitics(image.name,false,false,false,true,true)
       let seconds = 20;
@@ -473,8 +477,9 @@ function setAnalitics(image,assert,fail,nd,match,wmatch){
   if (!analitics.seennimages.includes(image) && nd) {
     analitics.seennimages.push(image)
   }
-  console.log(analitics)
   localStorage.setItem('td-zx5sk-stats', JSON.stringify(analitics));
+
+  setAnaliticsLabels()
   // matches: "Partidas jugadas:",
   // corrects: "Asiertos totales:",
   // mistakes: "Fallos totales:",
@@ -594,6 +599,7 @@ const languages = {
     howto: "Como jugar",
     more: "Saber más",
     analitics: "Mis estadísticas",
+    statslabel: "Mis estadísticas:",
     showprev: "Mostrar imagen anterior",
     end: "Haz fallado estrepitosamente tu puntuación ha sido de:",
     matches: "Partidas jugadas:  ",
@@ -604,6 +610,7 @@ const languages = {
     seennimages: "Imagenes diferentes d vistas:  ",
     titlehowto: "Como jugar",
     texthowto: "debes hacer click en los recuadros",
+    start: "Empezar ya !",
     moretitle: "Obtener mas",
     moretext: "Puedes obtener todas las imágenes",
     successMessage: "Increible, has acertado todas las imágenes 😳 tengo un premio para ti 🥵 aparecerá en: ",
