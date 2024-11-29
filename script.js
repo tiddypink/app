@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
   setTimeout(() => {
     $('#welcome').hide()
     $("body").css("overflow", "auto");
-    $('#game').show()
+   // $('#game').show()
   }, Math.floor(Math.random() * (4200 - 1750 + 1)) + 1750);
 //}, 1);
 

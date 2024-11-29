@@ -33,7 +33,7 @@ margin-bottom: 4rem;
   padding-top: 35vh;
   animation: pulse2 1.8s infinite;
   color: #ff206e;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -44,7 +44,7 @@ margin-bottom: 4rem;
 
 #game {
   position: relative;
-  display: none;
+  /* display: none; */
 }
 
 body { -webkit-touch-callout: none !important; }
