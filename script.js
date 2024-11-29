@@ -62,6 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
   $("#score").hide()
   $('#loading-circle').hide();
   $('#status').hide()
+  $('#playsection').hide()
 
   setTimeout(() => {
     $('#welcome').hide()
@@ -229,6 +230,7 @@ document.addEventListener("DOMContentLoaded", function () {
   $('#start').click(function () {
     if (!gameStarted) {
       gameStarted = true
+      $('#playsection').fadeIn()
       sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true); 
     }
   })
