@@ -5,11 +5,12 @@ var correct;
 var score = 0;
 var opcion;
 var currentLanguage
-var totalItems = 25
+var totalItems = 2
 var images;
 var exitIndex = 0
 var music;
 var musicOn = true;
+var gameStarted = false;
 const isLocal = window.location.protocol === "file:";
 var analitics = {
     matches: 0,
@@ -95,6 +96,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     if (Math.random() < 0.005) {
       sound(`assets/audio/mistry2.mp3`, 3, .3);
+    }
+    if (!gameStarted) {
+      gameStarted = true;
+      sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
     }
 
     image = images.find(item => item.name == image.name)
@@ -222,7 +227,10 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   $('#start').click(function () {
-    sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
+    if (!gameStarted) {
+      gameStarted = true
+      sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true); 
+    }
   })
 
   const modal = $("#modal");
@@ -334,6 +342,9 @@ function next() {
           sound('assets/audio/scream1.mp3');
           $('.suceess-image').removeClass('fade-out');
           $('.suceess-image').attr('src', `assets/end.${ext}`);
+          $('html').animate({
+            scrollTop: $('#suceess-image').offset().top
+          }, 0);
         } else {
           sound(`assets/audio/heart-beat.mp3`);
         }

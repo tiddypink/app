@@ -654,11 +654,11 @@ input:checked + .slider:before {
   .stats-frame{
     padding: 3rem;
   }
-  #purchase1{
+  #purchase1, #start{
     width: auto;
   }
   .gallery-item {
-    height:  calc(100vh - 320px);;
+    height:  calc(100vh - 400px);;
 
   }
   .gallery h2 {
@@ -725,13 +725,12 @@ input:checked + .slider:before {
     font-size: 3.5rem;
     text-align: center;
     margin: auto;
-    width: 90%;
-    margin-top: 30vh;
     animation: pulse2 1.8s infinite;
     color: #ff206e;
   }
-  
-
+  .suceess-image {
+    width: 100%;
+  }
 }
 
 .header {
