@@ -156,7 +156,7 @@ a { -webkit-user-select: none !important; }
 }
 
 .gallery {
-  padding: 1.5rem 10%;
+  padding: .1rem 10%;
   text-align: center;
   background-color: #101010;
   min-height: calc(100vh - 130px);
@@ -179,7 +179,7 @@ a { -webkit-user-select: none !important; }
 
 .gallery-item {
   width: 100%;
-  height:  calc(100vh - 180px);;
+  height:  calc(100vh - 120px);;
   background-color: #222;
   border-radius: 10px;
   background-size: cover;
@@ -643,7 +643,7 @@ input:checked + .slider:before {
     padding: 0 3px;
   }
   .gallery-item {
-    height: 430px;
+    height:  calc(100vh - 280px);;
 
   }
   .gallery h2 {
