@@ -10,7 +10,7 @@
     <script src="script.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap">
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap"> -->
 </head>
 
 <body>
@@ -48,8 +48,11 @@
             <!-- <h2 class="score" id="score"></h2> -->
             <div class="gallery-grid game">
                 <div class="gallery-item gallery-item-animation images">
-                    <span class="showprev">click</span>
-                    <img id="image" alt="imagen" style="width: 100%; height: auto;" draggable="false">
+                    <div class="tabs">
+                        <button id="nd" class="tab active" onclick="selectTabN()">Tab 1</button>
+                        <button id="nm" class="tab" onclick="selectTabNm()">Tab 2</button>
+                      </div>
+                    <img id="image" alt="image" style="width: 100%; height: auto;" draggable="false">
                     <span id="ia_tag" class="ia-tag"></span>
                     <span class="score" id="score"></span>
                     <span class="steps" id="steps"></span>

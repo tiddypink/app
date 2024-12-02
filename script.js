@@ -5,10 +5,11 @@ var correct;
 var score = 0;
 var opcion;
 var currentLanguage
-var totalItems = 2
+var totalItems = 25
 var images;
 var exitIndex = 0
 var music;
+var soundEfect;
 var musicOn = true;
 var gameStarted = false;
 const isLocal = window.location.protocol === "file:";
@@ -58,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
   $('.ia-tag').hide();
   $(".suceess-image").hide()
   $(".final-actions").hide()
+  $(".tabs").hide()
   $("#end").hide()
   $("#score").hide()
   $('#loading-circle').hide();
@@ -66,9 +68,8 @@ document.addEventListener("DOMContentLoaded", function () {
   setTimeout(() => {
     $('#welcome').hide()
     $("body").css("overflow", "auto");
-   // $('#game').show()
-  }, Math.floor(Math.random() * (4200 - 1750 + 1)) + 1750);
-//}, 1);
+ // }, Math.floor(Math.random() * (4000 - 1750 + 1)) + 1750);
+}, 1);
 
 
   let defaultImage = imagesFull.find(item => item.name == 82)
@@ -125,6 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
           $('.gallery-item-animation').removeClass('fade-out');
         }, 250);
         isLocal ? $('#image').attr('src', `assets/n${image.name}.${ext}`) : shelterImage(`assets/n${image.name}.${ext}`)
+        $(".tabs").show()
         setAnalitics(image.name,true,false,true)
       }, 250);
 
@@ -285,7 +287,9 @@ function next() {
   $('.images').fadeIn()
   $('.go').removeClass('s')
   $('.ia-tag').hide();
-
+  $(".tabs").hide()
+  $('#nd').addClass('active')
+  $('#nm').removeClass('active')
   stepIndex++
   $('#steps').text(`${stepIndex} / ${totalItems}`)
 
@@ -358,7 +362,6 @@ function next() {
       $(".final-actions").fadeIn()
       $(".actions-container").hide()
       sound(`assets/audio/endfail${getEndfailSoundRandom()}.mp3`);
-      console.log(currentLanguage)
       $('#end').contents().filter(function () {
         return this.nodeType === 3;
       }).first().replaceWith(`${languages[currentLanguage].end}`);
@@ -386,7 +389,6 @@ function setLanguage(currentLanguage) {
 $('#exnext').click(function() {  
   $('#imageex').attr('src', `assets/${imagesFull[stepIndex-1].name}.${ext}`)
   $('#imageex1').attr('src', `assets/n${imagesFull[stepIndex-1].name}.${ext}`)
-  console.log(stepIndex)
   stepIndex++
   //735
 })
@@ -415,6 +417,18 @@ function setArray(images, limit) {
   return result;
 }
 
+function selectTabN() {
+  $('#nd').addClass('active')
+  $('#nm').removeClass('active')
+  isLocal ? $('#image').attr('src', `assets/n${image.name}.${ext}`) : shelterImage(`assets/n${image.name}.${ext}`)
+}
+
+function selectTabNm() {
+  $('#nd').removeClass('active')
+  $('#nm').addClass('active')
+  isLocal ? $('#image').attr('src', `assets/${image.name}.${ext}`) : shelterImage(`assets/${image.name}.${ext}`)
+}
+
 function sound(path, loops = 1, volume = 1, isMusic = false) {
   if (musicOn == false) {
     stopMusic();
@@ -435,21 +449,23 @@ function sound(path, loops = 1, volume = 1, isMusic = false) {
     return
   }
 
-  const sound = new Audio(path);
-  sound.volume = volume;
-  sound.play();
+  soundEfect = new Audio(path);
+  soundEfect.volume = volume;
+  soundEfect.play();
 
-  sound.addEventListener('ended', function () {
+  soundEfect.addEventListener('ended', function () {
     index++;
 
     if (index < loops) {
-      sound.play();
+      soundEfect.play();
     }
   });
 }
 function stopMusic() {
   music.pause();
   music.currentTime = 0;
+  soundEfect.pause();
+  soundEfect.currentTime = 0;
 }
 
 function shelterImage(imagePath) {
@@ -608,11 +624,12 @@ const languages = {
     musicOn: "Música",
     MusicOff: "Música",
     home: "Jugar",
+    nm: "Vestir",
+    nd: "Desnudar",
     howto: "Como jugar",
     more: "Saber más",
     analitics: "Mis estadísticas",
     statslabel: "Mis estadísticas:",
-    showprev: "Mostrar imagen anterior",
     end: "Haz fallado estrepitosamente tu puntuación ha sido de:",
     matches: "Partidas jugadas:  ",
     wmatches: "Partidas ganadas:  ",
@@ -704,7 +721,6 @@ const languages = {
     howto: "How to play",
     more: "Learn more",
     analitics: "My analitics",
-    showprev: "Show previous image",
     end: "You have failed miserably, your score is:",
     successMessage: "Amazing, you guessed all the images 😳 I have a prize for you 🥵 it will appear in: ",
     exitMessage: [
@@ -2501,7 +2517,7 @@ var imagesFull = [
     correct: "3",
     viewed: false,
     ia_generated: false,
-    level: 1,
+    level: 2,
     active: true
   },
   {
@@ -5730,7 +5746,7 @@ var imagesFull = [
   },
   {
     name: '616',
-    correct: "5",
+    correct: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
