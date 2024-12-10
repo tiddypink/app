@@ -1,20 +1,20 @@
 const ext = 'webp'
-var image; // 1295
+var kd84bd0; // 1295
 var stepIndex = 1;
-var correct; //
+//var correct; //
 var score = 0;
-var opcion; //
+var wr5kj; //opcion
 var currentLanguage
 var zsf4ns9g4 = 25 //total items
-var images; //
+var xpz1t9k; //
 var exitIndex = 0
 var music;
 var soundEfect;
 var musicOn = true;
 var gameStarted = false;
-var extra = 87; //
-var wildcards  = 16;  //wildcards
-var wildcardUsed = false
+var u4qhgfty2 = 92; // extra
+var zQlnx2  = 3;  //wildcards
+var x8dlH61 = false  //wildcardUsed
 const isLocal = window.location.protocol === "file:";
 var analitics = {
     matches: 0,
@@ -44,10 +44,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
  if ('connection' in navigator) {
     const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-
-    if (connection.downlink < 5) {
+    if (connection.downlink < 3) {
       musicOn = false;
     }
+    alert(connection.downlink+' '+musicOn)
 
     connection.addEventListener('change', () => {
       if (connection.downlink < 5) {
@@ -73,10 +73,10 @@ document.addEventListener("DOMContentLoaded", function () {
   $("#score").hide()
   $('#loading-circle').hide();
   $('#status').hide()
-  $('#wildcards').text(' ('+wildcards+")")
-  $('#wildcard').hide()
+  $('#6v0sd4').text(' ('+zQlnx2+")")
+  $('#zx7uj2r').hide()  //wilcard element
   $(".musicswitch").hide()
-  $("#total").text((imagesFull.length + extra))
+  $("#total").text((hgb9qyz.length + u4qhgfty2))
 
   setTimeout(() => {
     $('#welcome').hide()
@@ -85,24 +85,24 @@ document.addEventListener("DOMContentLoaded", function () {
 }, 1);
 
 
-  let defaultImage = imagesFull.find(item => item.name == 82)
+  let defaultImage = hgb9qyz.find(item => item.ec3sx == 82)
   zsf4ns9g4--
-  images = setArray(imagesFull, zsf4ns9g4)
+  xpz1t9k = setArray(hgb9qyz, zsf4ns9g4)
 
-  isLocal ? $('#image').attr('src', `v1i89uo45w/${defaultImage.name}.${ext}`) : shelterImage(`v1i89uo45w/${defaultImage.name}.${ext}`)
-  setAnalitics(defaultImage.name,false,false,false)
+  isLocal ? $('#image').attr('src', `v1i89uo45w/${defaultImage.ec3sx}.${ext}`) : shelterImage(`v1i89uo45w/${defaultImage.ec3sx}.${ext}`)
+  setAnalitics(defaultImage.ec3sx,false,false,false)
   
-  image = defaultImage
+  kd84bd0 = defaultImage
   $('.actions-container > :nth-child(2)').addClass('first');
 
   defaultImage.viewed = true
-  images.push(defaultImage)
+  xpz1t9k.push(defaultImage)
   zsf4ns9g4++
 
   $('.go').click(function () {
     $('.actions-container > :nth-child(2)').removeClass('first');
-    opcion = $(this).attr('id');
-    if (!image.name) {
+    wr5kj = $(this).attr('id');
+    if (!kd84bd0.ec3sx) {
       return
     }
     if (Math.random() < 0.001) {
@@ -117,11 +117,11 @@ document.addEventListener("DOMContentLoaded", function () {
       sound(`v1i89uo45w/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
     }
 
-    $("#wildcard").hide()
-    image = images.find(item => item.name == image.name)
-    const claves = Object.keys(image);
+    $("#zx7uj2r").hide()
+    kd84bd0 = xpz1t9k.find(item => item.ec3sx == kd84bd0.ec3sx)
+    const claves = Object.keys(kd84bd0);
     const prop = claves[1];
-    if (opcion == image[prop]) {
+    if (wr5kj == kd84bd0[prop]) {
     //if(true){
       if ($('#next').is(':visible')) {
         return
@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
       $('.go').removeClass('first')
       $(this).css("animation", "");
       sound(`v1i89uo45w/audio/correct${getCorrectSoundRandom()}.mp3`);
-      score += 100 / images.length;
+      score += 100 / xpz1t9k.length;
       $('.score').show()
       $('.score').text(getScoreLabel());
       $('.score').css('color', '#88ff4c');
@@ -142,12 +142,12 @@ document.addEventListener("DOMContentLoaded", function () {
         setTimeout(() => {
           $('.gallery-item-animation').removeClass('fade-out');
         }, 250);
-        isLocal ? $('#image').attr('src', `v1i89uo45w/n${image.name}.${ext}`) : shelterImage(`v1i89uo45w/n${image.name}.${ext}`)
+        isLocal ? $('#image').attr('src', `v1i89uo45w/n${kd84bd0.ec3sx}.${ext}`) : shelterImage(`v1i89uo45w/n${kd84bd0.ec3sx}.${ext}`)
         //$(".tabs").show()
-        setAnalitics(image.name,true,false,true)
+        setAnalitics(kd84bd0.ec3sx,true,false,true)
       }, 250);
 
-      if (images.ia_generated) {
+      if (xpz1t9k.ia_generated) {
         $('.ia-tag').fadeIn();
       }
 
@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function () {
       $('#image').addClass('correct');
     } else {
       //animation
-      setAnalitics(image.name, assert = false,true,false)
+      setAnalitics(kd84bd0.ec3sx, assert = false,true,false)
       const $elemento = $(this);
       $elemento.css("animation", "shake 0.2s");
       setTimeout(function () {
@@ -217,20 +217,20 @@ document.addEventListener("DOMContentLoaded", function () {
     next()
   });
 
-  $("#wildcard").click(function () {
-    if (wildcards >= 1) {
-      if (wildcardUsed) {
+  $("#zx7uj2r").click(function () {
+    if (zQlnx2 >= 1) {
+      if (x8dlH61) {
         return
       }
-      $(`.actions-container #${image.correct}`).addClass('first')
-      wildcards--
+      $(`.actions-container #${kd84bd0.wjz2sr}`).addClass('first')
+      zQlnx2--
       sound('v1i89uo45w/audio/wildcard.mp3');
-      if (wildcards == 0) {
-        $('#wildcard').css('opacity', '.4')
+      if (zQlnx2 == 0) {
+        $('#zx7uj2r').css('opacity', '.4')
       }
-      wildcardUsed = true
-      $('#wildcards').text(' ('+wildcards+")")
-      $('#wildcard').fadeOut()
+      x8dlH61 = true
+      $('#6v0sd4').text(' ('+zQlnx2+")")
+      $('#zx7uj2r').fadeOut()
     }
     
   });
@@ -239,26 +239,26 @@ document.addEventListener("DOMContentLoaded", function () {
     score = 0
     exitIndex = 0
     stepIndex = 1
-    wildcardUsed = false
-    wildcards  = 2;
-    $('#wildcards').text(' ('+wildcards+")")
-    $('#wildcard').css('opacity', '1')
+    x8dlH61 = false
+    zQlnx2  = 3;
+    $('#6v0sd4').text(' ('+zQlnx2+")")
+    $('#zx7uj2r').css('opacity', '1')
 
     $('.go').removeClass('first')
     $('#steps').text(`${stepIndex} / ${zsf4ns9g4}`)
     stopMusic()
     sound(`v1i89uo45w/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
     $('.score').text(getScoreLabel());
-    imagesFull.forEach(obj => obj.viewed = false);
+    hgb9qyz.forEach(obj => obj.viewed = false);
     zsf4ns9g4--
-    let defaultImage = imagesFull.find(item => item.name == 82)
-    images = setArray(imagesFull, zsf4ns9g4)
+    let defaultImage = hgb9qyz.find(item => item.ec3sx == 82)
+    xpz1t9k = setArray(hgb9qyz, zsf4ns9g4)
     defaultImage.viewed = true
-    image = defaultImage
-    images.push(defaultImage)
+    kd84bd0 = defaultImage
+    xpz1t9k.push(defaultImage)
     zsf4ns9g4++
-    isLocal ? $('#image').attr('src', `v1i89uo45w/${defaultImage.name}.${ext}`) : shelterImage(`v1i89uo45w/${defaultImage.name}.${ext}`)
-    setAnalitics(image.name,false,false,false)
+    isLocal ? $('#image').attr('src', `v1i89uo45w/${defaultImage.ec3sx}.${ext}`) : shelterImage(`v1i89uo45w/${defaultImage.ec3sx}.${ext}`)
+    setAnalitics(kd84bd0.ec3sx,false,false,false)
     $(".final-actions").hide()
     $("#end").hide()
     $(".game").fadeIn()
@@ -336,16 +336,16 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // !
-document.addEventListener('contextmenu', function (e) {
-  e.preventDefault();
-});
+// document.addEventListener('contextmenu', function (e) {
+//   e.preventDefault();
+// });
 
 function next() {
   sound('v1i89uo45w/audio/next.mp3');
   $('#next').fadeOut();
-  correct = null;
-  opcion = -1;
-  wildcardUsed = false
+  //correct = null;
+  wr5kj = -1;
+  x8dlH61 = false
   $('.go').css('border', '2px solid #ff206e');
   $('.actions-container').fadeIn()
   $('#image').removeClass('correct');
@@ -358,34 +358,34 @@ function next() {
   $('#nm').removeClass('active')
   stepIndex++
   $('#steps').text(`${stepIndex} / ${zsf4ns9g4}`)
-  $("#wildcard").fadeIn()
+  $("#zx7uj2r").fadeIn()
 
-  let unseen = images.filter(obj => obj.level == 0 && obj.viewed === false);
+  let unseen = xpz1t9k.filter(obj => obj.level == 0 && obj.viewed === false);
 
   if (unseen.length == 0) {
-    unseen = images.filter(obj => obj.level == 1 && obj.viewed === false);
+    unseen = xpz1t9k.filter(obj => obj.level == 1 && obj.viewed === false);
   }
   if (unseen.length == 0) {
-    unseen = images.filter(obj => obj.level == 2 && obj.viewed === false);
+    unseen = xpz1t9k.filter(obj => obj.level == 2 && obj.viewed === false);
   }
 
   if (unseen.length > 0) {
     // alert(unseen.length)
     let randomIndex = Math.floor(Math.random() * unseen.length);
-    let nextImage = unseen[randomIndex].name;
-    image = images.find(item => item.name == nextImage)
-    image.viewed = true;
+    let nextImage = unseen[randomIndex].ec3sx;
+    kd84bd0 = xpz1t9k.find(item => item.ec3sx == nextImage)
+    kd84bd0.viewed = true;
 
     $('.gallery-item-animation').addClass('fade-out')
     setTimeout(() => {
       setTimeout(() => {
         $('.gallery-item-animation').removeClass('fade-out');
       }, 250);
-      isLocal ? $('#image').attr('src', `v1i89uo45w/${image.name}.${ext}`) : shelterImage(`v1i89uo45w/${image.name}.${ext}`)
-      setAnalitics(image.name,false,false,false)
+      isLocal ? $('#image').attr('src', `v1i89uo45w/${kd84bd0.ec3sx}.${ext}`) : shelterImage(`v1i89uo45w/${kd84bd0.ec3sx}.${ext}`)
+      setAnalitics(kd84bd0.ec3sx,false,false,false)
     }, 250);
 
-    if (image.ia_generated) {
+    if (kd84bd0.ia_generated) {
       $('.ia-tag').fadeIn();
     }
 
@@ -393,7 +393,7 @@ function next() {
     stopMusic()
     $(".game").hide()
     if (score == 100) {
-      setAnalitics(image.name,false,false,false,true,true)
+      setAnalitics(kd84bd0.ec3sx,false,false,false,true,true)
       let seconds = 20;
       $("#end").show()
       $('#end').contents().filter(function () {
@@ -421,7 +421,7 @@ function next() {
       }, 1000);
 
     } else {
-      setAnalitics(image.name,false,false,false,true,false)
+      setAnalitics(kd84bd0.ec3sx,false,false,false,true,false)
       $("#end").show()
       $(".final-actions").fadeIn()
       $(".actions-container").hide()
@@ -451,8 +451,8 @@ function setLanguage(currentLanguage) {
 
 });
 $('#exnext').click(function() {  
-  $('#imageex').attr('src', `v1i89uo45w/${imagesFull[stepIndex-1].name}.${ext}`)
-  $('#imageex1').attr('src', `v1i89uo45w/n${imagesFull[stepIndex-1].name}.${ext}`)
+  $('#imageex').attr('src', `v1i89uo45w/${hgb9qyz[stepIndex-1].ec3sx}.${ext}`)
+  $('#imageex1').attr('src', `v1i89uo45w/n${hgb9qyz[stepIndex-1].ec3sx}.${ext}`)
   stepIndex++
   //735
 })
@@ -468,14 +468,14 @@ function getElementToWrite(text) {
   return null;
 }
 
-function setArray(images, limit) {
+function setArray(xpz1t9k, limit) {
   const result = [];
   const selecteds = new Set();
   while (result.length < limit) {
-    const randomIndex = Math.floor(Math.random() * images.length);
+    const randomIndex = Math.floor(Math.random() * xpz1t9k.length);
     if (!selecteds.has(randomIndex)) {
       selecteds.add(randomIndex);
-      result.push(images[randomIndex]);
+      result.push(xpz1t9k[randomIndex]);
     }
   }
   return result;
@@ -488,13 +488,13 @@ function get() {
 function selectTabN() {
   $('#nd').addClass('active')
   $('#nm').removeClass('active')
-  isLocal ? $('#image').attr('src', `v1i89uo45w/n${image.name}.${ext}`) : shelterImage(`v1i89uo45w/n${image.name}.${ext}`)
+  isLocal ? $('#image').attr('src', `v1i89uo45w/n${kd84bd0.ec3sx}.${ext}`) : shelterImage(`v1i89uo45w/n${kd84bd0.ec3sx}.${ext}`)
 }
 
 function selectTabNm() {
   $('#nd').removeClass('active')
   $('#nm').addClass('active')
-  isLocal ? $('#image').attr('src', `v1i89uo45w/${image.name}.${ext}`) : shelterImage(`v1i89uo45w/${image.name}.${ext}`)
+  isLocal ? $('#image').attr('src', `v1i89uo45w/${kd84bd0.ec3sx}.${ext}`) : shelterImage(`v1i89uo45w/${kd84bd0.ec3sx}.${ext}`)
 }
 
 function sound(path, loops = 1, volume = 1, isMusic = false) {
@@ -555,7 +555,7 @@ function shelterImage(imagePath) {
   .catch(error => console.log('Error getting image', error));
 }
 
-function setAnalitics(image,assert,fail,nd,match,wmatch){
+function setAnalitics(kd84bd0,assert,fail,nd,match,wmatch){
   if (localStorage.getItem("d-zx5sk-stats") !== null) {
     currentAnalitics = getAnalitics()
     analitics = currentAnalitics;
@@ -572,11 +572,11 @@ function setAnalitics(image,assert,fail,nd,match,wmatch){
   if(wmatch) {
     analitics.wmatches++
   }
-  if (!analitics.seenimages.includes(image) && !nd) {
-    analitics.seenimages.push(image)
+  if (!analitics.seenimages.includes(kd84bd0) && !nd) {
+    analitics.seenimages.push(kd84bd0)
   }
-  if (!analitics.seennimages.includes(image) && nd) {
-    analitics.seennimages.push(image)
+  if (!analitics.seennimages.includes(kd84bd0) && nd) {
+    analitics.seennimages.push(kd84bd0)
   }
   localStorage.setItem('td-zx5sk-stats', JSON.stringify(analitics));
 
@@ -672,8 +672,8 @@ function setAnaliticsLabels(){
   $('#wmatchesx').text(analitics.wmatches)
   $('#correctsx').text(analitics.corrects)
   $('#mistakesx').text(analitics.mistakes)
-  $('#seenimagesx').text(analitics.seenimages.length + ' de '+ (imagesFull.length + extra))
-  $('#seennimagesx').text(analitics.seennimages.length + ' de '+ (imagesFull.length + extra))
+  $('#seenimagesx').text(analitics.seenimages.length + ' de '+ (hgb9qyz.length + u4qhgfty2))
+  $('#seennimagesx').text(analitics.seennimages.length + ' de '+ (hgb9qyz.length + u4qhgfty2))
 }
 const audios = document.querySelectorAll('audio');
 
@@ -695,10 +695,10 @@ document.addEventListener('visibilitychange', () => {
 
 const languages = {
   es: {
-    name: "TiddyPink",
+    ec3sx: "TiddyPink",
     next: "Siguiente",
     restart: "Volver a intertarlo",
-    wildcard: "Usar un comodín ",
+    zx7uj2r: "Usar un comodín ", //wildcard element
     exit: "Salir",
     purchase: "Obtener todas las imágenes",
     purchase1: "Obtener todas las imágenes",
@@ -797,7 +797,7 @@ const languages = {
     ],
   },
   en: {
-    name: "TiddyPink",
+    ec3sx: "TiddyPink",
     next: "Next",
     restart: "Try Again",
     exit: "Exit",
@@ -881,74 +881,74 @@ const languages = {
 
 
 
-var imagesFull = [
+var hgb9qyz = [
   {
-    name: '0',
-    correct: "3",
+    ec3sx: '0',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '1',
-    correct: "5",
+    ec3sx: '1',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '2',
-    correct: "3",
+    ec3sx: '2',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '3',
-    correct: "3",
+    ec3sx: '3',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '4',
-    correct: "3",
+    ec3sx: '4',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '5',
-    correct: "4",
+    ec3sx: '5',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '6',
-    correct: "2",
+    ec3sx: '6',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '7',
-    correct: "2",
+    ec3sx: '7',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '8',
-    correct: "2",
+    ec3sx: '8',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
@@ -956,368 +956,368 @@ var imagesFull = [
   },
   ///
   {
-    name: '9',
-    correct: "3",
+    ec3sx: '9',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   // {
-  //   name: '10',
-  //   correct: "2",
+  //   ec3sx: '10',
+  //   wjz2sr: "2",
   //   viewed: true,
   //   ia_generated: false,
   //   level: 0,
   //   active: true
   // },
   {
-    name: '11',
-    correct: "1",
+    ec3sx: '11',
+    wjz2sr: "1",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '12',
-    correct: "2",
+    ec3sx: '12',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '13',
-    correct: "1",
+    ec3sx: '13',
+    wjz2sr: "1",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '14',
-    correct: "2",
+    ec3sx: '14',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '15',
-    correct: "3",
+    ec3sx: '15',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '16',
-    correct: "1",
+    ec3sx: '16',
+    wjz2sr: "1",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '17',
-    correct: "1",
+    ec3sx: '17',
+    wjz2sr: "1",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '18',
-    correct: "2",
+    ec3sx: '18',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '19',
-    correct: "4",
+    ec3sx: '19',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '20',
-    correct: "3",
+    ec3sx: '20',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '21',
-    correct: "5",
+    ec3sx: '21',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '22',
-    correct: "4",
+    ec3sx: '22',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '23',
-    correct: "5",
+    ec3sx: '23',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '24',
-    correct: "2",
+    ec3sx: '24',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '25',
-    correct: "4",
+    ec3sx: '25',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '26',
-    correct: "2",
+    ec3sx: '26',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '27',
-    correct: "3",
+    ec3sx: '27',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '28',
-    correct: "2",
+    ec3sx: '28',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '29',
-    correct: "3",
+    ec3sx: '29',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '30',
-    correct: "4",
+    ec3sx: '30',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '31',
-    correct: "5",
+    ec3sx: '31',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '32',
-    correct: "5",
+    ec3sx: '32',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '33',
-    correct: "4",
+    ec3sx: '33',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '34',
-    correct: "3",
+    ec3sx: '34',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '35',
-    correct: "3",
+    ec3sx: '35',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '36',
-    correct: "2",
+    ec3sx: '36',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '37',
-    correct: "3",
+    ec3sx: '37',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '38',
-    correct: "1",
+    ec3sx: '38',
+    wjz2sr: "1",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '39',
-    correct: "2",
+    ec3sx: '39',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '40',
-    correct: "1",
+    ec3sx: '40',
+    wjz2sr: "1",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '41',
-    correct: "2",
+    ec3sx: '41',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '42',
-    correct: "6",
+    ec3sx: '42',
+    wjz2sr: "6",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '43',
-    correct: "1",
+    ec3sx: '43',
+    wjz2sr: "1",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '44',
-    correct: "4",
+    ec3sx: '44',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '45',
-    correct: "3",
+    ec3sx: '45',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '46',
-    correct: "2",
+    ec3sx: '46',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '47',
-    correct: "2",
+    ec3sx: '47',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '48',
-    correct: "2",
+    ec3sx: '48',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '49',
-    correct: "2",
+    ec3sx: '49',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '50',
-    correct: "2",
+    ec3sx: '50',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '51',
-    correct: "3",
+    ec3sx: '51',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '52',
-    correct: "6",
+    ec3sx: '52',
+    wjz2sr: "6",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '53',
-    correct: "5",
+    ec3sx: '53',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '54',
-    correct: "6",
+    ec3sx: '54',
+    wjz2sr: "6",
     viewed: false,
     ia_generated: false,
     level: 1,
@@ -1325,136 +1325,136 @@ var imagesFull = [
   },
   //---//
   {
-    name: '55',
-    correct: "2",
+    ec3sx: '55',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '56',
-    correct: "2",
+    ec3sx: '56',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '57',
-    correct: "3",
+    ec3sx: '57',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '58',
-    correct: "3",
+    ec3sx: '58',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '59',
-    correct: "2",
+    ec3sx: '59',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '60',
-    correct: "5",
+    ec3sx: '60',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '61',
-    correct: "3",
+    ec3sx: '61',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   // {
-  //   name: '62',
-  //   correct: "4",
+  //   ec3sx: '62',
+  //   wjz2sr: "4",
   //   viewed: false,
   //   ia_generated: false,
   //   level: 0,
   //   active: true
   // },
   {
-    name: '63',
-    correct: "5",
+    ec3sx: '63',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '64',
-    correct: "3",
+    ec3sx: '64',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '65',
-    correct: "4",
+    ec3sx: '65',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '66',
-    correct: "4",
+    ec3sx: '66',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '67',
-    correct: "4",
+    ec3sx: '67',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '68',
-    correct: "2",
+    ec3sx: '68',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '69',
-    correct: "3",
+    ec3sx: '69',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '70',
-    correct: "3",
+    ec3sx: '70',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '71',
-    correct: "3",
+    ec3sx: '71',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
@@ -1462,1320 +1462,1320 @@ var imagesFull = [
   },
   //-----*
   {
-    name: '72',
-    correct: "1",
+    ec3sx: '72',
+    wjz2sr: "1",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '73',
-    correct: "2",
+    ec3sx: '73',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '74',
-    correct: "2",
+    ec3sx: '74',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '75',
-    correct: "2",
+    ec3sx: '75',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '76',
-    correct: "1",
+    ec3sx: '76',
+    wjz2sr: "1",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '77',
-    correct: "2",
+    ec3sx: '77',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '78',
-    correct: "4",
+    ec3sx: '78',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '79',
-    correct: "2",
+    ec3sx: '79',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '80',
-    correct: "2",
+    ec3sx: '80',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '81',
-    correct: "1",
+    ec3sx: '81',
+    wjz2sr: "1",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '82',
-    correct: "2",
+    ec3sx: '82',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '83',
-    correct: "2",
+    ec3sx: '83',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '84',
-    correct: "3",
+    ec3sx: '84',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '85',
-    correct: "3",
+    ec3sx: '85',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '86',
-    correct: "3",
+    ec3sx: '86',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '87',
-    correct: "3",
+    ec3sx: '87',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '88',
-    correct: "3",
+    ec3sx: '88',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '89',
-    correct: "3",
+    ec3sx: '89',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '90',
-    correct: "2",
+    ec3sx: '90',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '91',
-    correct: "4",
+    ec3sx: '91',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '92',
-    correct: "3",
+    ec3sx: '92',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '93',
-    correct: "2",
+    ec3sx: '93',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '94',
-    correct: "5",
+    ec3sx: '94',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '95',
-    correct: "5",
+    ec3sx: '95',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '96',
-    correct: "4",
+    ec3sx: '96',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '97',
-    correct: "2",
+    ec3sx: '97',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '98',
-    correct: "3",
+    ec3sx: '98',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '99',
-    correct: "3",
+    ec3sx: '99',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '100',
-    correct: "2",
+    ec3sx: '100',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '101',
-    correct: "3",
+    ec3sx: '101',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '102',
-    correct: "4",
+    ec3sx: '102',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '103',
-    correct: "4",
+    ec3sx: '103',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '104',
-    correct: "3",
+    ec3sx: '104',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 2,
     active: true
   },
   {
-    name: '105',
-    correct: "3",
+    ec3sx: '105',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '106',
-    correct: "4",
+    ec3sx: '106',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '107',
-    correct: "2",
+    ec3sx: '107',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '108',
-    correct: "2",
+    ec3sx: '108',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '109',
-    correct: "3",
+    ec3sx: '109',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '110',
-    correct: "3",
+    ec3sx: '110',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '111',
-    correct: "3",
+    ec3sx: '111',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '112',
-    correct: "3",
+    ec3sx: '112',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '113',
-    correct: "3",
+    ec3sx: '113',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '114',
-    correct: "3",
+    ec3sx: '114',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 2,
     active: true
   },
   {
-    name: '115',
-    correct: "4",
+    ec3sx: '115',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '116',
-    correct: "1",
-    viewed: false,
-    ia_generated: true,
-    level: 2,
-    active: true
-  },
-  {
-    name: '117',
-    correct: "3",
-    viewed: false,
-    ia_generated: true,
-    level: 0,
-    active: true
-  },
-  {
-    name: '118',
-    correct: "3",
-    viewed: false,
-    ia_generated: true,
-    level: 1,
-    active: true
-  },
-  {
-    name: '119',
-    correct: "2",
-    viewed: false,
-    ia_generated: true,
-    level: 1,
-    active: true
-  },
-  {
-    name: '120',
-    correct: "2",
+    ec3sx: '116',
+    wjz2sr: "1",
     viewed: false,
     ia_generated: true,
     level: 2,
     active: true
   },
   {
-    name: '121',
-    correct: "4",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '122',
-    correct: "3",
-    viewed: false,
-    ia_generated: false,
-    level: 1,
-    active: true
-  },
-  {
-    name: '123',
-    correct: "3",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '124',
-    correct: "4",
-    viewed: false,
-    ia_generated: false,
-    level: 1,
-    active: true
-  },
-  {
-    name: '125',
-    correct: "3",
-    viewed: false,
-    ia_generated: false,
-    level: 2,
-    active: true
-  },
-  {
-    name: '126',
-    correct: "3",
-    viewed: false,
-    ia_generated: false,
-    level: 2,
-    active: true
-  },
-  {
-    name: '127',
-    correct: "3",
-    viewed: false,
-    ia_generated: false,
-    level: 2,
-    active: true
-  },
-  {
-    name: '128',
-    correct: "1",
-    viewed: false,
-    ia_generated: false,
-    level: 1,
-    active: true
-  },
-  {
-    name: '129',
-    correct: "1",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '130',
-    correct: "3",
+    ec3sx: '117',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '131',
-    correct: "3",
+    ec3sx: '118',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '132',
-    correct: "3",
-    viewed: false,
-    ia_generated: true,
-    level: 0,
-    active: true
-  },
-  {
-    name: '133',
-    correct: "2",
-    viewed: false,
-    ia_generated: false,
-    level: 1,
-    active: true
-  },
-  {
-    name: '134',
-    correct: "3",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '135',
-    correct: "1",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '136',
-    correct: "2",
-    viewed: false,
-    ia_generated: false,
-    level: 2,
-    active: true
-  },
-  {
-    name: '137',
-    correct: "4",
-    viewed: false,
-    ia_generated: false,
-    level: 1,
-    active: true
-  },
-  {
-    name: '138',
-    correct: "2",
-    viewed: false,
-    ia_generated: false,
-    level: 1,
-    active: true
-  },
-  {
-    name: '139',
-    correct: "5",
-    viewed: false,
-    ia_generated: false,
-    level: 2,
-    active: true
-  },
-  {
-    name: '140',
-    correct: "2",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '141',
-    correct: "4",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '142',
-    correct: "5",
-    viewed: false,
-    ia_generated: false,
-    level: 1,
-    active: true
-  },
-  {
-    name: '143',
-    correct: "3",
+    ec3sx: '119',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '144',
-    correct: "2",
-    viewed: false,
-    ia_generated: true,
-    level: 1,
-    active: true
-  },
-  {
-    name: '145',
-    correct: "3",
+    ec3sx: '120',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: true,
     level: 2,
     active: true
   },
   {
-    name: '146',
-    correct: "3",
+    ec3sx: '121',
+    wjz2sr: "4",
     viewed: false,
-    ia_generated: true,
-    level: 1,
-    active: true
-  },
-  {
-    name: '147',
-    correct: "3",
-    viewed: false,
-    ia_generated: true,
-    level: 2,
-    active: true
-  },
-  {
-    name: '148',
-    correct: "2",
-    viewed: false,
-    ia_generated: true,
+    ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '149',
-    correct: "3",
-    viewed: false,
-    ia_generated: true,
-    level: 2,
-    active: true
-  },
-  {
-    name: '150',
-    correct: "2",
-    viewed: false,
-    ia_generated: true,
-    level: 1,
-    active: true
-  },
-  {
-    name: '151',
-    correct: "2",
-    viewed: false,
-    ia_generated: true,
-    level: 2,
-    active: true
-  },
-  {
-    name: '152',
-    correct: "4",
+    ec3sx: '122',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '153',
-    correct: "3",
+    ec3sx: '123',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '124',
+    wjz2sr: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    ec3sx: '125',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '154',
-    correct: "2",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '155',
-    correct: "3",
+    ec3sx: '126',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '156',
-    correct: "3",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '157',
-    correct: "4",
-    viewed: false,
-    ia_generated: false,
-    level: 1,
-    active: true
-  },
-  {
-    name: '158',
-    correct: "4",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '159',
-    correct: "4",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '160',
-    correct: "2",
-    viewed: false,
-    ia_generated: false,
-    level: 1,
-    active: true
-  },
-  {
-    name: '161',
-    correct: "2",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '162',
-    correct: "4",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '163',
-    correct: "3",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '164',
-    correct: "2",
+    ec3sx: '127',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '165',
-    correct: "4",
+    ec3sx: '128',
+    wjz2sr: "1",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    ec3sx: '129',
+    wjz2sr: "1",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '166',
-    correct: "5",
+    ec3sx: '130',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '131',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 1,
+    active: true
+  },
+  {
+    ec3sx: '132',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '133',
+    wjz2sr: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    ec3sx: '134',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '167',
-    correct: "4",
+    ec3sx: '135',
+    wjz2sr: "1",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '168',
-    correct: "4",
+    ec3sx: '136',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '169',
-    correct: "4",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '170',
-    correct: "4",
+    ec3sx: '137',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '171',
-    correct: "4",
+    ec3sx: '138',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '172',
-    correct: "3",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '173',
-    correct: "2",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '174',
-    correct: "3",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '175',
-    correct: "2",
-    viewed: false,
-    ia_generated: false,
-    level: 1,
-    active: true
-  },
-  {
-    name: '176',
-    correct: "4",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '177',
-    correct: "2",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '178',
-    correct: "4",
+    ec3sx: '139',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '179',
-    correct: "3",
+    ec3sx: '140',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '180',
-    correct: "2",
-    viewed: false,
-    ia_generated: false,
-    level: 1,
-    active: true
-  },
-  {
-    name: '181',
-    correct: "4",
+    ec3sx: '141',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '182',
-    correct: "2",
+    ec3sx: '142',
+    wjz2sr: "5",
     viewed: false,
-    ia_generated: true,
-    level: 0,
+    ia_generated: false,
+    level: 1,
     active: true
   },
   {
-    name: '183',
-    correct: "2",
+    ec3sx: '143',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '184',
-    correct: "2",
-    viewed: false,
-    ia_generated: true,
-    level: 0,
-    active: true
-  },
-  {
-    name: '185',
-    correct: "3",
-    viewed: false,
-    ia_generated: true,
-    level: 0,
-    active: true
-  },
-  {
-    name: '186',
-    correct: "4",
+    ec3sx: '144',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '187',
-    correct: "3",
+    ec3sx: '145',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 2,
+    active: true
+  },
+  {
+    ec3sx: '146',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 1,
+    active: true
+  },
+  {
+    ec3sx: '147',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 2,
+    active: true
+  },
+  {
+    ec3sx: '148',
+    wjz2sr: "2",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '149',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 2,
+    active: true
+  },
+  {
+    ec3sx: '150',
+    wjz2sr: "2",
+    viewed: false,
+    ia_generated: true,
+    level: 1,
+    active: true
+  },
+  {
+    ec3sx: '151',
+    wjz2sr: "2",
+    viewed: false,
+    ia_generated: true,
+    level: 2,
+    active: true
+  },
+  {
+    ec3sx: '152',
+    wjz2sr: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    ec3sx: '153',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    ec3sx: '154',
+    wjz2sr: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '155',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    ec3sx: '156',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '157',
+    wjz2sr: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    ec3sx: '158',
+    wjz2sr: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '159',
+    wjz2sr: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '160',
+    wjz2sr: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    ec3sx: '161',
+    wjz2sr: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '162',
+    wjz2sr: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '163',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '164',
+    wjz2sr: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    ec3sx: '165',
+    wjz2sr: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '166',
+    wjz2sr: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '167',
+    wjz2sr: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '168',
+    wjz2sr: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    ec3sx: '169',
+    wjz2sr: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '170',
+    wjz2sr: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    ec3sx: '171',
+    wjz2sr: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    ec3sx: '172',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '173',
+    wjz2sr: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '174',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '175',
+    wjz2sr: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    ec3sx: '176',
+    wjz2sr: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '177',
+    wjz2sr: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '178',
+    wjz2sr: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    ec3sx: '179',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '180',
+    wjz2sr: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    ec3sx: '181',
+    wjz2sr: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '182',
+    wjz2sr: "2",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '183',
+    wjz2sr: "2",
+    viewed: false,
+    ia_generated: true,
+    level: 1,
+    active: true
+  },
+  {
+    ec3sx: '184',
+    wjz2sr: "2",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '185',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: true,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '186',
+    wjz2sr: "4",
+    viewed: false,
+    ia_generated: true,
+    level: 1,
+    active: true
+  },
+  {
+    ec3sx: '187',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   // {
-  //   name: '188',
-  //   correct: "5",
+  //   ec3sx: '188',
+  //   wjz2sr: "5",
   //   viewed: true,
   //   ia_generated: false,
   //   level: 1,
   //   active: true
   // },
   {
-    name: '189',
-    correct: "5",
+    ec3sx: '189',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '190',
-    correct: "4",
+    ec3sx: '190',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '191',
-    correct: "5",
+    ec3sx: '191',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '192',
-    correct: "2",
+    ec3sx: '192',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '193',
-    correct: "2",
+    ec3sx: '193',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '194',
-    correct: "2",
+    ec3sx: '194',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '195',
-    correct: "2",
+    ec3sx: '195',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '196',
-    correct: "2",
+    ec3sx: '196',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '197',
-    correct: "2",
+    ec3sx: '197',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '198',
-    correct: "2",
+    ec3sx: '198',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '199',
-    correct: "3",
+    ec3sx: '199',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '200',
-    correct: "3",
+    ec3sx: '200',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '201',
-    correct: "3",
+    ec3sx: '201',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '202',
-    correct: "3",
+    ec3sx: '202',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   // {
-  //   name: '203',
-  //   correct: "1",
+  //   ec3sx: '203',
+  //   wjz2sr: "1",
   //   viewed: true,
   //   ia_generated: false,
   //   level: 0,
   //   active: true
   // },
   {
-    name: '204',
-    correct: "2",
+    ec3sx: '204',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '205',
-    correct: "1",
+    ec3sx: '205',
+    wjz2sr: "1",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '206',
-    correct: "1",
+    ec3sx: '206',
+    wjz2sr: "1",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '207',
-    correct: "1",
+    ec3sx: '207',
+    wjz2sr: "1",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '208',
-    correct: "1",
+    ec3sx: '208',
+    wjz2sr: "1",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '209',
-    correct: "3",
+    ec3sx: '209',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   // {
-  //   name: '210',
-  //   correct: "3",
+  //   ec3sx: '210',
+  //   wjz2sr: "3",
   //   viewed: true,
   //   ia_generated: false,
   //   level: 1,
   //   active: true
   // },
   {
-    name: '211',
-    correct: "2",
+    ec3sx: '211',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '212',
-    correct: "2",
+    ec3sx: '212',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '213',
-    correct: "3",
+    ec3sx: '213',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '214',
-    correct: "2",
+    ec3sx: '214',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '215',
-    correct: "3",
+    ec3sx: '215',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '216',
-    correct: "2",
+    ec3sx: '216',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   // {
-  //   name: '217',
-  //   correct: "6",
+  //   ec3sx: '217',
+  //   wjz2sr: "6",
   //   viewed: true,
   //   ia_generated: false,
   //   level: 0,
   //   active: true
   // },
   {
-    name: '218',
-    correct: "3",
+    ec3sx: '218',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '219',
-    correct: "2",
+    ec3sx: '219',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '220',
-    correct: "1",
+    ec3sx: '220',
+    wjz2sr: "1",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '221',
-    correct: "2",
+    ec3sx: '221',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '222',
-    correct: "4",
+    ec3sx: '222',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '223',
-    correct: "5",
+    ec3sx: '223',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '224',
-    correct: "4",
+    ec3sx: '224',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '225',
-    correct: "5",
+    ec3sx: '225',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '226',
-    correct: "2",
+    ec3sx: '226',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '227',
-    correct: "2",
+    ec3sx: '227',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '228',
-    correct: "2",
+    ec3sx: '228',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '229',
-    correct: "2",
+    ec3sx: '229',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '230',
-    correct: "1",
+    ec3sx: '230',
+    wjz2sr: "1",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '231',
-    correct: "3",
+    ec3sx: '231',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '232',
-    correct: "2",
+    ec3sx: '232',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '233',
-    correct: "2",
+    ec3sx: '233',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '234',
-    correct: "3",
+    ec3sx: '234',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '235',
-    correct: "2",
+    ec3sx: '235',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '236',
-    correct: "3",
+    ec3sx: '236',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
@@ -2783,2416 +2783,2416 @@ var imagesFull = [
   },
   //-----*
   {
-    name: '237',
-    correct: "3",
+    ec3sx: '237',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '238',
-    correct: "3",
+    ec3sx: '238',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '239',
-    correct: "3",
+    ec3sx: '239',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '240',
-    correct: "2",
+    ec3sx: '240',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '241',
-    correct: "4",
+    ec3sx: '241',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '242',
-    correct: "3",
+    ec3sx: '242',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '243',
-    correct: "4",
+    ec3sx: '243',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '244',
-    correct: "3",
+    ec3sx: '244',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '245',
-    correct: "3",
+    ec3sx: '245',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '246',
-    correct: "3",
+    ec3sx: '246',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '247',
-    correct: "2",
+    ec3sx: '247',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '248',
-    correct: "2",
+    ec3sx: '248',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '249',
-    correct: "3",
+    ec3sx: '249',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '250',
-    correct: "3",
+    ec3sx: '250',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '251',
-    correct: "3",
+    ec3sx: '251',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '252',
-    correct: "2",
+    ec3sx: '252',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '253',
-    correct: "2",
+    ec3sx: '253',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '254',
-    correct: "4",
+    ec3sx: '254',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '255',
-    correct: "3",
+    ec3sx: '255',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '256',
-    correct: "3",
+    ec3sx: '256',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '257',
-    correct: "3",
+    ec3sx: '257',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '258',
-    correct: "3",
+    ec3sx: '258',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '259',
-    correct: "3",
+    ec3sx: '259',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '260',
-    correct: "3",
+    ec3sx: '260',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '261',
-    correct: "2",
+    ec3sx: '261',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '262',
-    correct: "5",
+    ec3sx: '262',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '263',
-    correct: "4",
+    ec3sx: '263',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '264',
-    correct: "3",
+    ec3sx: '264',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '265',
-    correct: "3",
+    ec3sx: '265',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '266',
-    correct: "4",
+    ec3sx: '266',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '267',
-    correct: "4",
+    ec3sx: '267',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '268',
-    correct: "3",
+    ec3sx: '268',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '269',
-    correct: "4",
+    ec3sx: '269',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '270',
-    correct: "3",
+    ec3sx: '270',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '271',
-    correct: "3",
+    ec3sx: '271',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '272',
-    correct: "3",
+    ec3sx: '272',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '273',
-    correct: "3",
+    ec3sx: '273',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '274',
-    correct: "3",
+    ec3sx: '274',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '275',
-    correct: "3",
+    ec3sx: '275',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '276',
-    correct: "3",
+    ec3sx: '276',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '277',
-    correct: "5",
+    ec3sx: '277',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '278',
-    correct: "2",
+    ec3sx: '278',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '279',
-    correct: "2",
+    ec3sx: '279',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '280',
-    correct: "2",
+    ec3sx: '280',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '281',
-    correct: "3",
+    ec3sx: '281',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '282',
-    correct: "5",
+    ec3sx: '282',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '283',
-    correct: "2",
+    ec3sx: '283',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '284',
-    correct: "2",
+    ec3sx: '284',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '285',
-    correct: "2",
+    ec3sx: '285',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '286',
-    correct: "2",
+    ec3sx: '286',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '287',
-    correct: "3",
+    ec3sx: '287',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '288',
-    correct: "3",
+    ec3sx: '288',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '289',
-    correct: "3",
+    ec3sx: '289',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '290',
-    correct: "3",
+    ec3sx: '290',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '291',
-    correct: "5",
+    ec3sx: '291',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '292',
-    correct: "5",
+    ec3sx: '292',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '293',
-    correct: "5",
+    ec3sx: '293',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '294',
-    correct: "5",
+    ec3sx: '294',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '295',
-    correct: "3",
+    ec3sx: '295',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '296',
-    correct: "3",
+    ec3sx: '296',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '297',
-    correct: "4",
+    ec3sx: '297',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '298',
-    correct: "4",
+    ec3sx: '298',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '299',
-    correct: "4",
+    ec3sx: '299',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '300',
-    correct: "4",
+    ec3sx: '300',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '301',
-    correct: "5",
+    ec3sx: '301',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '302',
-    correct: "2",
+    ec3sx: '302',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '303',
-    correct: "2",
+    ec3sx: '303',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '304',
-    correct: "2",
+    ec3sx: '304',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '305',
-    correct: "2",
+    ec3sx: '305',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '306',
-    correct: "4",
+    ec3sx: '306',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '307',
-    correct: "3",
+    ec3sx: '307',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '308',
-    correct: "3",
+    ec3sx: '308',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '309',
-    correct: "3",
+    ec3sx: '309',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '310',
-    correct: "2",
+    ec3sx: '310',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '311',
-    correct: "4",
+    ec3sx: '311',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '312',
-    correct: "3",
+    ec3sx: '312',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '313',
-    correct: "4",
+    ec3sx: '313',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '314',
-    correct: "3",
+    ec3sx: '314',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '315',
-    correct: "3",
+    ec3sx: '315',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '316',
-    correct: "2",
+    ec3sx: '316',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '317',
-    correct: "2",
+    ec3sx: '317',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '318',
-    correct: "2",
+    ec3sx: '318',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '319',
-    correct: "2",
+    ec3sx: '319',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '320',
-    correct: "4",
+    ec3sx: '320',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '321',
-    correct: "3",
+    ec3sx: '321',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '322',
-    correct: "2",
+    ec3sx: '322',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '323',
-    correct: "3",
+    ec3sx: '323',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '324',
-    correct: "2",
+    ec3sx: '324',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '325',
-    correct: "2",
+    ec3sx: '325',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '326',
-    correct: "3",
+    ec3sx: '326',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '327',
-    correct: "3",
+    ec3sx: '327',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '328',
-    correct: "3",
+    ec3sx: '328',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 2,
     active: true
   },
   {
-    name: '329',
-    correct: "2",
+    ec3sx: '329',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '330',
-    correct: "2",
+    ec3sx: '330',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: true,
     level: 2,
     active: true
   },
   {
-    name: '331',
-    correct: "3",
+    ec3sx: '331',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 2,
     active: true
   },
   {
-    name: '332',
-    correct: "3",
+    ec3sx: '332',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 2,
     active: true
   },
   {
-    name: '333',
-    correct: "3",
+    ec3sx: '333',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '334',
-    correct: "3",
+    ec3sx: '334',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 2,
     active: true
   },
   {
-    name: '335',
-    correct: "3",
+    ec3sx: '335',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '336',
-    correct: "3",
+    ec3sx: '336',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 2,
     active: true
   },
   {
-    name: '337',
-    correct: "3",
+    ec3sx: '337',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '338',
-    correct: "4",
+    ec3sx: '338',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '339',
-    correct: "5",
+    ec3sx: '339',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '340',
-    correct: "4",
+    ec3sx: '340',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '341',
-    correct: "4",
+    ec3sx: '341',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '342',
-    correct: "4",
+    ec3sx: '342',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '343',
-    correct: "3",
+    ec3sx: '343',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '344',
-    correct: "4",
+    ec3sx: '344',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '345',
-    correct: "4",
+    ec3sx: '345',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '346',
-    correct: "4",
+    ec3sx: '346',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '347',
-    correct: "3",
+    ec3sx: '347',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '348',
-    correct: "2",
+    ec3sx: '348',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '349',
-    correct: "3",
+    ec3sx: '349',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '350',
-    correct: "3",
+    ec3sx: '350',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '351',
-    correct: "3",
+    ec3sx: '351',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '352',
-    correct: "3",
+    ec3sx: '352',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '353',
-    correct: "3",
+    ec3sx: '353',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '354',
-    correct: "4",
+    ec3sx: '354',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '355',
-    correct: "4",
+    ec3sx: '355',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '356',
-    correct: "4",
+    ec3sx: '356',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '357',
-    correct: "2",
+    ec3sx: '357',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '358',
-    correct: "2",
+    ec3sx: '358',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '359',
-    correct: "4",
+    ec3sx: '359',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '360',
-    correct: "5",
+    ec3sx: '360',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '361',
-    correct: "3",
+    ec3sx: '361',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '362',
-    correct: "4",
+    ec3sx: '362',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '363',
-    correct: "4",
+    ec3sx: '363',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '364',
-    correct: "5",
+    ec3sx: '364',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '365',
-    correct: "3",
+    ec3sx: '365',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '366',
-    correct: "3",
+    ec3sx: '366',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '367',
-    correct: "3",
+    ec3sx: '367',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '368',
-    correct: "3",
+    ec3sx: '368',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '369',
-    correct: "3",
+    ec3sx: '369',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '370',
-    correct: "3",
+    ec3sx: '370',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '371',
-    correct: "3",
+    ec3sx: '371',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '372',
-    correct: "2",
+    ec3sx: '372',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '373',
-    correct: "3",
+    ec3sx: '373',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '374',
-    correct: "3",
+    ec3sx: '374',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '375',
-    correct: "3",
+    ec3sx: '375',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '376',
-    correct: "4",
+    ec3sx: '376',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '377',
-    correct: "3",
+    ec3sx: '377',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '378',
-    correct: "2",
+    ec3sx: '378',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true/////
   },
   {
-    name: '379',
-    correct: "3",
+    ec3sx: '379',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '380',
-    correct: "5",
+    ec3sx: '380',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '381',
-    correct: "2",
+    ec3sx: '381',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '382',
-    correct: "4",
+    ec3sx: '382',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '383',
-    correct: "4",
+    ec3sx: '383',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '384',
-    correct: "4",
+    ec3sx: '384',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '385',
-    correct: "4",
+    ec3sx: '385',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '386',
-    correct: "3",
+    ec3sx: '386',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '387',
-    correct: "3",
+    ec3sx: '387',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '388',
-    correct: "2",
+    ec3sx: '388',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '389',
-    correct: "2",
+    ec3sx: '389',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '390',
-    correct: "2",
+    ec3sx: '390',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '391',
-    correct: "6",
+    ec3sx: '391',
+    wjz2sr: "6",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '392',
-    correct: "5",
+    ec3sx: '392',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '393',
-    correct: "4",
+    ec3sx: '393',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '394',
-    correct: "4",
+    ec3sx: '394',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '395',
-    correct: "5",
+    ec3sx: '395',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '396',
-    correct: "5",
+    ec3sx: '396',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '397',
-    correct: "5",
+    ec3sx: '397',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '398',
-    correct: "4",
+    ec3sx: '398',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '399',
-    correct: "4",
+    ec3sx: '399',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '400',
-    correct: "4",
+    ec3sx: '400',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '401',
-    correct: "4",
+    ec3sx: '401',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '402',
-    correct: "4",
+    ec3sx: '402',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '403',
-    correct: "5",
+    ec3sx: '403',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '404',
-    correct: "5",
+    ec3sx: '404',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '405',
-    correct: "5",
+    ec3sx: '405',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '406',
-    correct: "6",
+    ec3sx: '406',
+    wjz2sr: "6",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '407',
-    correct: "6",
+    ec3sx: '407',
+    wjz2sr: "6",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '408',
-    correct: "6",
+    ec3sx: '408',
+    wjz2sr: "6",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '409',
-    correct: "6",
+    ec3sx: '409',
+    wjz2sr: "6",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '410',
-    correct: "6",
+    ec3sx: '410',
+    wjz2sr: "6",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '411',
-    correct: "2",
+    ec3sx: '411',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '412',
-    correct: "2",
+    ec3sx: '412',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '413',
-    correct: "2",
+    ec3sx: '413',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '414',
-    correct: "2",
+    ec3sx: '414',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '415',
-    correct: "3",
+    ec3sx: '415',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '416',
-    correct: "3",
+    ec3sx: '416',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '417',
-    correct: "2",
+    ec3sx: '417',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '418',
-    correct: "2",
+    ec3sx: '418',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   // {
-  //   name: '419',
-  //   correct: "2",
+  //   ec3sx: '419',
+  //   wjz2sr: "2",
   //   viewed: true,
   //   ia_generated: false,
   //   level: 1,
   //   active: true
   // },
   {
-    name: '420',
-    correct: "4",
+    ec3sx: '420',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '421',
-    correct: "4",
+    ec3sx: '421',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '422',
-    correct: "4",
+    ec3sx: '422',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '423',
-    correct: "2",
+    ec3sx: '423',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '424',
-    correct: "2",
+    ec3sx: '424',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '425',
-    correct: "2",
+    ec3sx: '425',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '426',
-    correct: "2",
+    ec3sx: '426',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '427',
-    correct: "5",
+    ec3sx: '427',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '428',
-    correct: "3",
+    ec3sx: '428',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '429',
-    correct: "5",
+    ec3sx: '429',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '430',
-    correct: "5",
+    ec3sx: '430',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '431',
-    correct: "3",
+    ec3sx: '431',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '432',
-    correct: "4",
+    ec3sx: '432',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '433',
-    correct: "5",
+    ec3sx: '433',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '434',
-    correct: "5",
+    ec3sx: '434',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '435',
-    correct: "4",
+    ec3sx: '435',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '436',
-    correct: "3",
+    ec3sx: '436',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '437',
-    correct: "3",
+    ec3sx: '437',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '438',
-    correct: "3",
+    ec3sx: '438',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '439',
-    correct: "3",
+    ec3sx: '439',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '440',
-    correct: "4",
+    ec3sx: '440',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '441',
-    correct: "4",
+    ec3sx: '441',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '442',
-    correct: "3",
+    ec3sx: '442',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '443',
-    correct: "2",
+    ec3sx: '443',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '444',
-    correct: "3",
+    ec3sx: '444',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '445',
-    correct: "3",
+    ec3sx: '445',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '446',
-    correct: "4",
+    ec3sx: '446',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '447',
-    correct: "4",
+    ec3sx: '447',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '448',
-    correct: "4",
+    ec3sx: '448',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '449',
-    correct: "4",
+    ec3sx: '449',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '450',
-    correct: "4",
+    ec3sx: '450',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '451',
-    correct: "4",
+    ec3sx: '451',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '452',
-    correct: "5",
+    ec3sx: '452',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '453',
-    correct: "3",
+    ec3sx: '453',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '454',
-    correct: "3",
+    ec3sx: '454',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '455',
-    correct: "3",
+    ec3sx: '455',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '456',
-    correct: "4",
+    ec3sx: '456',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '457',
-    correct: "3",
+    ec3sx: '457',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '458',
-    correct: "3",
+    ec3sx: '458',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '459',
-    correct: "4",
+    ec3sx: '459',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '460',
-    correct: "3",
+    ec3sx: '460',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '461',
-    correct: "4",
+    ec3sx: '461',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '462',
-    correct: "4",
+    ec3sx: '462',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '463',
-    correct: "3",
+    ec3sx: '463',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '464',
-    correct: "3",
+    ec3sx: '464',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '465',
-    correct: "3",
+    ec3sx: '465',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '466',
-    correct: "4",
+    ec3sx: '466',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '467',
-    correct: "4",
+    ec3sx: '467',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '468',
-    correct: "3",
+    ec3sx: '468',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '469',
-    correct: "3",
+    ec3sx: '469',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '470',
-    correct: "2",
+    ec3sx: '470',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   // {
-  //   name: '471',
-  //   correct: "3",
+  //   ec3sx: '471',
+  //   wjz2sr: "3",
   //   viewed: true,
   //   ia_generated: false,
   //   level: 0,
   //   active: true
   // },
   {
-    name: '472',
-    correct: "3",
+    ec3sx: '472',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '473',
-    correct: "3",
+    ec3sx: '473',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '474',
-    correct: "3",
+    ec3sx: '474',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '475',
-    correct: "2",
+    ec3sx: '475',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '476',
-    correct: "3",
+    ec3sx: '476',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '477',
-    correct: "3",
+    ec3sx: '477',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '478',
-    correct: "2",
+    ec3sx: '478',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '479',
-    correct: "2",
+    ec3sx: '479',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '480',
-    correct: "3",
+    ec3sx: '480',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   // {
-  //   name: '481',
-  //   correct: "4",
+  //   ec3sx: '481',
+  //   wjz2sr: "4",
   //   viewed: true,
   //   ia_generated: false,
   //   level: 1,
   //   active: true
   // },
   {
-    name: '482',
-    correct: "3",
+    ec3sx: '482',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '483',
-    correct: "3",
+    ec3sx: '483',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '484',
-    correct: "3",
+    ec3sx: '484',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '485',
-    correct: "2",
+    ec3sx: '485',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '486',
-    correct: "2",
+    ec3sx: '486',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '487',
-    correct: "2",
+    ec3sx: '487',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '488',
-    correct: "2",
+    ec3sx: '488',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '489',
-    correct: "2",
+    ec3sx: '489',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '490',
-    correct: "2",
+    ec3sx: '490',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '491',
-    correct: "2",
+    ec3sx: '491',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '492',
-    correct: "5",
+    ec3sx: '492',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '493',
-    correct: "5",
+    ec3sx: '493',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '494',
-    correct: "5",
+    ec3sx: '494',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '495',
-    correct: "5",
+    ec3sx: '495',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '496',
-    correct: "4",
+    ec3sx: '496',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '497',
-    correct: "2",
+    ec3sx: '497',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '498',
-    correct: "2",
+    ec3sx: '498',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '499',
-    correct: "2",
+    ec3sx: '499',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '500',
-    correct: "2",
+    ec3sx: '500',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '501',
-    correct: "2",
+    ec3sx: '501',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '502',
-    correct: "5",
+    ec3sx: '502',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '503',
-    correct: "4",
+    ec3sx: '503',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '504',
-    correct: "5",
+    ec3sx: '504',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '505',
-    correct: "5",
+    ec3sx: '505',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '506',
-    correct: "3",
+    ec3sx: '506',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '507',
-    correct: "4",
+    ec3sx: '507',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '508',
-    correct: "5",
+    ec3sx: '508',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '509',
-    correct: "4",
+    ec3sx: '509',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '510',
-    correct: "4",
+    ec3sx: '510',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '511',
-    correct: "4",
+    ec3sx: '511',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '512',
-    correct: "2",
+    ec3sx: '512',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '513',
-    correct: "2",
+    ec3sx: '513',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '514',
-    correct: "3",
+    ec3sx: '514',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '515',
-    correct: "3",
+    ec3sx: '515',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '516',
-    correct: "2",
+    ec3sx: '516',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '517',
-    correct: "3",
+    ec3sx: '517',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '518',
-    correct: "4",
+    ec3sx: '518',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '519',
-    correct: "3",
+    ec3sx: '519',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '520',
-    correct: "3",
+    ec3sx: '520',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '521',
-    correct: "3",
+    ec3sx: '521',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '522',
-    correct: "3",
+    ec3sx: '522',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '523',
-    correct: "2",
+    ec3sx: '523',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '524',
-    correct: "2",
+    ec3sx: '524',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '525',
-    correct: "3",
+    ec3sx: '525',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '526',
-    correct: "3",
+    ec3sx: '526',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '527',
-    correct: "2",
+    ec3sx: '527',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '528',
-    correct: "3",
+    ec3sx: '528',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '529',
-    correct: "3",
+    ec3sx: '529',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '530',
-    correct: "2",
+    ec3sx: '530',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '531',
-    correct: "3",
+    ec3sx: '531',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '532',
-    correct: "2",
+    ec3sx: '532',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '533',
-    correct: "2",
+    ec3sx: '533',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '534',
-    correct: "3",
+    ec3sx: '534',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '535',
-    correct: "3",
+    ec3sx: '535',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '536',
-    correct: "3",
+    ec3sx: '536',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '537',
-    correct: "2",
+    ec3sx: '537',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '538',
-    correct: "3",
+    ec3sx: '538',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
@@ -5206,2856 +5206,2856 @@ var imagesFull = [
   */
 
   {
-    name: '539',
-    correct: "3",
+    ec3sx: '539',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '540',
-    correct: "3",
+    ec3sx: '540',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '541',
-    correct: "3",
+    ec3sx: '541',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '542',
-    correct: "3",
+    ec3sx: '542',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '543',
-    correct: "3",
+    ec3sx: '543',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '544',
-    correct: "3",
+    ec3sx: '544',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '545',
-    correct: "4",
+    ec3sx: '545',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '546',
-    correct: "3",
+    ec3sx: '546',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '547',
-    correct: "4",
+    ec3sx: '547',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '548',
-    correct: "3",
+    ec3sx: '548',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '549',
-    correct: "3",
+    ec3sx: '549',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '550',
-    correct: "3",
+    ec3sx: '550',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '551',
-    correct: "2",
+    ec3sx: '551',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '552',
-    correct: "4",
+    ec3sx: '552',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '553',
-    correct: "4",
+    ec3sx: '553',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '554',
-    correct: "4",
+    ec3sx: '554',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '555',
-    correct: "4",
+    ec3sx: '555',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '556',
-    correct: "4",
+    ec3sx: '556',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '557',
-    correct: "4",
+    ec3sx: '557',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '558',
-    correct: "5",
+    ec3sx: '558',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '559',
-    correct: "4",
+    ec3sx: '559',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '560',
-    correct: "3",
+    ec3sx: '560',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '561',
-    correct: "2",
+    ec3sx: '561',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '562',
-    correct: "2",
+    ec3sx: '562',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '563',
-    correct: "2",
+    ec3sx: '563',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '564',
-    correct: "2",
+    ec3sx: '564',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '565',
-    correct: "3",
+    ec3sx: '565',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '566',
-    correct: "3",
+    ec3sx: '566',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '567',
-    correct: "3",
+    ec3sx: '567',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '568',
-    correct: "3",
+    ec3sx: '568',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '569',
-    correct: "3",
+    ec3sx: '569',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '570',
-    correct: "3",
+    ec3sx: '570',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '571',
-    correct: "3",
+    ec3sx: '571',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '572',
-    correct: "3",
+    ec3sx: '572',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '573',
-    correct: "3",
+    ec3sx: '573',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '574',
-    correct: "3",
+    ec3sx: '574',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '575',
-    correct: "4",
+    ec3sx: '575',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '576',
-    correct: "3",
+    ec3sx: '576',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '577',
-    correct: "4",
+    ec3sx: '577',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '578',
-    correct: "4",
+    ec3sx: '578',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '579',
-    correct: "5",
+    ec3sx: '579',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '580',
-    correct: "5",
+    ec3sx: '580',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '581',
-    correct: "5",
+    ec3sx: '581',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '582',
-    correct: "5",
+    ec3sx: '582',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '583',
-    correct: "3",
+    ec3sx: '583',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '584',
-    correct: "6",
+    ec3sx: '584',
+    wjz2sr: "6",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '585',
-    correct: "6",
+    ec3sx: '585',
+    wjz2sr: "6",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '586',
-    correct: "4",
+    ec3sx: '586',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '587',
-    correct: "3",
+    ec3sx: '587',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '588',
-    correct: "6",
+    ec3sx: '588',
+    wjz2sr: "6",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '589',
-    correct: "5",
+    ec3sx: '589',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '590',
-    correct: "5",
+    ec3sx: '590',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '591',
-    correct: "5",
+    ec3sx: '591',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '592',
-    correct: "5",
+    ec3sx: '592',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '593',
-    correct: "5",
+    ec3sx: '593',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '594',
-    correct: "4",
+    ec3sx: '594',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '595',
-    correct: "4",
+    ec3sx: '595',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '596',
-    correct: "4",
+    ec3sx: '596',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '597',
-    correct: "2",
+    ec3sx: '597',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '598',
-    correct: "2",
+    ec3sx: '598',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '599',
-    correct: "2",
+    ec3sx: '599',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '600',
-    correct: "3",
+    ec3sx: '600',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '601',
-    correct: "4",
+    ec3sx: '601',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '602',
-    correct: "4",
+    ec3sx: '602',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '603',
-    correct: "4",
+    ec3sx: '603',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '604',
-    correct: "3",
+    ec3sx: '604',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '605',
-    correct: "3",
+    ec3sx: '605',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '606',
-    correct: "3",
+    ec3sx: '606',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '607',
-    correct: "3",
+    ec3sx: '607',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '608',
-    correct: "3",
+    ec3sx: '608',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '609',
-    correct: "3",
+    ec3sx: '609',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '610',
-    correct: "3",
+    ec3sx: '610',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '611',
-    correct: "4",
+    ec3sx: '611',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '612',
-    correct: "4",
+    ec3sx: '612',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '613',
-    correct: "3",
+    ec3sx: '613',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '614',
-    correct: "3",
+    ec3sx: '614',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '615',
-    correct: "3",
+    ec3sx: '615',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '616',
-    correct: "3",
+    ec3sx: '616',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '617',
-    correct: "4",
+    ec3sx: '617',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '618',
-    correct: "3",
+    ec3sx: '618',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '619',
-    correct: "4",
+    ec3sx: '619',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '620',
-    correct: "4",
+    ec3sx: '620',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '621',
-    correct: "3",
+    ec3sx: '621',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '622',
-    correct: "2",
+    ec3sx: '622',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '623',
-    correct: "3",
+    ec3sx: '623',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '624',
-    correct: "3",
+    ec3sx: '624',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '625',
-    correct: "3",
+    ec3sx: '625',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '626',
-    correct: "3",
+    ec3sx: '626',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '627',
-    correct: "3",
+    ec3sx: '627',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '628',
-    correct: "3",
+    ec3sx: '628',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '629',
-    correct: "4",
+    ec3sx: '629',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '630',
-    correct: "3",
+    ec3sx: '630',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '631',
-    correct: "4",
+    ec3sx: '631',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '632',
-    correct: "4",
+    ec3sx: '632',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '633',
-    correct: "3",
+    ec3sx: '633',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '634',
-    correct: "3",
+    ec3sx: '634',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '635',
-    correct: "3",
+    ec3sx: '635',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '636',
-    correct: "6",
+    ec3sx: '636',
+    wjz2sr: "6",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '637',
-    correct: "2",
+    ec3sx: '637',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '638',
-    correct: "2",
+    ec3sx: '638',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '639',
-    correct: "3",
+    ec3sx: '639',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '640',
-    correct: "2",
+    ec3sx: '640',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '641',
-    correct: "3",
+    ec3sx: '641',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '642',
-    correct: "2",
+    ec3sx: '642',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '643',
-    correct: "3",
+    ec3sx: '643',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '644',
-    correct: "4",
+    ec3sx: '644',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '645',
-    correct: "3",
+    ec3sx: '645',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '646',
-    correct: "4",
+    ec3sx: '646',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '647',
-    correct: "4",
+    ec3sx: '647',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '648',
-    correct: "3",
+    ec3sx: '648',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '649',
-    correct: "3",
+    ec3sx: '649',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '650',
-    correct: "3",
+    ec3sx: '650',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '651',
-    correct: "4",
+    ec3sx: '651',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '652',
-    correct: "6",
+    ec3sx: '652',
+    wjz2sr: "6",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '653',
-    correct: "5",
+    ec3sx: '653',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '654',
-    correct: "5",
+    ec3sx: '654',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '655',
-    correct: "5",
+    ec3sx: '655',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '656',
-    correct: "3",
+    ec3sx: '656',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '657',
-    correct: "3",
+    ec3sx: '657',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '658',
-    correct: "3",
+    ec3sx: '658',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '659',
-    correct: "3",
+    ec3sx: '659',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '660',
-    correct: "4",
+    ec3sx: '660',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '661',
-    correct: "4",
+    ec3sx: '661',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '662',
-    correct: "4",
+    ec3sx: '662',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '663',
-    correct: "4",
+    ec3sx: '663',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '664',
-    correct: "3",
+    ec3sx: '664',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '665',
-    correct: "3",
+    ec3sx: '665',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '666',
-    correct: "4",
+    ec3sx: '666',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '667',
-    correct: "3",
+    ec3sx: '667',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '668',
-    correct: "3",
+    ec3sx: '668',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '669',
-    correct: "3",
+    ec3sx: '669',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '670',
-    correct: "3",
+    ec3sx: '670',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '671',
-    correct: "3",
+    ec3sx: '671',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '672',
-    correct: "3",
+    ec3sx: '672',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '673',
-    correct: "3",
+    ec3sx: '673',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '674',
-    correct: "3",
+    ec3sx: '674',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '675',
-    correct: "3",
+    ec3sx: '675',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   // {
-  //   name: '676',
-  //   correct: "3",
+  //   ec3sx: '676',
+  //   wjz2sr: "3",
   //   viewed: false,
   //   ia_generated: false,
   //   level: 0,
   //   active: true
   // },
   {
-    name: '677',
-    correct: "2",
+    ec3sx: '677',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '678',
-    correct: "4",
+    ec3sx: '678',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '679',
-    correct: "4",
+    ec3sx: '679',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '680',
-    correct: "5",
+    ec3sx: '680',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '681',
-    correct: "4",
+    ec3sx: '681',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '682',
-    correct: "5",
+    ec3sx: '682',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '683',
-    correct: "5",
+    ec3sx: '683',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '684',
-    correct: "1",
+    ec3sx: '684',
+    wjz2sr: "1",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '685',
-    correct: "5",
+    ec3sx: '685',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '686',
-    correct: "4",
+    ec3sx: '686',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '687',
-    correct: "3",
+    ec3sx: '687',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '688',
-    correct: "4",
+    ec3sx: '688',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '689',
-    correct: "5",
+    ec3sx: '689',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '690',
-    correct: "3",
+    ec3sx: '690',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '691',
-    correct: "5",
+    ec3sx: '691',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '692',
-    correct: "2",
+    ec3sx: '692',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '693',
-    correct: "5",
+    ec3sx: '693',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '694',
-    correct: "4",
+    ec3sx: '694',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '695',
-    correct: "2",
+    ec3sx: '695',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '696',
-    correct: "2",
+    ec3sx: '696',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '697',
-    correct: "3",
+    ec3sx: '697',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '698',
-    correct: "3",
+    ec3sx: '698',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '699',
-    correct: "4",
+    ec3sx: '699',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '700',
-    correct: "4",
+    ec3sx: '700',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '701',
-    correct: "3",
+    ec3sx: '701',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '702',
-    correct: "2",
+    ec3sx: '702',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '703',
-    correct: "2",
+    ec3sx: '703',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '704',
-    correct: "3",
+    ec3sx: '704',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '705',
-    correct: "2",
+    ec3sx: '705',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '706',
-    correct: "3",
+    ec3sx: '706',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '707',
-    correct: "3",
+    ec3sx: '707',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '708',
-    correct: "3",
+    ec3sx: '708',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '709',
-    correct: "3",
+    ec3sx: '709',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '710',
-    correct: "2",
+    ec3sx: '710',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '711',
-    correct: "2",
+    ec3sx: '711',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '712',
-    correct: "3",
+    ec3sx: '712',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '713',
-    correct: "3",
+    ec3sx: '713',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '714',
-    correct: "3",
+    ec3sx: '714',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '715',
-    correct: "2",
+    ec3sx: '715',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '716',
-    correct: "3",
+    ec3sx: '716',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '717',
-    correct: "3",
+    ec3sx: '717',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '718',
-    correct: "3",
+    ec3sx: '718',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '719',
-    correct: "2",
+    ec3sx: '719',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '720',
-    correct: "3",
+    ec3sx: '720',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '721',
-    correct: "3",
+    ec3sx: '721',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '722',
-    correct: "3",
+    ec3sx: '722',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '723',
-    correct: "3",
+    ec3sx: '723',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '724',
-    correct: "2",
+    ec3sx: '724',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '725',
-    correct: "4",
+    ec3sx: '725',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '726',
-    correct: "3",
+    ec3sx: '726',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '727',
-    correct: "4",
+    ec3sx: '727',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '728',
-    correct: "4",
+    ec3sx: '728',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '729',
-    correct: "4",
+    ec3sx: '729',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '730',
-    correct: "3",
+    ec3sx: '730',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '731',
-    correct: "3",
+    ec3sx: '731',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '732',
-    correct: "2",
+    ec3sx: '732',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '733',
-    correct: "4",
+    ec3sx: '733',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '734',
-    correct: "3",
+    ec3sx: '734',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '735',
-    correct: "4",
+    ec3sx: '735',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '736',
-    correct: "5",
+    ec3sx: '736',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '737',
-    correct: "5",
+    ec3sx: '737',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '738',
-    correct: "4",
+    ec3sx: '738',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '739',
-    correct: "4",
+    ec3sx: '739',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '740',
-    correct: "5",
+    ec3sx: '740',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '741',
-    correct: "4",
+    ec3sx: '741',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '742',
-    correct: "4",
+    ec3sx: '742',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '743',
-    correct: "3",
+    ec3sx: '743',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '744',
-    correct: "4",
+    ec3sx: '744',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '745',
-    correct: "4",
+    ec3sx: '745',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '746',
-    correct: "3",
+    ec3sx: '746',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '747',
-    correct: "4",
+    ec3sx: '747',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '748',
-    correct: "4",
+    ec3sx: '748',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '749',
-    correct: "4",
+    ec3sx: '749',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '750',
-    correct: "4",
+    ec3sx: '750',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '751',
-    correct: "5",
+    ec3sx: '751',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '752',
-    correct: "3",
+    ec3sx: '752',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '753',
-    correct: "3",
+    ec3sx: '753',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '754',
-    correct: "3",
+    ec3sx: '754',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '755',
-    correct: "3",
+    ec3sx: '755',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '756',
-    correct: "4",
+    ec3sx: '756',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '757',
-    correct: "3",
+    ec3sx: '757',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '758',
-    correct: "3",
+    ec3sx: '758',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '759',
-    correct: "3",
+    ec3sx: '759',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '760',
-    correct: "3",
+    ec3sx: '760',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '761',
-    correct: "3",
+    ec3sx: '761',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '762',
-    correct: "2",
+    ec3sx: '762',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '763',
-    correct: "3",
+    ec3sx: '763',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '764',
-    correct: "3",
+    ec3sx: '764',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '765',
-    correct: "3",
+    ec3sx: '765',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '766',
-    correct: "3",
+    ec3sx: '766',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '767',
-    correct: "2",
+    ec3sx: '767',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '768',
-    correct: "3",
+    ec3sx: '768',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '769',
-    correct: "3",
+    ec3sx: '769',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   // {
-  //   name: '770',
-  //   correct: "3",
+  //   ec3sx: '770',
+  //   wjz2sr: "3",
   //   viewed: false,
   //   ia_generated: false,
   //   level: 1,
   //   active: true
   // },
   // {
-  //   name: '771',
-  //   correct: "3",
+  //   ec3sx: '771',
+  //   wjz2sr: "3",
   //   viewed: false,
   //   ia_generated: false,
   //   level: 0,
   //   active: true
   // },
   // {
-  //   name: '772',
-  //   correct: "2",
+  //   ec3sx: '772',
+  //   wjz2sr: "2",
   //   viewed: false,
   //   ia_generated: false,
   //   level: 0,
   //   active: true
   // },
   // {
-  //   name: '773',
-  //   correct: "2",
+  //   ec3sx: '773',
+  //   wjz2sr: "2",
   //   viewed: false,
   //   ia_generated: false,
   //   level: 0,
   //   active: true
   // },
   // {
-  //   name: '774',
-  //   correct: "2",
+  //   ec3sx: '774',
+  //   wjz2sr: "2",
   //   viewed: false,
   //   ia_generated: false,
   //   level: 1,
   //   active: true
   // },
   // {
-  //   name: '775',
-  //   correct: "2",
+  //   ec3sx: '775',
+  //   wjz2sr: "2",
   //   viewed: false,
   //   ia_generated: false,
   //   level: 0,
   //   active: true
   // },
   // {
-  //   name: '776',
-  //   correct: "2",
+  //   ec3sx: '776',
+  //   wjz2sr: "2",
   //   viewed: false,
   //   ia_generated: false,
   //   level: 1,
   //   active: true
   // },
   // {
-  //   name: '777',
-  //   correct: "2",
+  //   ec3sx: '777',
+  //   wjz2sr: "2",
   //   viewed: false,
   //   ia_generated: false,
   //   level: 1,
   //   active: true
   // },
   // {
-  //   name: '778',
-  //   correct: "2",
+  //   ec3sx: '778',
+  //   wjz2sr: "2",
   //   viewed: false,
   //   ia_generated: false,
   //   level: 0,
   //   active: true
   // },
   // {
-  //   name: '779',
-  //   correct: "5",
+  //   ec3sx: '779',
+  //   wjz2sr: "5",
   //   viewed: false,
   //   ia_generated: false,
   //   level: 0,
   //   active: true
   // },
   {
-    name: '780',
-    correct: "3",
+    ec3sx: '780',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '781',
-    correct: "4",
+    ec3sx: '781',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '782',
-    correct: "5",
+    ec3sx: '782',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '783',
-    correct: "4",
+    ec3sx: '783',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '784',
-    correct: "4",
+    ec3sx: '784',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '785',
-    correct: "5",
+    ec3sx: '785',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '786',
-    correct: "4",
+    ec3sx: '786',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '787',
-    correct: "6",
+    ec3sx: '787',
+    wjz2sr: "6",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '788',
-    correct: "6",
+    ec3sx: '788',
+    wjz2sr: "6",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '789',
-    correct: "5",
+    ec3sx: '789',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '790',
-    correct: "4",
+    ec3sx: '790',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '791',
-    correct: "3",
+    ec3sx: '791',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '792',
-    correct: "4",
+    ec3sx: '792',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '793',
-    correct: "4",
+    ec3sx: '793',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '794',
-    correct: "3",
+    ec3sx: '794',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '795',
-    correct: "3",
+    ec3sx: '795',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '796',
-    correct: "3",
-    viewed: false,
-    ia_generated: false,
-    level: 2,
-    active: true
-  },
-  {
-    name: '797',
-    correct: "3",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '798',
-    correct: "4",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '799',
-    correct: "3",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '800',
-    correct: "4",
-    viewed: false,
-    ia_generated: false,
-    level: 1,
-    active: true
-  },
-  {
-    name: '801',
-    correct: "3",
-    viewed: false,
-    ia_generated: false,
-    level: 1,
-    active: true
-  },
-  {
-    name: '802',
-    correct: "4",
-    viewed: false,
-    ia_generated: false,
-    level: 1,
-    active: true
-  },
-  {
-    name: '803',
-    correct: "4",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '804',
-    correct: "3",
-    viewed: false,
-    ia_generated: false,
-    level: 1,
-    active: true
-  },
-  {
-    name: '805',
-    correct: "4",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '806',
-    correct: "2",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '807',
-    correct: "3",
-    viewed: false,
-    ia_generated: false,
-    level: 1,
-    active: true
-  },
-  {
-    name: '808',
-    correct: "3",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '809',
-    correct: "5",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '810',
-    correct: "3",
-    viewed: false,
-    ia_generated: false,
-    level: 1,
-    active: true
-  },
-  {
-    name: '811',
-    correct: "3",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '812',
-    correct: "3",
-    viewed: false,
-    ia_generated: false,
-    level: 1,
-    active: true
-  },
-  {
-    name: '813',
-    correct: "3",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '814',
-    correct: "3",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '815',
-    correct: "4",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '816',
-    correct: "3",
+    ec3sx: '796',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '817',
-    correct: "3",
+    ec3sx: '797',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '798',
+    wjz2sr: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '799',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '800',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '818',
-    correct: "4",
+    ec3sx: '801',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    ec3sx: '802',
+    wjz2sr: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    ec3sx: '803',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '819',
-    correct: "3",
+    ec3sx: '804',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    ec3sx: '805',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '820',
-    correct: "4",
+    ec3sx: '806',
+    wjz2sr: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '807',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    ec3sx: '808',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '809',
+    wjz2sr: "5",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '810',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    ec3sx: '811',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '812',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    ec3sx: '813',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '814',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '815',
+    wjz2sr: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '816',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '821',
-    correct: "4",
+    ec3sx: '817',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    ec3sx: '818',
+    wjz2sr: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '819',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '820',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '822',
-    correct: "3",
+    ec3sx: '821',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '823',
-    correct: "3",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '824',
-    correct: "3",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '825',
-    correct: "4",
-    viewed: false,
-    ia_generated: false,
-    level: 1,
-    active: true
-  },
-  {
-    name: '826',
-    correct: "4",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '827',
-    correct: "4",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '828',
-    correct: "3",
+    ec3sx: '822',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '829',
-    correct: "4",
+    ec3sx: '823',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '830',
-    correct: "3",
+    ec3sx: '824',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '831',
-    correct: "3",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
-  {
-    name: '832',
-    correct: "3",
-    viewed: false,
-    ia_generated: false,
-    level: 2,
-    active: true
-  },
-  {
-    name: '833',
-    correct: "3",
+    ec3sx: '825',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '834',
-    correct: "3",
+    ec3sx: '826',
+    wjz2sr: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '827',
+    wjz2sr: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '828',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '835',
-    correct: "3",
+    ec3sx: '829',
+    wjz2sr: "4",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '830',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '831',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    ec3sx: '832',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    ec3sx: '833',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    ec3sx: '834',
+    wjz2sr: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    ec3sx: '835',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '836',
-    correct: "3",
+    ec3sx: '836',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '837',
-    correct: "3",
+    ec3sx: '837',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '838',
-    correct: "4",
+    ec3sx: '838',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '839',
-    correct: "4",
+    ec3sx: '839',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '840',
-    correct: "3",
+    ec3sx: '840',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '841',
-    correct: "3",
+    ec3sx: '841',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '842',
-    correct: "3",
+    ec3sx: '842',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '843',
-    correct: "3",
+    ec3sx: '843',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '844',
-    correct: "3",
+    ec3sx: '844',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '845',
-    correct: "3",
+    ec3sx: '845',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '846',
-    correct: "3",
+    ec3sx: '846',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '847',
-    correct: "5",
+    ec3sx: '847',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: true,
     level: 2,
     active: true
   },
   {
-    name: '848',
-    correct: "5",
+    ec3sx: '848',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '849',
-    correct: "3",
+    ec3sx: '849',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 2,
     active: true
   },
   {
-    name: '850',
-    correct: "3",
+    ec3sx: '850',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '851',
-    correct: "3",
+    ec3sx: '851',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '852',
-    correct: "3",
+    ec3sx: '852',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '853',
-    correct: "4",
+    ec3sx: '853',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: true,
     level: 2,
     active: true
   },
   {
-    name: '854',
-    correct: "4",
+    ec3sx: '854',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '855',
-    correct: "3",
+    ec3sx: '855',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '856',
-    correct: "3",
+    ec3sx: '856',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '857',
-    correct: "3",
+    ec3sx: '857',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '858',
-    correct: "3",
+    ec3sx: '858',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '859',
-    correct: "3",
+    ec3sx: '859',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '860',
-    correct: "3",
+    ec3sx: '860',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 2,
     active: true
   },
   {
-    name: '861',
-    correct: "3",
+    ec3sx: '861',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '862',
-    correct: "3",
+    ec3sx: '862',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '863',
-    correct: "3",
+    ec3sx: '863',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '864',
-    correct: "4",
+    ec3sx: '864',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '865',
-    correct: "5",
+    ec3sx: '865',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '866',
-    correct: "3",
+    ec3sx: '866',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '868',
-    correct: "3",
+    ec3sx: '868',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '869',
-    correct: "3",
+    ec3sx: '869',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '870',
-    correct: "3",
+    ec3sx: '870',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '871',
-    correct: "3",
+    ec3sx: '871',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 2,
     active: true
   },
   {
-    name: '872',
-    correct: "3",
+    ec3sx: '872',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '873',
-    correct: "2",
+    ec3sx: '873',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '874',
-    correct: "4",
+    ec3sx: '874',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '875',
-    correct: "4",
+    ec3sx: '875',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '876',
-    correct: "3",
+    ec3sx: '876',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '877',
-    correct: "3",
+    ec3sx: '877',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '878',
-    correct: "3",
+    ec3sx: '878',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },//
   {
-    name: '879',
-    correct: "3",
+    ec3sx: '879',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 2,
     active: true
   },
   {
-    name: '880',
-    correct: "3",
+    ec3sx: '880',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 0,
     active: true
   },
   {
-    name: '881',
-    correct: "3",
+    ec3sx: '881',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 2,
     active: true
   },
   {
-    name: '882',
-    correct: "4",
+    ec3sx: '882',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: true,
     level: 2,
     active: true
   },
   {
-    name: '883',
-    correct: "4",
+    ec3sx: '883',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '884',
-    correct: "3",
+    ec3sx: '884',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 2,
     active: true
   },
   {
-    name: '885',
-    correct: "3",
+    ec3sx: '885',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 2,
     active: true
   },
   {
-    name: '886',
-    correct: "4",
+    ec3sx: '886',
+    wjz2sr: "4",
     viewed: false,
     ia_generated: true,
     level: 2,
     active: true
   },
   {
-    name: '887',
-    correct: "3",
+    ec3sx: '887',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   // {
-  //   name: '888',
-  //   correct: "2",
+  //   ec3sx: '888',
+  //   wjz2sr: "2",
   //   viewed: false,
   //   ia_generated: false,
   //   level: 0,
   //   active: true
   // },
   {
-    name: '889',
-    correct: "3",
+    ec3sx: '889',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 2,
     active: true
   },
   {
-    name: '890',
-    correct: "3",
+    ec3sx: '890',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 1,
     active: true
   },
   {
-    name: '891',
-    correct: "3",
+    ec3sx: '891',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: true,
     level: 2,
     active: true
   },
   {
-    name: '892',
-    correct: "5",
+    ec3sx: '892',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '893',
-    correct: "5",
+    ec3sx: '893',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   // {
-  //   name: '894',
-  //   correct: "3",
+  //   ec3sx: '894',
+  //   wjz2sr: "3",
   //   viewed: false,
   //   ia_generated: false,
   //   level: 1,
   //   active: true
   // },
   {
-    name: '895',
-    correct: "5",
+    ec3sx: '895',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '896',
-    correct: "5",
+    ec3sx: '896',
+    wjz2sr: "5",
     viewed: false,
     ia_generated: false,
     level: 2,
@@ -8063,550 +8063,550 @@ var imagesFull = [
   },
   //
   {
-    name: '897',
-    correct: "2",
+    ec3sx: '897',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '898',
-    correct: "2",
+    ec3sx: '898',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '899',
-    correct: "3",
+    ec3sx: '899',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '900',
-    correct: "2",
+    ec3sx: '900',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '901',
-    correct: "2",
+    ec3sx: '901',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '902',
-    correct: "2",
+    ec3sx: '902',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '903',
-    correct: "2",
+    ec3sx: '903',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '904',
-    correct: "2",
+    ec3sx: '904',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '905',
-    correct: "2",
+    ec3sx: '905',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '906',
-    correct: "3",
+    ec3sx: '906',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '907',
-    correct: "2",
+    ec3sx: '907',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
   {
-    name: '908',
-    correct: "3",
+    ec3sx: '908',
+    wjz2sr: "3",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '909',
-    correct: "2",
+    ec3sx: '909',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 1,
     active: true
   },
   {
-    name: '910',
-    correct: "2",
+    ec3sx: '910',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 0,
     active: true
   },
   {
-    name: '911',
-    correct: "2",
+    ec3sx: '911',
+    wjz2sr: "2",
     viewed: false,
     ia_generated: false,
     level: 2,
     active: true
   },
-  { name: '912', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '913', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '914', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '915', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '916', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '917', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '918', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '919', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '920', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '921', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '922', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '923', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '924', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '925', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '926', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '927', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '928', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '929', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '930', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '931', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '932', correct: "5", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '933', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '934', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '935', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '936', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '937', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '938', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '939', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '940', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '941', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '942', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '943', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '944', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '945', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '946', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '947', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '948', correct: "3", viewed: false, ia_generated: true, level: 2, active: true },
-  { name: '949', correct: "3", viewed: false, ia_generated: true, level: 2, active: true },
-  { name: '950', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '951', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '952', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '953', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '954', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '955', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '956', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '957', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '958', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '959', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '960', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '961', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '962', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '963', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '964', correct: "2", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '965', correct: "2", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '966', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '967', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '968', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '969', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '970', correct: "2", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '971', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '972', correct: "1", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '973', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '974', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '975', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '976', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '977', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '978', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '979', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '980', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '981', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '982', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '983', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '984', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '985', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '986', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '987', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '988', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  // { name: '989', correct: "5", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '990', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '991', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '992', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '993', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '994', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '995', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '996', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '997', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '998', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '999', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1000', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1001', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1002', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1003', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1004', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1005', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1006', correct: "3", viewed: false, ia_generated: true, level: 0, active: true },
-  { name: '1007', correct: "3", viewed: false, ia_generated: true, level: 0, active: true },
-  { name: '1008', correct: "3", viewed: false, ia_generated: true, level: 0, active: true },
-  { name: '1009', correct: "3", viewed: false, ia_generated: true, level: 1, active: true },
-  { name: '1010', correct: "4", viewed: false, ia_generated: true, level: 0, active: true },
-  { name: '1011', correct: "3", viewed: false, ia_generated: true, level: 0, active: true },
-  { name: '1012', correct: "3", viewed: false, ia_generated: true, level: 0, active: true },
-  { name: '1013', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1014', correct: "2", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1015', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1016', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1017', correct: "1", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1018', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1019', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1020', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1021', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1022', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1023', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1024', correct: "1", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1025', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1026', correct: "5", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1027', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1028', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1029', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1030', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1031', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1032', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1033', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1034', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1035', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1036', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1037', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1038', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1039', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1040', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1041', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1042', correct: "6", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1043', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1044', correct: "6", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1045', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1046', correct: "5", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1047', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1048', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1049', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1050', correct: "5", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1051', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1052', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1053', correct: "5", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1054', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1055', correct: "5", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1056', correct: "5", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1057', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1058', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1059', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1060', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1061', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1062', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1063', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1064', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1065', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1066', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1067', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1068', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1069', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1070', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1071', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1072', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1073', correct: "3", viewed: false, ia_generated: true, level: 0, active: true },
-  { name: '1074', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1075', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1076', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1077', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1078', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1079', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1080', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1081', correct: "5", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1082', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1083', correct: "5", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1084', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1085', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1086', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1087', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1088', correct: "2", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1089', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1090', correct: "5", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1091', correct: "5", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1092', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1093', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1094', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1095', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1096', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1097', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1098', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1099', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1100', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1101', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1102', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1103', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1104', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1105', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1106', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1107', correct: "2", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1108', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1109', correct: "2", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1110', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1111', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1112', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1113', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1114', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1115', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1116', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1117', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1118', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1119', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1120', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1121', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1122', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1123', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1124', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1125', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1126', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1127', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1128', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1129', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1130', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1131', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1132', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1133', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1134', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1135', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1136', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1137', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1138', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1139', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1140', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1141', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1142', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1143', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1144', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1145', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1146', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1147', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1148', correct: "2", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1149', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1150', correct: "3", viewed: false, ia_generated: true, level: 0, active: true },
-  { name: '1151', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1152', correct: "2", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1153', correct: "2", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1154', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1155', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1156', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1157', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1158', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1159', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1160', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1161', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1162', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1163', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1164', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1165', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1166', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1167', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1168', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1169', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1170', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1171', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1172', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1173', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1174', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1175', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1176', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1177', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1178', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1179', correct: "5", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1180', correct: "5", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1181', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1182', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1183', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1184', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1185', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  // { name: '1186', correct: "5", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1187', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1188', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1189', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1190', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1191', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1192', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1193', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1194', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1195', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1196', correct: "5", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1197', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1198', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1199', correct: "5", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1200', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  //{ name: '1201', correct: "5", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1202', correct: "5", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1203', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1204', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1205', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1206', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1207', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1208', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1209', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1210', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1211', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1212', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1213', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1214', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1215', correct: "2", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1216', correct: "2", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1217', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1218', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1219', correct: "2", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1220', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1221', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1222', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1223', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1224', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1225', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1226', correct: "2", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1227', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1228', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1229', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1230', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1231', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1232', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1233', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1234', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1235', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1236', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1237', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1238', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1239', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1240', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1241', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1242', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1243', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1244', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1245', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1246', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1247', correct: "5", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1248', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1249', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1250', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1251', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1252', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1253', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1254', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  // { name: '1255', correct: "5", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1256', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1257', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1258', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1259', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1260', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1261', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1262', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1263', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1264', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1265', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1266', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1267', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1268', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1269', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1270', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1271', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1272', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1273', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1274', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1275', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1276', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1277', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1278', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1279', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1280', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1281', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '912', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '913', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '914', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '915', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '916', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '917', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '918', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '919', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '920', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '921', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '922', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '923', wjz2sr: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '924', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '925', wjz2sr: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '926', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '927', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '928', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '929', wjz2sr: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '930', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '931', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '932', wjz2sr: "5", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '933', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '934', wjz2sr: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '935', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '936', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '937', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '938', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '939', wjz2sr: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '940', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '941', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '942', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '943', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '944', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '945', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '946', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '947', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '948', wjz2sr: "3", viewed: false, ia_generated: true, level: 2, active: true },
+  { ec3sx: '949', wjz2sr: "3", viewed: false, ia_generated: true, level: 2, active: true },
+  { ec3sx: '950', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '951', wjz2sr: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '952', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '953', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '954', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '955', wjz2sr: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '956', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '957', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '958', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '959', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '960', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '961', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '962', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '963', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '964', wjz2sr: "2", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '965', wjz2sr: "2", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '966', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '967', wjz2sr: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '968', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '969', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '970', wjz2sr: "2", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '971', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '972', wjz2sr: "1", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '973', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '974', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '975', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '976', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '977', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '978', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '979', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '980', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '981', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '982', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '983', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '984', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '985', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '986', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '987', wjz2sr: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '988', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  // { ec3sx: '989', wjz2sr: "5", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '990', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '991', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '992', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '993', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '994', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '995', wjz2sr: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '996', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '997', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '998', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '999', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1000', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1001', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1002', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1003', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1004', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1005', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1006', wjz2sr: "3", viewed: false, ia_generated: true, level: 0, active: true },
+  { ec3sx: '1007', wjz2sr: "3", viewed: false, ia_generated: true, level: 0, active: true },
+  { ec3sx: '1008', wjz2sr: "3", viewed: false, ia_generated: true, level: 0, active: true },
+  { ec3sx: '1009', wjz2sr: "3", viewed: false, ia_generated: true, level: 1, active: true },
+  { ec3sx: '1010', wjz2sr: "4", viewed: false, ia_generated: true, level: 0, active: true },
+  { ec3sx: '1011', wjz2sr: "3", viewed: false, ia_generated: true, level: 0, active: true },
+  { ec3sx: '1012', wjz2sr: "3", viewed: false, ia_generated: true, level: 0, active: true },
+  { ec3sx: '1013', wjz2sr: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1014', wjz2sr: "2", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1015', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1016', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1017', wjz2sr: "1", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1018', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1019', wjz2sr: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1020', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1021', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1022', wjz2sr: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1023', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1024', wjz2sr: "1", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1025', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1026', wjz2sr: "5", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1027', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1028', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1029', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1030', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1031', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1032', wjz2sr: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1033', wjz2sr: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1034', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1035', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1036', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1037', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1038', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1039', wjz2sr: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1040', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1041', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1042', wjz2sr: "6", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1043', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1044', wjz2sr: "6", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1045', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1046', wjz2sr: "5", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1047', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1048', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1049', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1050', wjz2sr: "5", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1051', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1052', wjz2sr: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1053', wjz2sr: "5", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1054', wjz2sr: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1055', wjz2sr: "5", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1056', wjz2sr: "5", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1057', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1058', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1059', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1060', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1061', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1062', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1063', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1064', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1065', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1066', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1067', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1068', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1069', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1070', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1071', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1072', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1073', wjz2sr: "3", viewed: false, ia_generated: true, level: 0, active: true },
+  { ec3sx: '1074', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1075', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1076', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1077', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1078', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1079', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1080', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1081', wjz2sr: "5", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1082', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1083', wjz2sr: "5", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1084', wjz2sr: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1085', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1086', wjz2sr: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1087', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1088', wjz2sr: "2", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1089', wjz2sr: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1090', wjz2sr: "5", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1091', wjz2sr: "5", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1092', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1093', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1094', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1095', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1096', wjz2sr: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1097', wjz2sr: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1098', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1099', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1100', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1101', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1102', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1103', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1104', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1105', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1106', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1107', wjz2sr: "2", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1108', wjz2sr: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1109', wjz2sr: "2", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1110', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1111', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1112', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1113', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1114', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1115', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1116', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1117', wjz2sr: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1118', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1119', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1120', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1121', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1122', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1123', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1124', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1125', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1126', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1127', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1128', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1129', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1130', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1131', wjz2sr: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1132', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1133', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1134', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1135', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1136', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1137', wjz2sr: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1138', wjz2sr: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1139', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1140', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1141', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1142', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1143', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1144', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1145', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1146', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1147', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1148', wjz2sr: "2", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1149', wjz2sr: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1150', wjz2sr: "3", viewed: false, ia_generated: true, level: 0, active: true },
+  { ec3sx: '1151', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1152', wjz2sr: "2", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1153', wjz2sr: "2", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1154', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1155', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1156', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1157', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1158', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1159', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1160', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1161', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1162', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1163', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1164', wjz2sr: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1165', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1166', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1167', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1168', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1169', wjz2sr: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1170', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1171', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1172', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1173', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1174', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1175', wjz2sr: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1176', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1177', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1178', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1179', wjz2sr: "5", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1180', wjz2sr: "5", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1181', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1182', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1183', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1184', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1185', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  // { ec3sx: '1186', wjz2sr: "5", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1187', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1188', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1189', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1190', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1191', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1192', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1193', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1194', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1195', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1196', wjz2sr: "5", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1197', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1198', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1199', wjz2sr: "5", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1200', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  //{ ec3sx: '1201', wjz2sr: "5", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1202', wjz2sr: "5", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1203', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1204', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1205', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1206', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1207', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1208', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1209', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1210', wjz2sr: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1211', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1212', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1213', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1214', wjz2sr: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1215', wjz2sr: "2", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1216', wjz2sr: "2", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1217', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1218', wjz2sr: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1219', wjz2sr: "2", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1220', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1221', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1222', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1223', wjz2sr: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1224', wjz2sr: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1225', wjz2sr: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1226', wjz2sr: "2", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1227', wjz2sr: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1228', wjz2sr: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1229', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1230', wjz2sr: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1231', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1232', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1233', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1234', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1235', wjz2sr: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1236', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1237', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1238', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1239', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1240', wjz2sr: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1241', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1242', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1243', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1244', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1245', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1246', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1247', wjz2sr: "5", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1248', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1249', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1250', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1251', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1252', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1253', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1254', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  // { ec3sx: '1255', wjz2sr: "5", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1256', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1257', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1258', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1259', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1260', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1261', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1262', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1263', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1264', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1265', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1266', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1267', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1268', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1269', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1270', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1271', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1272', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1273', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1274', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1275', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1276', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1277', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1278', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1279', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1280', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1281', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
   
-  { name: '1282', correct: "6", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1283', correct: "5", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1284', correct: "5", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1285', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1286', correct: "5", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1287', correct: "5", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1288', correct: "5", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1289', correct: "5", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1290', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1291', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1292', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1293', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1294', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1295', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1296', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  // { name: '1297', correct: "", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1298', correct: "3", viewed: false, ia_generated: true, level: 0, active: true },
-  { name: '1299', correct: "3", viewed: false, ia_generated: true, level: 0, active: true },
-  { name: '1300', correct: "4", viewed: false, ia_generated: true, level: 0, active: true },
-  { name: '1301', correct: "3", viewed: false, ia_generated: true, level: 2, active: true },
-  { name: '1302', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1303', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1304', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1305', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1306', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1307', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1308', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1309', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1310', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1311', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1312', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1313', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1314', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1315', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1316', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1317', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1318', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1319', correct: "5", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1320', correct: "5", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1321', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1282', wjz2sr: "6", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1283', wjz2sr: "5", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1284', wjz2sr: "5", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1285', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1286', wjz2sr: "5", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1287', wjz2sr: "5", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1288', wjz2sr: "5", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1289', wjz2sr: "5", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1290', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1291', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1292', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1293', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1294', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1295', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1296', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  // { ec3sx: '1297', wjz2sr: "", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1298', wjz2sr: "3", viewed: false, ia_generated: true, level: 0, active: true },
+  { ec3sx: '1299', wjz2sr: "3", viewed: false, ia_generated: true, level: 0, active: true },
+  { ec3sx: '1300', wjz2sr: "4", viewed: false, ia_generated: true, level: 0, active: true },
+  { ec3sx: '1301', wjz2sr: "3", viewed: false, ia_generated: true, level: 2, active: true },
+  { ec3sx: '1302', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1303', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1304', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1305', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1306', wjz2sr: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1307', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1308', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1309', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1310', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1311', wjz2sr: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1312', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1313', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1314', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1315', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1316', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1317', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1318', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1319', wjz2sr: "5", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1320', wjz2sr: "5", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1321', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
 
-  { name: '1322', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1323', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1324', correct: "3", viewed: false, ia_generated: false, level: 2, active: true }, 
-  { name: '1325', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1326', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1327', correct: "3", viewed: false, ia_generated: false, level: 0, active: true }, 
-  { name: '1328', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1329', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
-  { name: '1330', correct: "3", viewed: false, ia_generated: false, level: 0, active: true }, 
-  { name: '1331', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
-  { name: '1332', correct: "3", viewed: false, ia_generated: false, level: 1, active: true }, 
-  { name: '1333', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
-  { name: '1334', correct: "3", viewed: false, ia_generated: false, level: 0, active: true }, 
-  { name: '1335', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1322', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1323', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1324', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true }, 
+  { ec3sx: '1325', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1326', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1327', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true }, 
+  { ec3sx: '1328', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1329', wjz2sr: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { ec3sx: '1330', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true }, 
+  { ec3sx: '1331', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { ec3sx: '1332', wjz2sr: "3", viewed: false, ia_generated: false, level: 1, active: true }, 
+  { ec3sx: '1333', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { ec3sx: '1334', wjz2sr: "3", viewed: false, ia_generated: false, level: 0, active: true }, 
+  { ec3sx: '1335', wjz2sr: "3", viewed: false, ia_generated: false, level: 2, active: true },
 ];
 
