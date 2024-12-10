@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (connection.downlink < 3.5) {
       musicOn = false;
     }
-    alert(connection.downlink+' '+musicOn)
+    //alert(connection.downlink+' '+musicOn)
 
     connection.addEventListener('change', () => {
       if (connection.downlink < 5) {
@@ -878,6 +878,35 @@ const languages = {
 }
 };
 
+async function testConnectionSpeed() {
+  const imageUrl = 'https://tiddypink.github.io/app/v1i89uo45w/1xg9sjngbg.jpg';
+  const uniqueUrl = `${imageUrl}?nocache=${Date.now()}`;
+
+  const startTime = Date.now();
+
+  try {
+    const response = await fetch(uniqueUrl, {
+      method: 'GET',
+      cache: 'no-cache',
+      headers: {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+      },
+    });
+
+    const blob = await response.blob();
+    const endTime = Date.now();
+
+    const fileSizeInBits = blob.size * 8;
+    const durationInSeconds = (endTime - startTime) / 1000;
+    const speedInMbps = (fileSizeInBits / durationInSeconds) / (1024 * 1024);
+
+    console.log(`Velocidad de descarga estimada: ${speedInMbps.toFixed(2)} Mbps`);
+  } catch (error) {
+    console.error('Error al medir la velocidad de conexión:', error);
+  }
+}
+
+testConnectionSpeed();
 
 
 
