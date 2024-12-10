@@ -900,7 +900,7 @@ async function testConnectionSpeed() {
     const durationInSeconds = (endTime - startTime) / 1000;
     const speedInMbps = (fileSizeInBits / durationInSeconds) / (1024 * 1024);
 
-    console.log(`Velocidad de descarga estimada: ${speedInMbps.toFixed(2)} Mbps`);
+    alert(`Velocidad de descarga estimada: ${speedInMbps.toFixed(2)} Mbps`);
   } catch (error) {
     console.error('Error al medir la velocidad de conexión:', error);
   }
