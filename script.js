@@ -678,22 +678,21 @@ function setAnaliticsLabels(){
   $('#seenimagesx').text(analitics.seenimages.length + ' de '+ (hgb9qyz.length + u4qhgfty2))
   $('#seennimagesx').text(analitics.seennimages.length + ' de '+ (hgb9qyz.length + u4qhgfty2))
 }
-const audios = document.querySelectorAll('audio');
 
-// Función para pausar todos los audios
-function pauseAllAudios() {
-    audios.forEach(audio => {
-        if (!audio.paused) {
-            audio.pause();
-        }
-    });
-}
 
 // Detectamos cambios en la visibilidad de la página
 document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
-        pauseAllAudios(); // Pausar todos los audios si la página no está visible
+      stopMusic()
     }
+});
+
+window.addEventListener('focus', () => {
+  if (musicOn) {
+    if (music) {
+      music.play()
+    }
+  }
 });
 
 const languages = {
