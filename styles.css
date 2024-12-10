@@ -745,7 +745,7 @@ input:checked + .slider:before {
     width: auto;
   }
   .gallery-item {
-    height:  calc(58vh);
+    height:  calc(48vh);
 
   }
   .gallery h2 {
