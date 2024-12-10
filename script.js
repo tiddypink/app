@@ -44,13 +44,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
  if ('connection' in navigator) {
     const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-    if (connection.downlink < 3.5) {
+    if (connection.downlink < 4) {
       musicOn = false;
     }
     //alert(connection.downlink+' '+musicOn)
 
     connection.addEventListener('change', () => {
-      if (connection.downlink < 5) {
+      if (connection.downlink < 4) {
         musicOn = false;
       }
     });
@@ -142,6 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
         setTimeout(() => {
           $('.gallery-item-animation').removeClass('fade-out');
         }, 250);
+        $('#image').attr('src', null)
         isLocal ? $('#image').attr('src', `v1i89uo45w/n${kd84bd0.ec3sx}.${ext}`) : shelterImage(`v1i89uo45w/n${kd84bd0.ec3sx}.${ext}`)
         //$(".tabs").show()
         setAnalitics(kd84bd0.ec3sx,true,false,true)
@@ -257,6 +258,7 @@ document.addEventListener("DOMContentLoaded", function () {
     kd84bd0 = defaultImage
     xpz1t9k.push(defaultImage)
     zsf4ns9g4++
+    $('#image').attr('src', null)
     isLocal ? $('#image').attr('src', `v1i89uo45w/${defaultImage.ec3sx}.${ext}`) : shelterImage(`v1i89uo45w/${defaultImage.ec3sx}.${ext}`)
     setAnalitics(kd84bd0.ec3sx,false,false,false)
     $(".final-actions").hide()
@@ -381,6 +383,7 @@ function next() {
       setTimeout(() => {
         $('.gallery-item-animation').removeClass('fade-out');
       }, 250);
+      $('#image').attr('src', null)
       isLocal ? $('#image').attr('src', `v1i89uo45w/${kd84bd0.ec3sx}.${ext}`) : shelterImage(`v1i89uo45w/${kd84bd0.ec3sx}.${ext}`)
       setAnalitics(kd84bd0.ec3sx,false,false,false)
     }, 250);
@@ -900,7 +903,10 @@ async function testConnectionSpeed() {
     const durationInSeconds = (endTime - startTime) / 1000;
     const speedInMbps = (fileSizeInBits / durationInSeconds) / (1024 * 1024);
 
-    alert(`Velocidad de descarga estimada: ${speedInMbps.toFixed(2)} Mbps`);
+    if (speedInMbps.toFixed(2) < 4) {
+      musicOn = false;
+    }
+    //alert(`Velocidad de descarga estimada: ${speedInMbps.toFixed(2)} Mbps`);
   } catch (error) {
     console.error('Error al medir la velocidad de conexión:', error);
   }
