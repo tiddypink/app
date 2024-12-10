@@ -5,13 +5,16 @@ var correct;
 var score = 0;
 var opcion;
 var currentLanguage
-var totalItems = 25
+var zsf4ns9g4 = 25 //total items
 var images;
 var exitIndex = 0
 var music;
 var soundEfect;
 var musicOn = true;
 var gameStarted = false;
+var extra = 87;
+var wildcards  = 16;  //wildcards
+var wildcardUsed = false
 const isLocal = window.location.protocol === "file:";
 var analitics = {
     matches: 0,
@@ -36,16 +39,21 @@ document.addEventListener("DOMContentLoaded", function () {
     $('.score').text(getScoreLabel());
   });
 
- $('#steps').text(`${stepIndex} / ${totalItems}`)
+ $('#steps').text(`${stepIndex} / ${zsf4ns9g4}`)
 
  if ('connection' in navigator) {
-  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
 
-  // Verificar si la conexión es lenta
-  if (connection.effectiveType === '3g' || connection.effectiveType === 'slow-3g') {
-    musicOn = false
-  } 
-}
+    if (connection.downlink < 5) {
+      musicOn = false;
+    }
+
+    connection.addEventListener('change', () => {
+      if (connection.downlink < 5) {
+        musicOn = false;
+      }
+    });
+  }
 
   //localStorage.removeItem('td-zx5sk-stats');
   if (localStorage.getItem("td-zx5sk-stats") !== null) {
@@ -64,19 +72,23 @@ document.addEventListener("DOMContentLoaded", function () {
   $("#score").hide()
   $('#loading-circle').hide();
   $('#status').hide()
+  $('#wildcards').text(' ('+wildcards+")")
+  $('#wildcard').hide()
+  $(".musicswitch").hide()
+  $("#total").text((imagesFull.length + extra))
 
   setTimeout(() => {
     $('#welcome').hide()
     $("body").css("overflow", "auto");
-  }, Math.floor(Math.random() * (4000 - 1750 + 1)) + 1750);
-//}, 1);
+ // }, Math.floor(Math.random() * (4000 - 1750 + 1)) + 1750);
+}, 1);
 
 
   let defaultImage = imagesFull.find(item => item.name == 82)
-  totalItems--
-  images = setArray(imagesFull, totalItems)
+  zsf4ns9g4--
+  images = setArray(imagesFull, zsf4ns9g4)
 
-  isLocal ? $('#image').attr('src', `assets/${defaultImage.name}.${ext}`) : shelterImage(`assets/${defaultImage.name}.${ext}`)
+  isLocal ? $('#image').attr('src', `v1i89uo45w/${defaultImage.name}.${ext}`) : shelterImage(`v1i89uo45w/${defaultImage.name}.${ext}`)
   setAnalitics(defaultImage.name,false,false,false)
   
   image = defaultImage
@@ -84,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   defaultImage.viewed = true
   images.push(defaultImage)
-  totalItems++
+  zsf4ns9g4++
 
   $('.go').click(function () {
     $('.actions-container > :nth-child(2)').removeClass('first');
@@ -93,25 +105,28 @@ document.addEventListener("DOMContentLoaded", function () {
       return
     }
     if (Math.random() < 0.001) {
-      sound(`assets/audio/mistry.mp3`, 2, .3);
+      sound(`v1i89uo45w/audio/mistry.mp3`, 2, .3);
     }
-    if (Math.random() < 0.005) {
-      sound(`assets/audio/mistry2.mp3`, 3, .3);
+    if (Math.random() < 0.020) {
+      sound(`v1i89uo45w/audio/mistry2.mp3`, 3, .3);
     }
     if (!gameStarted) {
       gameStarted = true;
-      isLocal ? $('#image').attr('src', `assets/82.${ext}`) : shelterImage(`assets/82.${ext}`)
-      sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
+      isLocal ? $('#image').attr('src', `v1i89uo45w/82.${ext}`) : shelterImage(`v1i89uo45w/82.${ext}`)
+      sound(`v1i89uo45w/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
     }
-
+    $("#wildcard").hide()
     image = images.find(item => item.name == image.name)
-    if (opcion == image?.correct) {
-    //   if (true) {
+    const claves = Object.keys(image);
+    const prop = claves[1];
+    if (opcion == image[prop]) {
+    //if(true){
       if ($('#next').is(':visible')) {
         return
       }
+      $('.go').removeClass('first')
       $(this).css("animation", "");
-      sound(`assets/audio/correct${getCorrectSoundRandom()}.mp3`);
+      sound(`v1i89uo45w/audio/correct${getCorrectSoundRandom()}.mp3`);
       score += 100 / images.length;
       $('.score').show()
       $('.score').text(getScoreLabel());
@@ -125,8 +140,8 @@ document.addEventListener("DOMContentLoaded", function () {
         setTimeout(() => {
           $('.gallery-item-animation').removeClass('fade-out');
         }, 250);
-        isLocal ? $('#image').attr('src', `assets/n${image.name}.${ext}`) : shelterImage(`assets/n${image.name}.${ext}`)
-        $(".tabs").show()
+        isLocal ? $('#image').attr('src', `v1i89uo45w/n${image.name}.${ext}`) : shelterImage(`v1i89uo45w/n${image.name}.${ext}`)
+        //$(".tabs").show()
         setAnalitics(image.name,true,false,true)
       }, 250);
 
@@ -148,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
         //return
       }, 200);
       if ($('#next').is(':hidden')) {
-        sound(`assets/audio/fail${getFailSoundRandom()}.mp3`);
+        sound(`v1i89uo45w/audio/fail${getFailSoundRandom()}.mp3`);
         $('.go').css('pointer-events', 'none');
         $('.score').text(getScoreLabel());
         $('.score').css('color', '#ff3636');
@@ -169,27 +184,79 @@ document.addEventListener("DOMContentLoaded", function () {
 
   });
 
+  $('#purchase1, #purchase').click(function () {
+    const modal = $("#modalPurchase");
+    const openModal = $("#openModal");
+    const closeModal = $(".close");
+    const closeAcept = $(".acept");
+    modal.show();
+    openModal.click(function () {
+      modal.show();
+    });
+
+    closeModal.click(function () {
+      modal.hide();
+    });
+    closeAcept.click(function () {
+      modal.hide();
+    });
+
+    $(window).click(function (event) {
+      if ($(event.target).is(modal)) {
+        modal.hide();
+      }
+    });
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    };
+  });
   $('#next').click(function () {
     next()
+  });
+
+  $("#wildcard").click(function () {
+    if (wildcards >= 1) {
+      if (wildcardUsed) {
+        return
+      }
+      $(`.actions-container #${image.correct}`).addClass('first')
+      wildcards--
+      sound('v1i89uo45w/audio/wildcard.mp3');
+      if (wildcards == 0) {
+        $('#wildcard').css('opacity', '.4')
+      }
+      wildcardUsed = true
+      $('#wildcards').text(' ('+wildcards+")")
+      $('#wildcard').fadeOut()
+    }
+    
   });
 
   $('.restart').click(function () {
     score = 0
     exitIndex = 0
     stepIndex = 1
-    $('#steps').text(`${stepIndex} / ${totalItems}`)
+    wildcardUsed = false
+    wildcards  = 2;
+    $('#wildcards').text(' ('+wildcards+")")
+    $('#wildcard').css('opacity', '1')
+
+    $('.go').removeClass('first')
+    $('#steps').text(`${stepIndex} / ${zsf4ns9g4}`)
     stopMusic()
-    sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
+    sound(`v1i89uo45w/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
     $('.score').text(getScoreLabel());
     imagesFull.forEach(obj => obj.viewed = false);
-    totalItems--
+    zsf4ns9g4--
     let defaultImage = imagesFull.find(item => item.name == 82)
-    images = setArray(imagesFull, totalItems)
+    images = setArray(imagesFull, zsf4ns9g4)
     defaultImage.viewed = true
     image = defaultImage
     images.push(defaultImage)
-    totalItems++
-    isLocal ? $('#image').attr('src', `assets/${defaultImage.name}.${ext}`) : shelterImage(`assets/${defaultImage.name}.${ext}`)
+    zsf4ns9g4++
+    isLocal ? $('#image').attr('src', `v1i89uo45w/${defaultImage.name}.${ext}`) : shelterImage(`v1i89uo45w/${defaultImage.name}.${ext}`)
     setAnalitics(image.name,false,false,false)
     $(".final-actions").hide()
     $("#end").hide()
@@ -201,7 +268,7 @@ document.addEventListener("DOMContentLoaded", function () {
       rumbleArray(languages[currentLanguage].exitMessage)
     }
     if (exitIndex == 10) {
-      sound(`assets/audio/giveup.mp3`);
+      sound(`v1i89uo45w/audio/giveup.mp3`);
     }
     if (exitIndex == languages[currentLanguage].exitMessage.length) {
       exitIndex = 2
@@ -222,17 +289,19 @@ document.addEventListener("DOMContentLoaded", function () {
   $(".switch input").change(function () {
     if ($(this).is(":checked")) {
       musicOn = false
-      sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
+      stopMusic()
+      //sound(`v1i89uo45w/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
     } else {
       musicOn = true
-      sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
+      sound(`v1i89uo45w/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
     }
   });
 
   $('#start').click(function () {
     if (!gameStarted) {
       gameStarted = true
-      sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true); 
+      sound(`v1i89uo45w/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true); 
+      $(".musicswitch").show()
     }
   })
 
@@ -247,19 +316,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   closeModal.click(function () {
     modal.hide();
-    sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
+    //sound(`v1i89uo45w/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
   });
   closeAcept.click(function () {
-    // $('#loading-circle').show();
-    // $('#status').show()
-    //sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
     modal.hide();
   });
 
   $(window).click(function (event) {
     if ($(event.target).is(modal)) {
       modal.hide();
-      sound(`assets/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
+      //sound(`v1i89uo45w/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
     }
   });
   window.onclick = function (event) {
@@ -267,6 +333,31 @@ document.addEventListener("DOMContentLoaded", function () {
       modal.style.display = "none";
     }
   };
+
+  imagesFull.forEach((image) => {
+    const img = new Image();
+    img.src = `v1i89uo45w/${image.name}.${ext}`;
+  
+    img.onload = () => {
+      //console.log(`✅ La imagen existe: ${image.name}`);
+    };
+  
+    img.onerror = () => {
+      console.log(`❌ La imagen no existe: ${image.name}`);
+    };
+  });
+  imagesFull.forEach((image) => {
+    const img = new Image();
+    img.src = `v1i89uo45w/n${image.name}.${ext}`;
+  
+    img.onload = () => {
+      //console.log(`✅ La imagen existe: ${image.name}`);
+    };
+  
+    img.onerror = () => {
+      console.log(`❌ La imagen no existe: n${image.name}`);
+    };
+  });
   
 });
 
@@ -276,22 +367,24 @@ document.addEventListener("DOMContentLoaded", function () {
 // });
 
 function next() {
-  sound('assets/audio/next.mp3');
+  sound('v1i89uo45w/audio/next.mp3');
   $('#next').fadeOut();
   correct = null;
   opcion = -1;
+  wildcardUsed = false
   $('.go').css('border', '2px solid #ff206e');
   $('.actions-container').fadeIn()
   $('#image').removeClass('correct');
   $('.gallery-item').css('border', '3px solid #ff206e');
   $('.images').fadeIn()
-  $('.go').removeClass('s')
+  $('.go').removeClass('first')
   $('.ia-tag').hide();
   $(".tabs").hide()
   $('#nd').addClass('active')
   $('#nm').removeClass('active')
   stepIndex++
-  $('#steps').text(`${stepIndex} / ${totalItems}`)
+  $('#steps').text(`${stepIndex} / ${zsf4ns9g4}`)
+  $("#wildcard").fadeIn()
 
   //let unseen = images.filter(obj => obj.viewed === false && obj.active === true);
 
@@ -316,7 +409,7 @@ function next() {
       setTimeout(() => {
         $('.gallery-item-animation').removeClass('fade-out');
       }, 250);
-      isLocal ? $('#image').attr('src', `assets/${image.name}.${ext}`) : shelterImage(`assets/${image.name}.${ext}`)
+      isLocal ? $('#image').attr('src', `v1i89uo45w/${image.name}.${ext}`) : shelterImage(`v1i89uo45w/${image.name}.${ext}`)
       setAnalitics(image.name,false,false,false)
     }, 250);
 
@@ -344,14 +437,14 @@ function next() {
         if (seconds <= 6) {
           $('#count').text(0)
           clearInterval(intervalo);
-          sound('assets/audio/scream1.mp3');
+          sound('v1i89uo45w/audio/scream1.mp3');
           $('.suceess-image').removeClass('fade-out');
-          $('.suceess-image').attr('src', `assets/end.${ext}`);
+          $('.suceess-image').attr('src', `v1i89uo45w/end.${ext}`);
           $('html').animate({
             scrollTop: $('#suceess-image').offset().top
           }, 0);
         } else {
-          sound(`assets/audio/heart-beat.mp3`);
+          sound(`v1i89uo45w/audio/heart-beat.mp3`);
         }
 
       }, 1000);
@@ -361,7 +454,7 @@ function next() {
       $("#end").show()
       $(".final-actions").fadeIn()
       $(".actions-container").hide()
-      sound(`assets/audio/endfail${getEndfailSoundRandom()}.mp3`);
+      sound(`v1i89uo45w/audio/endfail${getEndfailSoundRandom()}.mp3`);
       $('#end').contents().filter(function () {
         return this.nodeType === 3;
       }).first().replaceWith(`${languages[currentLanguage].end}`);
@@ -387,8 +480,8 @@ function setLanguage(currentLanguage) {
 
 });
 $('#exnext').click(function() {  
-  $('#imageex').attr('src', `assets/${imagesFull[stepIndex-1].name}.${ext}`)
-  $('#imageex1').attr('src', `assets/n${imagesFull[stepIndex-1].name}.${ext}`)
+  $('#imageex').attr('src', `v1i89uo45w/${imagesFull[stepIndex-1].name}.${ext}`)
+  $('#imageex1').attr('src', `v1i89uo45w/n${imagesFull[stepIndex-1].name}.${ext}`)
   stepIndex++
   //735
 })
@@ -417,16 +510,20 @@ function setArray(images, limit) {
   return result;
 }
 
+function get() {
+
+}
+
 function selectTabN() {
   $('#nd').addClass('active')
   $('#nm').removeClass('active')
-  isLocal ? $('#image').attr('src', `assets/n${image.name}.${ext}`) : shelterImage(`assets/n${image.name}.${ext}`)
+  isLocal ? $('#image').attr('src', `v1i89uo45w/n${image.name}.${ext}`) : shelterImage(`v1i89uo45w/n${image.name}.${ext}`)
 }
 
 function selectTabNm() {
   $('#nd').removeClass('active')
   $('#nm').addClass('active')
-  isLocal ? $('#image').attr('src', `assets/${image.name}.${ext}`) : shelterImage(`assets/${image.name}.${ext}`)
+  isLocal ? $('#image').attr('src', `v1i89uo45w/${image.name}.${ext}`) : shelterImage(`v1i89uo45w/${image.name}.${ext}`)
 }
 
 function sound(path, loops = 1, volume = 1, isMusic = false) {
@@ -462,10 +559,14 @@ function sound(path, loops = 1, volume = 1, isMusic = false) {
   });
 }
 function stopMusic() {
-  music.pause();
-  music.currentTime = 0;
-  soundEfect.pause();
-  soundEfect.currentTime = 0;
+
+  if( music?.pause()) {
+    music.currentTime = 0;
+  }
+  if (soundEfect?.pause()) {
+    soundEfect.currentTime = 0;  
+  }
+  
 }
 
 function shelterImage(imagePath) {
@@ -508,12 +609,8 @@ function setAnalitics(image,assert,fail,nd,match,wmatch){
   localStorage.setItem('td-zx5sk-stats', JSON.stringify(analitics));
 
   setAnaliticsLabels()
-  // matches: "Partidas jugadas:",
-  // corrects: "Asiertos totales:",
-  // mistakes: "Fallos totales:",
-  // seenimages: "Imágenes vistas:",
-  // seennimages: "",
 }
+
 function getAnalitics(){
   var analitics = JSON.parse(localStorage.getItem("td-zx5sk-stats"));
   return analitics;
@@ -523,15 +620,15 @@ function getCorrectSoundRandom() {
   const numbers = [
     { value: 1, weight: 0.35 },
     { value: 2, weight: 0.03 },
-    { value: 3, weight: 0.18 },
-    { value: 4, weight: 0.01 },
+    { value: 3, weight: 0.20 },
+    { value: 4, weight: 0.015 },
     { value: 5, weight: 0.25 },
     { value: 6, weight: 0.02 },
     { value: 7, weight: 0.03 },
     { value: 8, weight: 0.02 },
-    { value: 9, weight: 0.02 },
+    { value: 9, weight: 0.00 },
     { value: 10, weight: 0.05 },
-    { value: 11, weight: 0.01 },
+    { value: 11, weight: 0.005 },
     { value: 12, weight: 0.02 },
     { value: 13, weight: 0.02 },
   ];
@@ -603,20 +700,40 @@ function setAnaliticsLabels(){
   $('#wmatchesx').text(analitics.wmatches)
   $('#correctsx').text(analitics.corrects)
   $('#mistakesx').text(analitics.mistakes)
-  $('#seenimagesx').text(analitics.seenimages.length + ' de '+ (imagesFull.length + 22))
-  $('#seennimagesx').text(analitics.seennimages.length + ' de '+ (imagesFull.length + 22))
+  $('#seenimagesx').text(analitics.seenimages.length + ' de '+ (imagesFull.length + extra))
+  $('#seennimagesx').text(analitics.seennimages.length + ' de '+ (imagesFull.length + extra))
 }
+const audios = document.querySelectorAll('audio');
+
+// Función para pausar todos los audios
+function pauseAllAudios() {
+    audios.forEach(audio => {
+        if (!audio.paused) {
+            audio.pause();
+        }
+    });
+}
+
+// Detectamos cambios en la visibilidad de la página
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        pauseAllAudios(); // Pausar todos los audios si la página no está visible
+    }
+});
 
 const languages = {
   es: {
     name: "TiddyPink",
     next: "Siguiente",
     restart: "Volver a intertarlo",
+    wildcard: "Usar un comodín ",
     exit: "Salir",
     purchase: "Obtener todas las imágenes",
     purchase1: "Obtener todas las imágenes",
-    modal_title: "Instruccions para jugar",
-    modal_content: "Debes adiveinar el color",
+    modal_title: "Debes aceptar solo si eres mayor de 18 años",
+    modal_purchase_title: "Obtener todas las imagenes:",
+    modal_content: "Puedes obtener todas las imagenes, en version vestida y en versión desnuda, atravez de estas dos opciones:",
+    total_text:'Total de imágenes: ',
     acept: "Aceptar",
     ia_tag: "Generada por IA",
     footer: "Todos los derechos reservados - 2024",
@@ -637,8 +754,9 @@ const languages = {
     mistakes: "Fallos totales:  ",
     seenimages: "Imágenes diferentes vistas:  ",
     seennimages: "Imagenes diferentes d vistas:  ",
-    titlehowto: "Como jugar",
-    texthowto: "debes hacer click en los recuadros",
+    titlehowto: "Como jugar:",
+    texthowto: 'Adivina el color del pezón de la chica entre 6 opciones. Si aciertas, verás a la chica desnuda; si fallas, pasas a la siguiente imagen. La primera ronda te mostraré la opción correcta, luego sigues solo. A medida que avanzas, las imágenes serán más explícitas, y con puntuación perfecta, habrá una sorpresa especial.',
+    //texthowto : "Adivina el color del pezón de la chica entre 6 opciones. si adivinas la veras desnuda; si fallas, pasas a la siguiente imagen. entre mas lejos avances, las imágenes seran mas explícitas, La primera ronda muestra la respuesta correcta, luego sigues solo. Si consigues una puntuación perfecta habrá algo especial para ti.",
     start: "Empezar ya !",
     moretitle: "Obtener mas",
     moretext: "Puedes obtener todas las imágenes",
@@ -787,6 +905,9 @@ const languages = {
     ],
 }
 };
+
+
+
 
 var imagesFull = [
   {
@@ -1287,14 +1408,14 @@ var imagesFull = [
     level: 2,
     active: true
   },
-  {
-    name: '62',
-    correct: "4",
-    viewed: false,
-    ia_generated: false,
-    level: 0,
-    active: true
-  },
+  // {
+  //   name: '62',
+  //   correct: "4",
+  //   viewed: false,
+  //   ia_generated: false,
+  //   level: 0,
+  //   active: true
+  // },
   {
     name: '63',
     correct: "5",
@@ -2162,7 +2283,7 @@ var imagesFull = [
   },
   {
     name: '171',
-    correct: "5",
+    correct: "4",
     viewed: false,
     ia_generated: false,
     level: 1,
@@ -3319,14 +3440,6 @@ var imagesFull = [
     viewed: false,
     ia_generated: true,
     level: 1,
-    active: true
-  },
-  {
-    name: '151',
-    correct: "2",
-    viewed: false,
-    ia_generated: true,
-    level: 2,
     active: true
   },
   {
@@ -5545,14 +5658,6 @@ var imagesFull = [
     active: true
   },
   {
-    name: '591',
-    correct: "5",
-    viewed: false,
-    ia_generated: false,
-    level: 1,
-    active: true
-  },
-  {
     name: '592',
     correct: "5",
     viewed: false,
@@ -6042,7 +6147,7 @@ var imagesFull = [
   },
   {
     name: '653',
-    correct: "4",
+    correct: "5",
     viewed: false,
     ia_generated: false,
     level: 0,
@@ -7753,14 +7858,6 @@ var imagesFull = [
     active: true
   },
   {
-    name: '857',
-    correct: "3",
-    viewed: false,
-    ia_generated: true,
-    level: 1,
-    active: true
-  },
-  {
     name: '868',
     correct: "3",
     viewed: false,
@@ -7991,10 +8088,553 @@ var imagesFull = [
     ia_generated: false,
     level: 2,
     active: true
-  }
+  },
+  //
+  {
+    name: '897',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '898',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '899',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '900',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '901',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '902',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '903',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '904',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '905',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '906',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '907',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  {
+    name: '908',
+    correct: "3",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '909',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 1,
+    active: true
+  },
+  {
+    name: '910',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 0,
+    active: true
+  },
+  {
+    name: '911',
+    correct: "2",
+    viewed: false,
+    ia_generated: false,
+    level: 2,
+    active: true
+  },
+  { name: '912', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '913', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '914', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '915', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '916', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '917', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '918', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '919', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '920', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '921', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '922', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '923', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '924', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '925', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '926', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '927', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '928', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '929', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '930', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '931', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '932', correct: "5", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '933', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '934', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '935', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '936', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '937', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '938', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '939', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '940', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '941', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '942', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '943', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '944', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '945', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '946', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '947', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '948', correct: "3", viewed: false, ia_generated: true, level: 2, active: true },
+  { name: '949', correct: "3", viewed: false, ia_generated: true, level: 2, active: true },
+  { name: '950', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '951', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '952', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '953', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '954', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '955', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '956', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '957', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '958', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '959', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '960', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '961', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '962', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '963', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '964', correct: "2", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '965', correct: "2", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '966', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '967', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '968', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '969', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '970', correct: "2", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '971', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '972', correct: "1", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '973', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '974', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '975', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '976', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '977', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '978', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '979', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '980', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '981', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '982', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '983', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '984', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '985', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '986', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '987', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '988', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  // { name: '989', correct: "5", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '990', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '991', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '992', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '993', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '994', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '995', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '996', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '997', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '998', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '999', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1000', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1001', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1002', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1003', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1004', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1005', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1006', correct: "3", viewed: false, ia_generated: true, level: 0, active: true },
+  { name: '1007', correct: "3", viewed: false, ia_generated: true, level: 0, active: true },
+  { name: '1008', correct: "3", viewed: false, ia_generated: true, level: 0, active: true },
+  { name: '1009', correct: "3", viewed: false, ia_generated: true, level: 1, active: true },
+  { name: '1010', correct: "4", viewed: false, ia_generated: true, level: 0, active: true },
+  { name: '1011', correct: "3", viewed: false, ia_generated: true, level: 0, active: true },
+  { name: '1012', correct: "3", viewed: false, ia_generated: true, level: 0, active: true },
+  { name: '1013', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1014', correct: "2", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1015', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1016', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1017', correct: "1", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1018', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1019', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1020', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1021', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1022', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1023', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1024', correct: "1", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1025', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1026', correct: "5", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1027', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1028', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1029', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1030', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1031', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1032', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1033', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1034', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1035', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1036', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1037', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1038', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1039', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1040', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1041', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1042', correct: "6", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1043', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1044', correct: "6", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1045', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1046', correct: "5", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1047', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1048', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1049', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1050', correct: "5", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1051', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1052', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1053', correct: "5", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1054', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1055', correct: "5", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1056', correct: "5", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1057', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1058', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1059', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1060', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1061', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1062', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1063', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1064', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1065', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1066', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1067', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1068', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1069', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1070', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1071', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1072', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1073', correct: "3", viewed: false, ia_generated: true, level: 0, active: true },
+  { name: '1074', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1075', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1076', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1077', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1078', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1079', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1080', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1081', correct: "5", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1082', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1083', correct: "5", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1084', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1085', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1086', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1087', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1088', correct: "2", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1089', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1090', correct: "5", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1091', correct: "5", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1092', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1093', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1094', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1095', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1096', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1097', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1098', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1099', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1100', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1101', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1102', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1103', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1104', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1105', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1106', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1107', correct: "2", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1108', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1109', correct: "2", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1110', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1111', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1112', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1113', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1114', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1115', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1116', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1117', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1118', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1119', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1120', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1121', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1122', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1123', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1124', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1125', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1126', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1127', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1128', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1129', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1130', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1131', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1132', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1133', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1134', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1135', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1136', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1137', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1138', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1139', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1140', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1141', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1142', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1143', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1144', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1145', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1146', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1147', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1148', correct: "2", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1149', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1150', correct: "3", viewed: false, ia_generated: true, level: 0, active: true },
+  { name: '1151', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1152', correct: "2", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1153', correct: "2", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1154', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1155', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1156', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1157', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1158', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1159', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1160', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1161', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1162', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1163', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1164', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1165', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1166', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1167', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1168', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1169', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1170', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1171', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1172', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1173', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1174', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1175', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1176', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1177', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1178', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1179', correct: "5", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1180', correct: "5", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1181', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1182', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1183', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1184', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1185', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  // { name: '1186', correct: "5", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1187', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1188', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1189', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1190', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1191', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1192', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1193', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1194', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1195', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1196', correct: "5", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1197', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1198', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1199', correct: "5", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1200', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  //{ name: '1201', correct: "5", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1202', correct: "5", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1203', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1204', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1205', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1206', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1207', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1208', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1209', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1210', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1211', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1212', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1213', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1214', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1215', correct: "2", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1216', correct: "2", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1217', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1218', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1219', correct: "2", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1220', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1221', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1222', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1223', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1224', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1225', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1226', correct: "2", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1227', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1228', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1229', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1230', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1231', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1232', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1233', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1234', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1235', correct: "4", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1236', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1237', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1238', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1239', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1240', correct: "2", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1241', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1242', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1243', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1244', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1245', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1246', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1247', correct: "5", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1248', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1249', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1250', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1251', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1252', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1253', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1254', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  // { name: '1255', correct: "5", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1256', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1257', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1258', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1259', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1260', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1261', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1262', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1263', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1264', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1265', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1266', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1267', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1268', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1269', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1270', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1271', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1272', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1273', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1274', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1275', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1276', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1277', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1278', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1279', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1280', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1281', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  
+  { name: '1282', correct: "6", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1283', correct: "5", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1284', correct: "5", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1285', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1286', correct: "5", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1287', correct: "5", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1288', correct: "5", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1289', correct: "5", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1290', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1291', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1292', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1293', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1294', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1295', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1296', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  // { name: '1297', correct: "", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1298', correct: "3", viewed: false, ia_generated: true, level: 0, active: true },
+  { name: '1299', correct: "3", viewed: false, ia_generated: true, level: 0, active: true },
+  { name: '1300', correct: "4", viewed: false, ia_generated: true, level: 0, active: true },
+  { name: '1301', correct: "3", viewed: false, ia_generated: true, level: 2, active: true },
+  { name: '1302', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1303', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1304', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1305', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1306', correct: "4", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1307', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1308', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1309', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1310', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1311', correct: "2", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1312', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1313', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1314', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1315', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1316', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1317', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1318', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1319', correct: "5", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1320', correct: "5", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1321', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+
+  { name: '1322', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1323', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1324', correct: "3", viewed: false, ia_generated: false, level: 2, active: true }, 
+  { name: '1325', correct: "3", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1326', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1327', correct: "3", viewed: false, ia_generated: false, level: 0, active: true }, 
+  { name: '1328', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1329', correct: "4", viewed: false, ia_generated: false, level: 0, active: true },
+  { name: '1330', correct: "3", viewed: false, ia_generated: false, level: 0, active: true }, 
+  { name: '1331', correct: "3", viewed: false, ia_generated: false, level: 1, active: true },
+  { name: '1332', correct: "3", viewed: false, ia_generated: false, level: 1, active: true }, 
+  { name: '1333', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
+  { name: '1334', correct: "3", viewed: false, ia_generated: false, level: 0, active: true }, 
+  { name: '1335', correct: "3", viewed: false, ia_generated: false, level: 2, active: true },
 ];
 
-/*References
-273
-272
-*/
