@@ -210,7 +210,7 @@ a { -webkit-user-select: none !important; }
 
 .gallery-item {
   width: 100%;
-  height:  calc(100vh - 120px);;
+  height:  calc(85vh);;
   background-color: #222;
   border-radius: 10px;
   background-size: cover;
@@ -745,7 +745,7 @@ input:checked + .slider:before {
     width: auto;
   }
   .gallery-item {
-    height:  calc(100vh - 420px);;
+    height:  calc(58vh);
 
   }
   .gallery h2 {

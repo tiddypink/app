@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
  if ('connection' in navigator) {
     const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-    if (connection.downlink < 3) {
+    if (connection.downlink < 3.5) {
       musicOn = false;
     }
     alert(connection.downlink+' '+musicOn)
