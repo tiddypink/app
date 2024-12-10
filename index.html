@@ -24,10 +24,10 @@
             </div>
 
             <nav class="nav">
-                <a href="#playsection" id="home"></a>
-                <a href="#howtosection" id="howto" href="howto.html"></a>
-                <a id="more" href="#moresection"></a>
-                <a href="#statssection" id="analitics"></a>
+                <a href="#play" id="home"></a>
+                <a href="#how-to-play" id="howto" href="howto.html"></a>
+                <a id="more" href="#know-more"></a>
+                <a href="#stats" id="analitics"></a>
             </nav>
             <div class="musicswitch"><label class="switch">
                     <input type="checkbox">
@@ -45,7 +45,7 @@
                 </select>
             </div>
         </header>
-        <section class="gallery" id="playsection">
+        <section class="gallery" id="play">
             <!-- <h2 class="score" id="score"></h2> -->
             <div class="gallery-grid game">
                 <div class="gallery-item gallery-item-animation images">
@@ -81,20 +81,20 @@
             </div>
             <img id="suceess-image" class="suceess-image gallery-item" alt="success image" style="height: auto;" draggable="false">
         </section>
-        <section class="gallery howtopage" id="howtosection">
+        <section class="gallery howtopage" id="how-to-play">
             <div class="gallery-grid analitics-frame" >
                 <div class="gallery-item stats-frame images" style="padding: 1rem;">
                     <div style="font-size: 1.2rem;display: grid;">
                         <span id="titlehowto" class="" style="font-size: 2rem; margin-bottom: 3rem;"></span>
                         <p id="texthowto" class="texthowto" ></p>
                         <br>
-                        <div class="transparency" onclick="location.href='#playsection';" id="start"></div>
+                        <div class="transparency" onclick="location.href='#play';" id="start"></div>
                         <br>
                     </div>
                 </div>
             </div>
         </section>
-        <section class="gallery stats-page" id="statssection">
+        <section class="gallery stats-page" id="stats">
             <div class="gallery-grid analitics-frame">
                 <div class="gallery-item stats-frame images" style="display: grid;margin-bottom: 1rem;">
                     <span id="statslabel" style="font-size: 2rem;"></span>
@@ -109,7 +109,7 @@
                 </div>
             </div>
         </section>
-        <section class="gallery howtopage" id="moresection">
+        <section class="gallery howtopage" id="know-more">
             <div class="gallery-grid analitics-frame">
                 <div class="gallery-item stats-frame images">
                     <div style="font-size: 1.2rem;display: grid;">
@@ -130,7 +130,7 @@
             <h2 id="modal_title"></h2>
             <div id="loading-circle"></div>
             <div id="status">Cargando...</div>
-            <div onclick="location.href='#howtosection';" id="acept" class="acept"></div>
+            <div onclick="location.href='#how-to-play';" id="acept" class="acept"></div>
         </div>
     </div>
 
@@ -144,6 +144,7 @@
             <p style="margin-top: 15px;" id="total_text"><span style="color: #ff206e;font-size: 1.8rem;" id="total"></span></p>
         </div>
     </div>
+
     <footer class="footer">
         <p id="footer"></p>
     </footer>

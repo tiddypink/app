@@ -1,18 +1,18 @@
 const ext = 'webp'
-var image;
+var image; // 1295
 var stepIndex = 1;
-var correct;
+var correct; //
 var score = 0;
-var opcion;
+var opcion; //
 var currentLanguage
 var zsf4ns9g4 = 25 //total items
-var images;
+var images; //
 var exitIndex = 0
 var music;
 var soundEfect;
 var musicOn = true;
 var gameStarted = false;
-var extra = 87;
+var extra = 87; //
 var wildcards  = 16;  //wildcards
 var wildcardUsed = false
 const isLocal = window.location.protocol === "file:";
@@ -24,6 +24,7 @@ var analitics = {
     seenimages: [],
     seennimages: [],
 }
+
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelector('.menu-toggle').addEventListener('click', function () {
     const nav = document.querySelector('.nav');
@@ -115,6 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
       isLocal ? $('#image').attr('src', `v1i89uo45w/82.${ext}`) : shelterImage(`v1i89uo45w/82.${ext}`)
       sound(`v1i89uo45w/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
     }
+
     $("#wildcard").hide()
     image = images.find(item => item.name == image.name)
     const claves = Object.keys(image);
@@ -152,7 +154,6 @@ document.addEventListener("DOMContentLoaded", function () {
       $('#next').fadeIn();
       $(this).css('border', '12px solid #88ff4c');
       $('#image').addClass('correct');
-      //$('.actions-container').hide()
     } else {
       //animation
       setAnalitics(image.name, assert = false,true,false)
@@ -160,7 +161,7 @@ document.addEventListener("DOMContentLoaded", function () {
       $elemento.css("animation", "shake 0.2s");
       setTimeout(function () {
         $elemento.css("animation", "");
-        //return
+        
       }, 200);
       if ($('#next').is(':hidden')) {
         sound(`v1i89uo45w/audio/fail${getFailSoundRandom()}.mp3`);
@@ -290,7 +291,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if ($(this).is(":checked")) {
       musicOn = false
       stopMusic()
-      //sound(`v1i89uo45w/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
     } else {
       musicOn = true
       sound(`v1i89uo45w/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true);
@@ -301,7 +301,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!gameStarted) {
       gameStarted = true
       sound(`v1i89uo45w/audio/music${getMusicSoundRandom()}.mp3`, 1000, 1, true); 
-      $(".musicswitch").show()
     }
   })
 
@@ -333,38 +332,13 @@ document.addEventListener("DOMContentLoaded", function () {
       modal.style.display = "none";
     }
   };
-
-  imagesFull.forEach((image) => {
-    const img = new Image();
-    img.src = `v1i89uo45w/${image.name}.${ext}`;
-  
-    img.onload = () => {
-      //console.log(`✅ La imagen existe: ${image.name}`);
-    };
-  
-    img.onerror = () => {
-      console.log(`❌ La imagen no existe: ${image.name}`);
-    };
-  });
-  imagesFull.forEach((image) => {
-    const img = new Image();
-    img.src = `v1i89uo45w/n${image.name}.${ext}`;
-  
-    img.onload = () => {
-      //console.log(`✅ La imagen existe: ${image.name}`);
-    };
-  
-    img.onerror = () => {
-      console.log(`❌ La imagen no existe: n${image.name}`);
-    };
-  });
   
 });
 
 // !
-// document.addEventListener('contextmenu', function (e) {
-//   e.preventDefault();
-// });
+document.addEventListener('contextmenu', function (e) {
+  e.preventDefault();
+});
 
 function next() {
   sound('v1i89uo45w/audio/next.mp3');
@@ -385,8 +359,6 @@ function next() {
   stepIndex++
   $('#steps').text(`${stepIndex} / ${zsf4ns9g4}`)
   $("#wildcard").fadeIn()
-
-  //let unseen = images.filter(obj => obj.viewed === false && obj.active === true);
 
   let unseen = images.filter(obj => obj.level == 0 && obj.viewed === false);
 
@@ -431,7 +403,6 @@ function next() {
       $('.suceess-image').show()
       $('.suceess-image').addClass('fade-out')
       const intervalo = setInterval(() => {
-        //document.getElementById("contador").textContent = contador;
         seconds--;
         $('#count').text(seconds)
         if (seconds <= 6) {
@@ -531,6 +502,7 @@ function sound(path, loops = 1, volume = 1, isMusic = false) {
     stopMusic();
     return
   }
+  $(".musicswitch").show()
   let index = 0;
   if (isMusic) {
     music = new Audio(path);
