@@ -637,7 +637,7 @@ a { -webkit-user-select: none !important; }
 .modal-content {
   background-color: #ff008080;;
   margin: 15% auto;
-  margin-top: 30vh;
+  margin-top: 20vh;
   padding: 20px;
   border-radius: 8px;
   width: 80%;
@@ -793,7 +793,7 @@ input:checked + .slider:before {
     height: 100%;
   }
   .acept{
-    width: 42%;
+    width: 52%;
     padding: 12px;
   }
   .next {
