@@ -42,6 +42,11 @@
                     <option value="es">Español</option>
                     <option value="en">English</option>
                     <option value="fr">Français</option>
+                    <option value="ko">한국어</option>
+                    <option value="de">Deutsch</option>
+                    <option value="ja">日本語</option>
+                    <option value="pt">Português</option>
+                    <option value="zh">中文</option>
                 </select>
             </div>
         </header>
@@ -53,7 +58,7 @@
                         <button id="nd" class="tab active" onclick="selectTabN()">Tab 1</button>
                         <button id="nm" class="tab" onclick="selectTabNm()">Tab 2</button>
                       </div>
-                    <span class="mark">Cargando...</span>
+                    <span id="loading" class="mark"></span>
                     <img id="image" style="width: auto; height: auto;" draggable="false">
                     <span id="ia_tag" class="ia-tag"></span>
                     <span class="score" id="score"></span>
