@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
   setTimeout(() => {
     $('#welcome').hide()
     $("body").css("overflow", "auto");
-  }, Math.floor(Math.random() * (4000 - 1750 + 1)) + 1750);
+  }, Math.floor(Math.random() * (3000 - 1750 + 1)) + 1750);
 //}, 1);
 
 
