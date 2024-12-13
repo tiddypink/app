@@ -100,8 +100,8 @@ document.addEventListener("DOMContentLoaded", function () {
   setTimeout(() => {
     $('#welcome').hide()
     $("body").css("overflow", "auto");
- // }, Math.floor(Math.random() * (4000 - 1750 + 1)) + 1750);
-}, 1);
+  }, Math.floor(Math.random() * (4000 - 1750 + 1)) + 1750);
+//}, 1);
 
 
   let defaultImage = hgb9qyz.find(item => item.ec3sx == 82)
@@ -745,7 +745,7 @@ const languages = {
     next: "Siguiente",
     restart: "Volver a intentarlo ",
     zx7uj2r: "Usar un comodín", // wildcard element
-    toManyWC: "Usaste demaciados comodines hoy, debes esperar para utilizar más. :)",
+    toManyWC: "Usaste demasiados comodines recientemente, debes esperar para utilizar más. :)",
     exit: "Salir",
     loading: 'Cargando...',
     purchase: "Obtener todas las imágenes",
@@ -847,6 +847,7 @@ const languages = {
     next: "Next",
     restart: "Try Again",
     zx7uj2r: "Use a wildcard", // wildcard element
+    toManyWC: "You used too many wildcards recently, you need to wait before using more. :)",
     exit: "Exit",
     loading: "Loading...",
     purchase: "Get all images",
@@ -946,6 +947,7 @@ const languages = {
     next: "Suivant",
     restart: "Réessayer",
     zx7uj2r: "Utiliser un joker", // élément wildcard
+    toManyWC: "Vous avez utilisé trop de jokers récemment, vous devez attendre avant d'en utiliser d'autres. :)",
     exit: "Quitter",
     loading: "Chargement...",
     purchase: "Obtenir toutes les images",
@@ -1045,6 +1047,7 @@ const languages = {
     next: "다음",
     restart: "다시 시도하기",
     zx7uj2r: "와일드카드 사용", // 와일드카드 요소
+    toManyWC: "최근에 너무 많은 와일드카드를 사용했습니다. 더 사용하려면 기다려야 합니다. :)",
     exit: "나가기",
     loading: "로딩 중...",
     purchase: "모든 이미지를 얻기",
@@ -1146,6 +1149,7 @@ const languages = {
     next: "Weiter",
     restart: "Nochmal versuchen",
     zx7uj2r: "Einen Joker verwenden", // Joker-Element
+    toManyWC: "Du hast kürzlich zu viele Joker benutzt, du musst warten, bevor du weitere verwenden kannst. :)",
     exit: "Beenden",
     loading: "Lädt...",
     purchase: "Alle Bilder erhalten",
@@ -1247,6 +1251,7 @@ const languages = {
     next: "次へ",
     restart: "もう一度やり直す",
     zx7uj2r: "ワイルドカードを使う", // ワイルドカード要素
+    toManyWC: "最近ワイルドカードを使いすぎました。これ以上使うには待つ必要があります。 :)",
     exit: "終了",
     loading: "読み込み中...",
     purchase: "すべての画像を取得する",
@@ -1348,6 +1353,7 @@ const languages = {
     next: "Próximo",
     restart: "Tentar novamente",
     zx7uj2r: "Usar um coringa", // elemento coringa
+    toManyWC: "Você usou muitos curingas recentemente, precisa esperar antes de usar mais. :)",
     exit: "Sair",
     loading: "Carregando...",
     purchase: "Obter todas as imagens",
@@ -1449,6 +1455,7 @@ const languages = {
     next: "下一步",
     restart: "重试",
     zx7uj2r: "使用通配符", // 通配符元素
+    toManyWC: "您最近使用了太多通配符，需要等待一段时间才能再使用。:)",
     exit: "退出",
     loading: "加载中...",
     purchase: "获取所有图片",
