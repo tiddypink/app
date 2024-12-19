@@ -600,7 +600,7 @@ a { -webkit-user-select: none !important; }
   z-index: 100;
 }
 
-.acept, .restart, .exit, .purchase, #start{
+.acept, .btnp .restart, .exit, .purchase, #start{
   padding: 18px 55px;
   font-size: 20px;
   font-weight: bold;
