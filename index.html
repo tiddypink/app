@@ -12,6 +12,12 @@
 
     gtag('config', 'G-TJMP9PQ0VL');
     </script>
+
+    <script 
+    const userLang = navigator.language || navigator.userLanguage;
+    src="https://www.paypal.com/sdk/js?client-id=AR9ECL2EIHvEKoyt0_1BBNptpC-IWu45B7EzSyUwo8wjO7Xcxr3PVrPK9n-kYWM1sKU-gNvgogq0d-lN"></script>
+
+
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -107,7 +113,7 @@
                 <span id="count"></span>
             </div>
             <div class="final-actions">
-                <div id="restart" class="restart"></div>
+                <div id="restart" class="restart rest"></div>
                 <div id="purchase" class="purchase"></div>
             </div>
             <img id="suceess-image" class="suceess-image gallery-item" alt="success image" style="height: auto;" draggable="false">
@@ -146,12 +152,23 @@
                     <div style="font-size: 1.2rem;display: grid;">
                         <span id="moretitle" class=""></span>
                         <span id="moretext" class=""></span>
-                        <div id="purchase1" class="purchase transparency"></div>
+                        <div id="purchase1" class="purchase transparency" onclick="location.href='#modalPurchase';"></div>
                     </div>
                 </div>
             </div>
         </section>
     </div>
+    </section>
+
+    <section id="modalPurchase" class="">
+        <div class="purchase-form">
+            <span class="close">&times;</span>
+            <h2 id="modal_purchase_title"></h2>
+            <p style="margin-top: 15px;" id="modal_content"></p>
+            <div id="paypal-button-container" class="restart"></div>
+            <p style="margin-top: 15px;" id="total_text"><span style="color: #ff206e;font-size: 1.8rem;" id="total"></span></p>
+        </div>
+
     </section>
 
 
@@ -164,17 +181,36 @@
             <div onclick="location.href='#how-to-play';" id="acept" class="acept"></div>
         </div>
     </div>
-
-    <div id="modalPurchase" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2 id="modal_purchase_title"></h2>
-            <p style="margin-top: 15px;" id="modal_content"></p>
-            <div onclick="window.open('https://tiddypink.gumroad.com/l/idbtww')" id="gumroad" class="acept btnp"><img width="50px" height="auto" src="v1i89uo45w/grlogo.png" alt="" style="margin-right: 15px;">Gumroad</div>
-            <div onclick="" id="patreon" class=" btnp" style="opacity: .6; margin-top:25px;"><img width="50px" height="auto" src="v1i89uo45w/plogo.png" alt="" style="margin-right: 15px;">Patreon (Comming soon..)</div>
-            <p style="margin-top: 15px;" id="total_text"><span style="color: #ff206e;font-size: 1.8rem;" id="total"></span></p>
-        </div>
-    </div>
+    <script>
+        paypal.Buttons({
+          createOrder: function(data, actions) {
+            // Set order
+            return actions.order.create({
+              purchase_units: [{
+                amount: {
+                  value: '0.50' // Monto de la compra
+                }
+              }]
+            });
+          },
+          onApprove: function(data, actions) {
+            // catch the payment
+            return actions.order.capture().then(function(details) {
+              //alert('Pago realizado por ' + details.payer.name.given_name);
+              Swal.fire({
+                title: '¡Gracias!',
+                text: 'Tu compra ha sido exitosa, el material ha sido enviado al correo electronico indicado en la compra, o bien al correo vinculado a tu cuenta de paypal.',
+                icon: 'success',
+                confirmButtonText: 'OK'
+                });
+            });
+          },
+          onError: function(err) {
+            console.error(err);
+            alert('Hubo un error en el proceso de pago.');
+          }
+        }).render('#paypal-button-container');
+      </script>
 
     <footer class="footer">
         <p id="footer"></p>

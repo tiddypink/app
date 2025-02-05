@@ -600,7 +600,7 @@ a { -webkit-user-select: none !important; }
   z-index: 100;
 }
 
-.acept, .btnp .restart, .exit, .purchase, #start{
+.acept, .btnp .restart, .exit, .purchase, #start, .rest{
   padding: 18px 55px;
   font-size: 20px;
   font-weight: bold;
@@ -621,6 +621,26 @@ a { -webkit-user-select: none !important; }
   width: 300px;
 }
 
+#paypal-button-container {
+  width: 70%;
+  margin: auto;
+  margin-top: 2rem;
+}
+
+.paypal-button-text{
+  color: lightgray;
+}
+
+#modalPurchase{
+  background-color: #ff008080;
+  padding: 25px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 600px;
+  text-align: center;
+  margin: auto;
+  margin-bottom: 6rem;
+}
 
 .modal {
   display: none;
@@ -641,7 +661,7 @@ a { -webkit-user-select: none !important; }
   padding: 20px;
   border-radius: 8px;
   width: 80%;
-  max-width: 500px;
+  max-width: 600px;
   position: relative;
   text-align: center;
 }
