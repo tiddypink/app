@@ -423,6 +423,8 @@ function udmcg() {
     }
 
     hgb9qyzx.slice(0, 10).forEach((i, index) => {
+      isLocal ? image = `v1i89uo45w/${i.ec3sx}.${ext}` : image = shelterImage(`v1i89uo45w/${i.ec3sx}.${ext}`, `im${index}`);
+      isLocal ? image_n = `v1i89uo45w/n${i.ec3sx}.${ext}` : image_n = shelterImage(`v1i89uo45w/n${i.ec3sx}.${ext}`, `imn${index}`);
       
       $('#udmcg').append(`
           <div class='splited-image'>
