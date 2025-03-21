@@ -470,21 +470,28 @@ function prevPage() {
   udmcg(1)
 }
 
-function dldi(i1, i2) {
-  let link1 = document.createElement("a");
-  link1.href = i1;
-  link1.download = 'tiddypink';
-  document.body.appendChild(link1);
-  link1.click();
-  document.body.removeChild(link1);
+function dldi(url, i2) {
+  nombre = 'td';
+  fetch(url)
+  .then(response => response.blob())
+  .then(blob => createImageBitmap(blob))
+  .then(bitmap => {
+      let canvas = document.createElement("canvas");
+      canvas.width = bitmap.width;
+      canvas.height = bitmap.height;
+      let ctx = canvas.getContext("2d");
+      ctx.drawImage(bitmap, 0, 0);
 
-  let link2 = document.createElement("a");
-  link2.href = url;
-  link2.download = 'tiddypink-uncensored';
-  document.body.appendChild(link2);
-  link2.click();
-  document.body.removeChild(link2);
+      let link = document.createElement("a");
+      link.href = canvas.toDataURL("image/jpeg", 1.0); // Convierte a JPG
+      link.download = nombre.endsWith(".jpg") ? nombre : nombre + ".jpg";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+  })
+  .catch(error => console.error("Error al descargar la imagen:", error));
 }
+
 function next() {
   sound('v1i89uo45w/audio/next.mp3');
   $('#next').fadeOut();
