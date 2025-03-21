@@ -472,34 +472,39 @@ function prevPage() {
 
 function dldi(url, i2) {
   nombre = 'td';
-  fetch(url)
-  .then(response => response.blob())
-  .then(blob => createImageBitmap(blob))
-  .then(bitmap => {
-      let canvas = document.createElement("canvas");
-      canvas.width = bitmap.width;
-      canvas.height = bitmap.height;
-      let ctx = canvas.getContext("2d");
+  WebFont.load({
+    google: { families: ["Fredoka One"] },
+    active: function () { // Se ejecuta cuando la fuente está cargada
+        fetch(url)
+            .then(response => response.blob())
+            .then(blob => createImageBitmap(blob))
+            .then(bitmap => {
+                let canvas = document.createElement("canvas");
+                canvas.width = bitmap.width;
+                canvas.height = bitmap.height;
+                let ctx = canvas.getContext("2d");
 
-      // Dibujar la imagen original
-      ctx.drawImage(bitmap, 0, 0);
+                // Dibujar la imagen original
+                ctx.drawImage(bitmap, 0, 0);
 
-      // Configurar la marca de agua
-      let fontSize = Math.floor(canvas.width * 0.50);
-      ctx.font = `${fontSize}px Arial`;
-      ctx.fillStyle = "rgba(255, 32, 110, 0.5)"; // Blanco semi-transparente
-      ctx.textAlign = "right";
-      ctx.fillText("tiddypink.com", canvas.width - 20, canvas.height - 20);
+                // Ajustar tamaño de la fuente basado en la imagen
+                let fontSize = Math.floor(canvas.width * 0.15); // 5% del ancho
+                ctx.font = `${fontSize}px 'Fredoka One', cursive`;
+                ctx.fillStyle = "rgba(255, 32, 110, 0.7)"; // Blanco semi-transparente
+                ctx.textAlign = "right";
+                ctx.fillText(textoMarca, canvas.width - 20, canvas.height - 20);
 
-      // Descargar como JPG
-      let link = document.createElement("a");
-      link.href = canvas.toDataURL("image/jpeg", 1.0);
-      link.download = nombre.endsWith(".jpg") ? nombre : nombre + ".jpg";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-  })
-  .catch(error => console.error("Error al descargar la imagen:", error));
+                // Descargar como JPG
+                let link = document.createElement("a");
+                link.href = canvas.toDataURL("image/jpeg", 1.0);
+                link.download = nombre.endsWith(".jpg") ? nombre : nombre + ".jpg";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            })
+            .catch(error => console.error("Error al descargar la imagen:", error));
+    }
+});
 }
 
 function next() {
