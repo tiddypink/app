@@ -493,10 +493,10 @@ function dldi(url1, url2) {
                 ctx.drawImage(img2, img1.width, 0); // Colocar la segunda imagen a la derecha
 
                 // Ajustar tamaño de la fuente basado en la imagen
-                let fontSize = Math.floor(canvas.width * 0.05); // 5% del ancho
+                let fontSize = Math.floor(canvas.width * 0.04); // 5% del ancho
                 ctx.font = `${fontSize}px 'Fredoka One', cursive`;
                 ctx.fillStyle = "rgba(255, 32, 110, 0.4)"; // Blanco semi-transparente
-                ctx.textAlign = "center";
+                ctx.textAlign = "right";
                 ctx.fillText(textoMarca, canvas.width - 20, canvas.height - 20);
 
                 // Descargar la imagen unida con la marca de agua
