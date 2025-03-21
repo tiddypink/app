@@ -413,7 +413,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 var page = 1
 var total_pages = 0
-var per_page = 16;
+var per_page = 2000;
 
 function udmcg(paging) {
   var hgb9qyzx = hgb9qyz
@@ -471,8 +471,6 @@ function prevPage() {
 }
 
 function dldi(url1, url2) {
-  console.log(url1)
-  console.log(url2)
   nombre = 'td';
   textoMarca = 'tiddypink.com'
   WebFont.load({
