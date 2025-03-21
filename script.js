@@ -16,6 +16,7 @@ var u4qhgfty2 = 91; // extra
 var zQlnx2  = 3;  //wildcards
 var x8dlH61 = false  //wildcardUsed
 var zmidr4 = 0 //storage WC
+var uxdmcg = 0 // flag for render images
 const isLocal = window.location.protocol === "file:";
 var analitics = {
     matches: 0,
@@ -61,18 +62,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
  $('#steps').text(`${stepIndex} / ${zsf4ns9g4}`)
 
- if ('connection' in navigator) {
-    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-    if (connection.downlink < 4) {
-      musicOn = false;
-    }
+//  if ('connection' in navigator) {
+//     const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+//     if (connection.downlink < 4) {
+//       musicOn = false;
+//     }
 
-    connection.addEventListener('change', () => {
-      if (connection.downlink < 4) {
-        musicOn = false;
-      }
-    });
-  }
+//     connection.addEventListener('change', () => {
+//       if (connection.downlink < 4) {
+//         musicOn = false;
+//       }
+//     });
+//   }
 
   //localStorage.removeItem('td-zx5sk-stats');
   if (localStorage.getItem("td-zx5sk-stats") !== null) {
@@ -80,6 +81,18 @@ document.addEventListener("DOMContentLoaded", function () {
     setAnaliticsLabels()
   }else{
     setAnaliticsLabels()
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  params.get('uxdmcg') == 1 ?  uxdmcg = 1 : uxdmcg = 0;
+  if (uxdmcg) {
+    $('#game').hide()
+    $('#udmcg').show()
+    $('#modal').hide()
+  } else {
+    $('#game').show()
+    $('#udmcg').hide()
+    $('#modal').show()
   }
 
   $('#next').hide();
@@ -100,8 +113,8 @@ document.addEventListener("DOMContentLoaded", function () {
   setTimeout(() => {
     $('#welcome').hide()
     $("body").css("overflow", "auto");
-  }, Math.floor(Math.random() * (3000 - 1750 + 1)) + 1750);
-//}, 1);
+//  }, Math.floor(Math.random() * (3000 - 1750 + 1)) + 1750);
+}, 1);
 
 
   let defaultImage = hgb9qyz.find(item => item.ec3sx == 82)
@@ -357,7 +370,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const openModal = $("#openModal");
   const closeModal = $(".close");
   const closeAcept = $(".acept");
-  modal.show();
+  if (!uxdmcg) {
+    modal.show();
+  }
+  
   openModal.click(function () {
     modal.show();
   });
@@ -381,7 +397,12 @@ document.addEventListener("DOMContentLoaded", function () {
       modal.style.display = "none";
     }
   };
+
+  udmcg();
+
 });
+
+
 
 // !
 // document.addEventListener('contextmenu', function (e) {
@@ -389,6 +410,67 @@ document.addEventListener("DOMContentLoaded", function () {
 // });
 
 
+function udmcg() {
+  var hgb9qyzx = hgb9qyz
+
+  //shufle array
+  let m = hgb9qyzx.length, t, i;
+    while (m) {
+        i = Math.floor(Math.random() * m--);
+        t = hgb9qyzx[m];
+        hgb9qyzx[m] = hgb9qyzx[i];
+        hgb9qyzx[i] = t;
+    }
+
+    hgb9qyzx.slice(0, 10).forEach(i => {
+      isLocal ? image = `v1i89uo45w/${i.ec3sx}.${ext}` : image = shelterImage(`v1i89uo45w/${i.ec3sx}.${ext}`);
+      isLocal ? image_n = `v1i89uo45w/n${i.ec3sx}.${ext}` : image_n = shelterImage(`v1i89uo45w/n${i.ec3sx}.${ext}`);
+      
+      $('#udmcg').append(`
+          <div class='splited-image'>
+              <div class="item-splited i1 gallery-item">
+                  <img alt="imagen" style="width: 100%; height: auto;" draggable="false" src=${image}>
+              </div>
+              <div class="item-splited i2 gallery-item">
+                  <img alt="imagen" style="width: 100%; height: auto;" draggable="false" src=${image_n}>
+              </div>
+              <div class="item-splited i3">
+                <div class="purchase dld" onclick="dldi('${image}','${image_n}')">${languages[currentLanguage].download}</div>
+              </div>
+          </div>
+      `);
+  });
+}
+function dldi(i1,i2) {
+  fetch(i1)
+    .then(response => response.blob())
+    .then(blob => {
+      const urlBlob = URL.createObjectURL(blob);
+      const $enlace = $('<a>')
+          .attr('href', urlBlob)
+          .attr('download', 'tiddypink')
+          .appendTo('body');
+
+      $enlace[0].click();
+      $enlace.remove();
+      URL.revokeObjectURL(urlBlob); // Liberar memoria
+    })
+    .catch(error => console.error('Error:', error));
+    fetch(i2)
+    .then(response => response.blob())
+    .then(blob => {
+      const urlBlob = URL.createObjectURL(blob);
+      const $enlace = $('<a>')
+          .attr('href', urlBlob)
+          .attr('download', 'tiddypink-uncensored')
+          .appendTo('body');
+
+      $enlace[0].click();
+      $enlace.remove();
+      URL.revokeObjectURL(urlBlob); // Liberar memoria
+  })
+  .catch(error => console.error('Error:', error));
+}
 function next() {
   sound('v1i89uo45w/audio/next.mp3');
   $('#next').fadeOut();
@@ -500,6 +582,7 @@ function setLanguage(currentLanguage) {
     }
 
 });
+
 $('#exnext').click(function() {  
   $('#imageex').attr('src', `v1i89uo45w/${hgb9qyz[stepIndex-1].ec3sx}.${ext}`)
   $('#imageex1').attr('src', `v1i89uo45w/n${hgb9qyz[stepIndex-1].ec3sx}.${ext}`)
@@ -780,782 +863,15 @@ const languages = {
     titlehowto: "Cómo jugar:",
     texthowto: "Adivina el color del pezón de la chica entre 6 opciones. Si aciertas, verás a la chica desnuda; si fallas, pasas a la siguiente imagen. La primera ronda te mostrará la opción correcta, luego sigues solo. A medida que avanzas, las imágenes serán más explícitas, y con puntuación perfecta, habrá una sorpresa especial.",
     start: "¡Empezar ya!",
+    download: "Descargar",
     moretitle: "Puedes obtener todas las imágenes de este juego 😈",
     successMessage: "Increíble, has acertado todas las imágenes 😳 Tengo un premio para ti 🥵 Aparecerá en: ",
     paypal_message: "Debes anotar tu correo en los detalles del pago, pagar $10, y en breve recibiras las 100 imagenes en tu correo electrónico",
     paypal_button: "Continuar con paypal",
-    exitMessage: [
-      "Este botón no hace nada :v",
-      "Te dije que este botón no hace nada.",
-      "Por favor escúchame. Este botón no hace nada",
-      "(El botón sigue sin hacer nada *)",
-      "Este botón sigue sin hacer nada, como tu ex.",
-      "Pulsa con cuidado, este botón tiene baja autoestima.",
-      "Este botón está como los sentimientos de ella, vacío...",
-      "Por cada vez que pulses este botón, muere un gatito en el mundo.",
-      "Este botón tiene sentimientos y están a punto de romperse.",
-      "Este botón está aquí solo para decorar.",
-      "Si pulsas de nuevo el botón eres g4y.",
-      "Lo suponía...",
-      "La inteligencia te persigue, pero vas más rápido.",
-      "La perdí cuando más la amaba.",
-      "Messirve...",
-      "Recuerda que tienes cosas importantes que hacer uwu.",
-      "Siiuuuuuuuu.",
-      "Cada clic en este botón es un recordatorio de que nada es para siempre.",
-      "Gracias por tu valioso tiempo, pero sigue sin pasar nada.",
-      "Por favor, busca la felicidad en otro lugar.",
-      "Pulsa de nuevo para perder un segundo más de tu vida.",
-      "Lo que no rompe a este botón lo hace más fuerte.",
-      "Este botón promete no hacer nada, y cumple.",
-      "Este botón es tan útil como un paraguas en el desierto.",
-      "Este botón tiene metas, pero dice que empieza mañana.",
-      "A veces hay que aceptar que no todo es como uno quiere.",
-      "Este botón no está roto, simplemente no hace nada.",
-      "Veo que te gusta sentirte ignorado digitalmente.",
-      "Este botón se siente halagado... pero sigue sin hacer nada.",
-      "En el mundo siguen pasando cosas mientras sigues empeñado en esto...",
-      "Nada cambia... todo permanece igual...",
-      "Este botón no hace nada, pero tú sigues teniendo la fe.",
-      "Cada clic es una pequeña victoria.",
-      "Se produjeron 0 resultados.",
-      "Hay personas que son lentas de entender.",
-      "Este botón no hace nada, pero eso, tú ya lo sabías.",
-      "Este botón por la mañana no hace nada y por la tarde descansa.",
-      "Este botón está más vacío que tu cuenta bancaria.",
-      "Este botón está más ausente que el amor de ella.",
-      "Este botón está más perdido que tu teléfono cuando lo dejas en silencio.",
-      "Este botón está más roto que tus promesas de año nuevo.",
-      "Este botón está más estancado que tu progreso con ella.",
-      "Este botón está más vacío que tu inbox.",
-      "Este botón necesita su espacio...",
-      "Este botón está más tenso que tú cuando alguien coge tu teléfono.",
-      "Este botón se está poniendo incómodo.",
-      "Este botón está más vacío que tu chat con la que te gusta.",
-      "Ni lo intentes.",
-      "Mejor suerte la próxima vez.",
-      "No te preocupes, lo harás bien.",
-      "No te asustes, solo déjate llevar.",
-      "Bien hecho, ¿te atreves a hacerlo de nuevo?",
-      "Prometo que este botón nunca hará nada.",
-      "No te preocupes, este botón también está vacío por dentro.",
-      "Hay apoyo, lo que falta es talento.",
-      "Este botón es como la que te gusta, no responde.",
-      "Mírate... no estás consciente y sigues empeñado en mostrar al mundo lo que puedes hacer... y ya lo has demostrado.",
-      "Incluso el más fuerte de los oponentes siempre tiene una debilidad.",
-      "A nadie le importaba quién fuera hasta que me puse una máscara.",
-      "Todos los esfuerzos son inútiles si no crees en ti mismo."
-    ]
-  },
-  en: {
-    name: "TiddyPink",
-    next: "Next",
-    restart: "Try Again",
-    zx7uj2r: "Use a wildcard", // wildcard element
-    toManyWC: "You used too many wildcards recently, you need to wait before using more. :)",
-    exit: "Exit",
-    loading: "Loading...",
-    purchase: "Get all images",
-    purchase1: "Get all images",
-    modal_title: "You must proceed only if you are over 18 years old.",
-    modal_purchase_title: "Get all images:",
-    modal_content: "You can get all the images, in dressed and nude versions, through these two options:",
-    total_text: "Total images: ",
-    acept: "Continue",
-    ia_tag: "AI Generated",
-    footer: "All rights reserved - © TiddyPink 2024",
-    score: "Score: ",
-    musicOn: "Music",
-    MusicOff: "Music",
-    home: "Play",
-    nm: "Dress",
-    nd: "Undress",
-    howto: "How to play",
-    more: "Learn more",
-    analitics: "My stats",
-    statslabel: "My stats:",
-    end: "You failed miserably. Your score was:",
-    matches: "Games played: ",
-    wmatches: "Games won: ",
-    corrects: "Total correct answers: ",
-    mistakes: "Total mistakes: ",
-    seenimages: "Dressed girls seen: ",
-    seennimages: "Nude girls seen: ",
-    titlehowto: "How to play:",
-    texthowto: "Guess the color of the girl's nipple from 6 options. If you guess right, you'll see the girl naked; if you guess wrong, you'll move to the next image. The first round will show you the correct option, then you're on your own. As you progress, the images become more explicit, and with a perfect score, there will be a special surprise.",
-    start: "Start now!",
-    moretitle: "You can get all the images in this game 😈",
-    successMessage: "Amazing, you guessed all the images 😳 I have a prize for you 🥵 It will appear in: ",
-    exitMessage: [
-      "This button does nothing :v",
-      "I told you this button does nothing.",
-      "Please listen to me. This button does nothing.",
-      "(The button still does nothing *)",
-      "This button does nothing, like your ex.",
-      "Click carefully, this button has low self-esteem.",
-      "This button is like her feelings, empty...",
-      "Every time you click this button, a kitten dies somewhere in the world.",
-      "This button has feelings, and they're about to break.",
-      "This button is just here for decoration.",
-      "If you click this button again, you're g4y.",
-      "I knew it...",
-      "Intelligence chases you, but you run faster.",
-      "I lost her when I loved her the most.",
-      "Remember you have important things to do uwu.",
-      "Every click on this button is a reminder that nothing lasts forever.",
-      "Thanks for your valuable time, but still, nothing happens.",
-      "Please, seek happiness elsewhere.",
-      "Click again to waste another second of your life.",
-      "What doesn't break this button makes it stronger.",
-      "This button promises to do nothing, and it keeps its promise.",
-      "This button is as useful as an umbrella in the desert.",
-      "This button has goals, but says it will start tomorrow.",
-      "Sometimes you just have to accept that not everything goes your way.",
-      "This button isn't broken; it just doesn't do anything.",
-      "I see you like being digitally ignored.",
-      "This button feels flattered... but still does nothing.",
-      "The world keeps turning while you keep insisting on this...",
-      "Nothing changes... everything remains the same...",
-      "This button does nothing, but you still have faith.",
-      "Every click is a small victory.",
-      "0 results were found.",
-      "Some people are slow to understand.",
-      "This button does nothing, but you already knew that.",
-      "This button does nothing in the morning and rests in the afternoon.",
-      "This button is emptier than your bank account.",
-      "This button is more absent than her love.",
-      "This button is more lost than your phone on silent mode.",
-      "This button is more broken than your New Year's resolutions.",
-      "This button is more stuck than your progress with her.",
-      "This button is emptier than your inbox.",
-      "This button needs its space...",
-      "This button is tenser than you when someone grabs your phone.",
-      "This button is getting uncomfortable.",
-      "This button is emptier than your chat with the girl you like.",
-      "Don't even try.",
-      "Better luck next time.",
-      "Don't worry, you'll do fine.",
-      "Don't panic, just go with the flow.",
-      "Well done, dare to do it again?",
-      "I promise this button will never do anything.",
-      "Don't worry, this button is also empty inside.",
-      "There is support; what's missing is talent.",
-      "This button is like the girl you like, it doesn't respond.",
-      "Look at yourself... you are unaware and still determined to show the world what you can do... and you've already shown it.",
-      "Even the strongest opponents always have a weakness.",
-      "Nobody cared who I was until I put on the mask.",
-      "All efforts are useless if you don't believe in yourself."
-    ]
-  },
-  fr: {
-    name: "TiddyPink",
-    next: "Suivant",
-    restart: "Réessayer",
-    zx7uj2r: "Utiliser un joker", // élément wildcard
-    toManyWC: "Vous avez utilisé trop de jokers récemment, vous devez attendre avant d'en utiliser d'autres. :)",
-    exit: "Quitter",
-    loading: "Chargement...",
-    purchase: "Obtenir toutes les images",
-    purchase1: "Obtenir toutes les images",
-    modal_title: "Vous devez continuer uniquement si vous avez plus de 18 ans.",
-    modal_purchase_title: "Obtenez toutes les images :",
-    modal_content: "Vous pouvez obtenir toutes les images, en version habillée et déshabillée, via ces deux options :",
-    total_text: "Nombre total d'images : ",
-    acept: "Continuer",
-    ia_tag: "Généré par IA",
-    footer: "Tous droits réservés - © TiddyPink 2024",
-    score: "Score : ",
-    musicOn: "Musique",
-    MusicOff: "Musique",
-    home: "Jouer",
-    nm: "Habiller",
-    nd: "Déshabiller",
-    howto: "Comment jouer",
-    more: "En savoir plus",
-    analitics: "Mes statistiques",
-    statslabel: "Mes statistiques :",
-    end: "Vous avez échoué lamentablement. Votre score est de :",
-    matches: "Parties jouées : ",
-    wmatches: "Parties gagnées : ",
-    corrects: "Réponses correctes totales : ",
-    mistakes: "Erreurs totales : ",
-    seenimages: "Filles habillées vues : ",
-    seennimages: "Filles déshabillées vues : ",
-    titlehowto: "Comment jouer :",
-    texthowto: "Devinez la couleur du téton de la fille parmi 6 options. Si vous devinez juste, vous verrez la fille nue ; sinon, vous passerez à l'image suivante. La première manche vous montrera l'option correcte, ensuite vous serez seul. Au fur et à mesure, les images deviennent plus explicites, et avec un score parfait, il y aura une surprise spéciale.",
-    start: "Commencez maintenant !",
-    moretitle: "Vous pouvez obtenir toutes les images de ce jeu 😈",
-    successMessage: "Incroyable, vous avez deviné toutes les images 😳 J'ai un prix pour vous 🥵 Il apparaîtra dans : ",
-    exitMessage: [
-      "Ce bouton ne fait rien :v",
-      "Je vous ai dit que ce bouton ne fait rien.",
-      "S'il vous plaît, écoutez-moi. Ce bouton ne fait rien.",
-      "(Le bouton ne fait toujours rien *)",
-      "Ce bouton ne fait rien, comme votre ex.",
-      "Cliquez prudemment, ce bouton a une faible estime de soi.",
-      "Ce bouton est comme ses sentiments, vide...",
-      "Chaque fois que vous cliquez sur ce bouton, un chaton meurt quelque part dans le monde.",
-      "Ce bouton a des sentiments, et ils sont sur le point de se briser.",
-      "Ce bouton est juste là pour décorer.",
-      "Si vous cliquez à nouveau sur ce bouton, vous êtes g4y.",
-      "Je le savais...",
-      "L'intelligence vous poursuit, mais vous allez plus vite.",
-      "Je l'ai perdue quand je l'aimais le plus.",
-      "Rappelez-vous que vous avez des choses importantes à faire uwu.",
-      "Chaque clic sur ce bouton est un rappel que rien ne dure éternellement.",
-      "Merci pour votre temps précieux, mais toujours, rien ne se passe.",
-      "S'il vous plaît, cherchez le bonheur ailleurs.",
-      "Cliquez à nouveau pour perdre une seconde de plus de votre vie.",
-      "Ce qui ne brise pas ce bouton le rend plus fort.",
-      "Ce bouton promet de ne rien faire, et il tient sa promesse.",
-      "Ce bouton est aussi utile qu'un parapluie dans le désert.",
-      "Ce bouton a des objectifs, mais dit qu'il commencera demain.",
-      "Parfois, vous devez accepter que tout ne se passe pas comme prévu.",
-      "Ce bouton n'est pas cassé, il ne fait simplement rien.",
-      "Je vois que vous aimez être ignoré numériquement.",
-      "Ce bouton se sent flatté... mais ne fait toujours rien.",
-      "Le monde continue de tourner pendant que vous insistez là-dessus...",
-      "Rien ne change... tout reste pareil...",
-      "Ce bouton ne fait rien, mais vous gardez la foi.",
-      "Chaque clic est une petite victoire.",
-      "0 résultats trouvés.",
-      "Certaines personnes comprennent lentement.",
-      "Ce bouton ne fait rien, mais vous le saviez déjà.",
-      "Ce bouton ne fait rien le matin et se repose l'après-midi.",
-      "Ce bouton est plus vide que votre compte bancaire.",
-      "Ce bouton est plus absent que son amour.",
-      "Ce bouton est plus perdu que votre téléphone en mode silencieux.",
-      "Ce bouton est plus cassé que vos résolutions du Nouvel An.",
-      "Ce bouton est plus bloqué que votre progrès avec elle.",
-      "Ce bouton est plus vide que votre boîte de réception.",
-      "Ce bouton a besoin d'espace...",
-      "Ce bouton est plus tendu que vous lorsque quelqu'un prend votre téléphone.",
-      "Ce bouton devient inconfortable.",
-      "Ce bouton est plus vide que votre chat avec la fille que vous aimez.",
-      "N'essayez même pas.",
-      "Bonne chance la prochaine fois.",
-      "Ne vous inquiétez pas, vous y arriverez.",
-      "Ne paniquez pas, laissez-vous simplement aller.",
-      "Bien joué, oserez-vous recommencer ?",
-      "Je promets que ce bouton ne fera jamais rien.",
-      "Ne vous inquiétez pas, ce bouton est également vide à l'intérieur.",
-      "Il y a du soutien, ce qui manque, c'est du talent.",
-      "Ce bouton est comme la fille que vous aimez, il ne répond pas.",
-      "Regardez-vous... vous êtes inconscient et vous êtes toujours déterminé à montrer au monde ce que vous pouvez faire... et vous l'avez déjà montré.",
-      "Même les adversaires les plus forts ont toujours une faiblesse.",
-      "Personne ne se souciait de qui j'étais jusqu'à ce que je mette le masque.",
-      "Tous les efforts sont inutiles si vous ne croyez pas en vous."
-    ]
-  },
-  ko: {
-    name: "TiddyPink",
-    next: "다음",
-    restart: "다시 시도하기",
-    zx7uj2r: "와일드카드 사용", // 와일드카드 요소
-    toManyWC: "최근에 너무 많은 와일드카드를 사용했습니다. 더 사용하려면 기다려야 합니다. :)",
-    exit: "나가기",
-    loading: "로딩 중...",
-    purchase: "모든 이미지를 얻기",
-    purchase1: "모든 이미지를 얻기",
-    modal_title: "18세 이상만 계속할 수 있습니다.",
-    modal_purchase_title: "모든 이미지를 얻으세요:",
-    modal_content: "모든 이미지를 의상 버전과 누드 버전으로 두 가지 옵션을 통해 얻을 수 있습니다:",
-    total_text: "총 이미지 수: ",
-    acept: "계속",
-    ia_tag: "AI 생성",
-    footer: "모든 권리 보유 - © TiddyPink 2024",
-    score: "점수: ",
-    musicOn: "음악",
-    MusicOff: "음악",
-    home: "게임 시작",
-    nm: "옷 입히기",
-    nd: "옷 벗기기",
-    howto: "게임 방법",
-    more: "더 알아보기",
-    analitics: "내 통계",
-    statslabel: "내 통계:",
-    end: "완전히 실패했습니다. 당신의 점수는:",
-    matches: "플레이한 게임 수: ",
-    wmatches: "승리한 게임 수: ",
-    corrects: "총 정답 수: ",
-    mistakes: "총 오답 수: ",
-    seenimages: "본 의상 이미지: ",
-    seennimages: "본 누드 이미지: ",
-    titlehowto: "게임 방법:",
-    texthowto: "6가지 옵션 중에서 소녀의 유두 색상을 맞춰보세요. 맞추면 소녀의 누드 이미지를 볼 수 있고, 틀리면 다음 이미지로 넘어갑니다. 첫 번째 라운드에서는 정답이 표시되며, 이후에는 스스로 진행해야 합니다. 진행할수록 이미지는 더 노골적이 되며, 완벽한 점수를 얻으면 특별한 보상이 있습니다.",
-    start: "지금 시작!",
-    moretitle: "이 게임의 모든 이미지를 얻을 수 있습니다 😈",
-    successMessage: "대단해요! 모든 이미지를 맞췄어요 😳 당신을 위한 보상이 있습니다 🥵 나타날 시간: ",
-    exitMessage: [
-      "이 버튼은 아무것도 하지 않습니다 :v",
-      "이 버튼이 아무것도 하지 않는다고 했잖아요.",
-      "제발 제 말을 들어주세요. 이 버튼은 아무것도 하지 않아요.",
-      "(이 버튼은 여전히 아무것도 하지 않음 *)",
-      "이 버튼은 당신의 전 애인처럼 아무것도 하지 않습니다.",
-      "조심스럽게 클릭하세요. 이 버튼은 자신감이 낮습니다.",
-      "이 버튼은 그녀의 감정처럼 비어 있습니다...",
-      "이 버튼을 클릭할 때마다 고양이가 죽습니다.",
-      "이 버튼은 감정이 있고, 지금 상처받으려 합니다.",
-      "이 버튼은 그냥 장식입니다.",
-      "다시 클릭하면 당신은 g4y입니다.",
-      "알고 있었습니다...",
-      "지능이 당신을 따라오지만, 당신이 더 빠릅니다.",
-      "가장 사랑했을 때 그녀를 잃었습니다.",
-      "Messirve...",
-      "중요한 일이 있다는 것을 기억하세요 uwu.",
-      "Siiuuuuuuuu.",
-      "이 버튼을 클릭할 때마다 영원한 것은 없다는 사실을 상기시킵니다.",
-      "소중한 시간을 내 주셔서 감사합니다. 하지만 여전히 아무 일도 일어나지 않습니다.",
-      "다른 곳에서 행복을 찾으세요.",
-      "다시 클릭하면 당신의 삶에서 또 1초가 사라집니다.",
-      "이 버튼을 부수지 않는 것은 그것을 더 강하게 만듭니다.",
-      "이 버튼은 아무것도 하지 않겠다고 약속하고 그 약속을 지킵니다.",
-      "이 버튼은 사막에서 우산만큼 쓸모가 없습니다.",
-      "이 버튼은 목표가 있지만, 내일부터 시작한다고 말합니다.",
-      "때로는 모든 것이 원하는 대로 되지 않는다는 것을 받아들여야 합니다.",
-      "이 버튼은 고장난 게 아니라, 그냥 아무것도 하지 않습니다.",
-      "당신이 디지털 무시를 즐기는 것 같군요.",
-      "이 버튼은 칭찬받는 것 같지만 여전히 아무것도 하지 않습니다.",
-      "세상은 계속 돌아가고 있지만, 당신은 여전히 이 버튼에 집착하고 있습니다...",
-      "아무것도 변하지 않습니다... 모든 것이 그대로입니다...",
-      "이 버튼은 아무것도 하지 않지만, 당신은 여전히 믿고 있습니다.",
-      "클릭할 때마다 작은 승리입니다.",
-      "결과가 0개입니다.",
-      "이해가 느린 사람들이 있습니다.",
-      "이 버튼은 아무것도 하지 않지만, 당신은 이미 알고 있었습니다.",
-      "이 버튼은 아침에 아무것도 하지 않고 오후에는 쉽니다.",
-      "이 버튼은 당신의 은행 계좌처럼 비어 있습니다.",
-      "이 버튼은 그녀의 사랑만큼 없습니다.",
-      "이 버튼은 무음 상태에서 당신의 전화처럼 길을 잃었습니다.",
-      "이 버튼은 새해 결심처럼 부서졌습니다.",
-      "이 버튼은 그녀와의 진전처럼 정체되어 있습니다.",
-      "이 버튼은 당신의 받은 편지함처럼 비어 있습니다.",
-      "이 버튼은 공간이 필요합니다...",
-      "이 버튼은 누군가 당신의 전화를 잡았을 때 당신보다 더 긴장합니다.",
-      "이 버튼은 불편해지고 있습니다.",
-      "이 버튼은 당신이 좋아하는 사람과의 채팅처럼 비어 있습니다.",
-      "시도하지 마세요.",
-      "다음 번엔 더 잘하세요.",
-      "걱정하지 마세요. 잘 해낼 거예요.",
-      "겁내지 마세요. 그냥 자신을 맡기세요.",
-      "잘했어요. 다시 도전할 건가요?",
-      "이 버튼은 절대 아무것도 하지 않을 것을 약속합니다.",
-      "걱정하지 마세요. 이 버튼도 안쪽은 비어 있습니다.",
-      "지원은 있지만, 재능이 부족합니다.",
-      "이 버튼은 당신이 좋아하는 사람처럼 반응하지 않습니다.",
-      "보세요... 당신은 무의식적이고, 여전히 세상에 보여주고 싶어 합니다... 그리고 이미 보여줬습니다.",
-      "가장 강한 상대조차도 항상 약점이 있습니다.",
-      "내가 마스크를 쓰기 전까지 아무도 내가 누구인지 신경 쓰지 않았습니다.",
-      "자기 자신을 믿지 않으면 모든 노력은 쓸모가 없습니다."
-    ]
-  },
-  de: {
-    name: "TiddyPink",
-    next: "Weiter",
-    restart: "Nochmal versuchen",
-    zx7uj2r: "Einen Joker verwenden", // Joker-Element
-    toManyWC: "Du hast kürzlich zu viele Joker benutzt, du musst warten, bevor du weitere verwenden kannst. :)",
-    exit: "Beenden",
-    loading: "Lädt...",
-    purchase: "Alle Bilder erhalten",
-    purchase1: "Alle Bilder erhalten",
-    modal_title: "Du darfst nur weitermachen, wenn du über 18 Jahre alt bist.",
-    modal_purchase_title: "Alle Bilder erhalten:",
-    modal_content: "Du kannst alle Bilder in bekleideter und nackter Version über diese beiden Optionen erhalten:",
-    total_text: "Gesamtanzahl Bilder: ",
-    acept: "Fortfahren",
-    ia_tag: "Von KI generiert",
-    footer: "Alle Rechte vorbehalten - © TiddyPink 2024",
-    score: "Punktestand: ",
-    musicOn: "Musik",
-    MusicOff: "Musik",
-    home: "Spielen",
-    nm: "Anziehen",
-    nd: "Ausziehen",
-    howto: "Spielanleitung",
-    more: "Mehr erfahren",
-    analitics: "Meine Statistiken",
-    statslabel: "Meine Statistiken:",
-    end: "Du bist kläglich gescheitert. Dein Punktestand ist:",
-    matches: "Gespielte Spiele: ",
-    wmatches: "Gewonnene Spiele: ",
-    corrects: "Gesamte richtige Antworten: ",
-    mistakes: "Gesamte falsche Antworten: ",
-    seenimages: "Gesehene bekleidete Mädchen: ",
-    seennimages: "Gesehene nackte Mädchen: ",
-    titlehowto: "Spielanleitung:",
-    texthowto: "Errate die Farbe der Brustwarzen des Mädchens aus 6 Optionen. Wenn du richtig liegst, siehst du das Mädchen nackt; wenn du falsch liegst, geht es zum nächsten Bild. In der ersten Runde wird dir die richtige Antwort gezeigt, danach musst du alleine weitermachen. Je weiter du kommst, desto expliziter werden die Bilder, und bei perfekter Punktzahl gibt es eine besondere Überraschung.",
-    start: "Jetzt starten!",
-    moretitle: "Du kannst alle Bilder dieses Spiels erhalten 😈",
-    successMessage: "Unglaublich, du hast alle Bilder richtig erraten 😳 Ich habe eine Belohnung für dich 🥵 Sie erscheint in: ",
-    exitMessage: [
-        "Dieser Button macht nichts :v",
-        "Ich habe dir gesagt, dieser Button macht nichts.",
-        "Bitte hör mir zu. Dieser Button macht nichts.",
-        "(Der Button macht immer noch nichts *)",
-        "Dieser Button tut genauso wenig wie dein Ex.",
-        "Klick vorsichtig, dieser Button hat ein geringes Selbstwertgefühl.",
-        "Dieser Button ist so leer wie ihre Gefühle...",
-        "Jedes Mal, wenn du diesen Button drückst, stirbt irgendwo eine Katze.",
-        "Dieser Button hat Gefühle und sie stehen kurz vor dem Zerbrechen.",
-        "Dieser Button ist nur zur Dekoration da.",
-        "Wenn du den Button nochmal drückst, bist du g4y.",
-        "Ich habe es geahnt...",
-        "Die Intelligenz verfolgt dich, aber du bist schneller.",
-        "Ich habe sie verloren, als ich sie am meisten liebte.",
-        "Messirve...",
-        "Denk daran, dass du wichtige Dinge zu erledigen hast uwu.",
-        "Siiuuuuuuuu.",
-        "Jeder Klick auf diesen Button erinnert daran, dass nichts für immer ist.",
-        "Danke für deine wertvolle Zeit, aber es passiert immer noch nichts.",
-        "Bitte finde dein Glück woanders.",
-        "Klick nochmal, um eine weitere Sekunde deines Lebens zu verlieren.",
-        "Was diesen Button nicht bricht, macht ihn stärker.",
-        "Dieser Button verspricht nichts zu tun, und er hält dieses Versprechen.",
-        "Dieser Button ist so nützlich wie ein Regenschirm in der Wüste.",
-        "Dieser Button hat Ziele, aber sagt, dass er morgen anfängt.",
-        "Manchmal muss man akzeptieren, dass nicht alles so ist, wie man es möchte.",
-        "Dieser Button ist nicht kaputt, er macht einfach nichts.",
-        "Ich sehe, du genießt es, digital ignoriert zu werden.",
-        "Dieser Button fühlt sich geschmeichelt... aber er macht immer noch nichts.",
-        "Während du dich damit beschäftigst, geht die Welt weiter...",
-        "Nichts ändert sich... alles bleibt gleich...",
-        "Dieser Button macht nichts, aber du glaubst immer noch daran.",
-        "Jeder Klick ist ein kleiner Sieg.",
-        "Es wurden 0 Ergebnisse erzielt.",
-        "Manche Menschen verstehen langsam.",
-        "Dieser Button macht nichts, aber das wusstest du schon.",
-        "Dieser Button macht morgens nichts und ruht sich nachmittags aus.",
-        "Dieser Button ist so leer wie dein Bankkonto.",
-        "Dieser Button ist so abwesend wie ihre Liebe.",
-        "Dieser Button ist so verloren wie dein Telefon im Lautlosmodus.",
-        "Dieser Button ist so kaputt wie deine Neujahrsvorsätze.",
-        "Dieser Button ist so festgefahren wie dein Fortschritt mit ihr.",
-        "Dieser Button ist so leer wie dein Posteingang.",
-        "Dieser Button braucht seinen Raum...",
-        "Dieser Button ist angespannter als du, wenn jemand dein Telefon nimmt.",
-        "Dieser Button fühlt sich unwohl.",
-        "Dieser Button ist so leer wie dein Chat mit der, die dir gefällt.",
-        "Versuch es gar nicht.",
-        "Mehr Glück beim nächsten Mal.",
-        "Mach dir keine Sorgen, du wirst es gut machen.",
-        "Keine Angst, lass dich einfach treiben.",
-        "Gut gemacht, wagst du es nochmal?",
-        "Ich verspreche, dieser Button wird niemals etwas tun.",
-        "Mach dir keine Sorgen, auch dieser Button ist innerlich leer.",
-        "Es gibt Unterstützung, es fehlt nur das Talent.",
-        "Dieser Button reagiert nicht, genau wie die, die dir gefällt.",
-        "Schau dich an... du bist dir dessen nicht bewusst und möchtest der Welt zeigen, was du kannst... und das hast du bereits bewiesen.",
-        "Auch der stärkste Gegner hat immer eine Schwachstelle.",
-        "Niemand hat sich dafür interessiert, wer ich war, bis ich eine Maske trug.",
-        "Alle Anstrengungen sind nutzlos, wenn du nicht an dich selbst glaubst."
-    ]
-  },
-  ja: {
-    name: "TiddyPink",
-    next: "次へ",
-    restart: "もう一度やり直す",
-    zx7uj2r: "ワイルドカードを使う", // ワイルドカード要素
-    toManyWC: "最近ワイルドカードを使いすぎました。これ以上使うには待つ必要があります。 :)",
-    exit: "終了",
-    loading: "読み込み中...",
-    purchase: "すべての画像を取得する",
-    purchase1: "すべての画像を取得する",
-    modal_title: "18歳以上の場合のみ続行してください。",
-    modal_purchase_title: "すべての画像を取得する:",
-    modal_content: "服を着たバージョンと裸のバージョン、両方の画像を以下のオプションで取得できます:",
-    total_text: "画像の合計: ",
-    acept: "続行",
-    ia_tag: "AIによる生成",
-    footer: "全著作権所有 - © TiddyPink 2024",
-    score: "スコア: ",
-    musicOn: "音楽",
-    MusicOff: "音楽",
-    home: "プレイ",
-    nm: "服を着せる",
-    nd: "服を脱がせる",
-    howto: "遊び方",
-    more: "さらに詳しく",
-    analitics: "自分の統計",
-    statslabel: "自分の統計:",
-    end: "あなたは惨敗しました。スコアは次の通りです:",
-    matches: "プレイしたゲーム: ",
-    wmatches: "勝利したゲーム: ",
-    corrects: "総正解数: ",
-    mistakes: "総間違い数: ",
-    seenimages: "見た服を着た女の子: ",
-    seennimages: "見た裸の女の子: ",
-    titlehowto: "遊び方:",
-    texthowto: "6つの選択肢から女の子の乳首の色を当ててください。正解すれば女の子の裸を見ることができ、不正解なら次の画像に進みます。最初のラウンドでは正しい選択肢が表示されますが、その後は自分で挑戦します。進むにつれて画像はより露骨になり、完璧なスコアを達成すると特別なサプライズがあります。",
-    start: "今すぐ始める！",
-    moretitle: "このゲームのすべての画像を手に入れることができます 😈",
-    successMessage: "素晴らしい！すべての画像を正解しました 😳 ご褒美があります 🥵 現れるまで: ",
-    exitMessage: [
-        "このボタンは何もしません :v",
-        "言ったでしょ、このボタンは何もしないって。",
-        "お願い、聞いて。このボタンは何もしない。",
-        "（このボタンはまだ何もしません *)",
-        "このボタンはあなたの元恋人のように何もしません。",
-        "気をつけてクリックしてください。このボタンは自信が低いです。",
-        "このボタンは彼女の気持ちのように空っぽです...",
-        "このボタンをクリックするたびに、世界のどこかで猫が死にます。",
-        "このボタンには感情があり、今壊れそうです。",
-        "このボタンはただ飾りです。",
-        "もう一度押すとあなたはゲイです。",
-        "そうだと思った...",
-        "知性はあなたを追いかけますが、あなたの方が速いです。",
-        "最も愛していたときに彼女を失いました。",
-        "メッシサーブ...",
-        "大切なことをするのを忘れないでください uwu。",
-        "シューーーー！",
-        "このボタンをクリックするたびに、何も永遠ではないことを思い出します。",
-        "貴重な時間をありがとう、でも何も起こりません。",
-        "どうか他の場所で幸せを見つけてください。",
-        "もう一度クリックすると人生の1秒を失います。",
-        "このボタンを壊さないものが、このボタンを強くします。",
-        "このボタンは何もしないと約束し、その約束を守ります。",
-        "このボタンは砂漠の中の傘のように役に立たないです。",
-        "このボタンには目標がありますが、明日から始めると言っています。",
-        "時にはすべてが思い通りにならないことを受け入れる必要があります。",
-        "このボタンは壊れていません。ただ何もしません。",
-        "あなたがデジタルで無視されるのを楽しんでいるのが見えます。",
-        "このボタンは感謝しています...でも何もしません。",
-        "あなたがこれに固執している間に、世界は続いています...",
-        "何も変わらない...すべては同じまま...",
-        "このボタンは何もしませんが、あなたはまだ信じています。",
-        "クリックするたびに小さな勝利です。",
-        "結果は0です。",
-        "理解が遅い人もいます。",
-        "このボタンは何もしませんが、それはあなたも知っていました。",
-        "このボタンは朝は何もしなくて、午後は休みます。",
-        "このボタンはあなたの銀行口座のように空っぽです。",
-        "このボタンは彼女の愛のように不在です。",
-        "このボタンは無音モードで置いたあなたの電話のように迷子です。",
-        "このボタンはあなたの新年の約束のように壊れています。",
-        "このボタンは彼女との進歩のように停滞しています。",
-        "このボタンはあなたの受信トレイのように空っぽです。",
-        "このボタンには自分のスペースが必要です...",
-        "このボタンは誰かがあなたの電話を取るときのあなたよりも緊張しています。",
-        "このボタンは居心地が悪くなっています。",
-        "このボタンはあなたが好きな子とのチャットのように空っぽです。",
-        "試すだけ無駄です。",
-        "次回の幸運を祈ります。",
-        "心配しないで、きっとうまくいきます。",
-        "怖がらずにただ身を任せてください。",
-        "よくできました。もう一度挑戦しますか？",
-        "このボタンは決して何もしないと約束します。",
-        "心配しないでください。このボタンも内側は空っぽです。",
-        "サポートはありますが、才能が足りません。",
-        "このボタンは好きな子のように反応しません。",
-        "見てみて...無意識に世界にあなたができることを見せようとしています...そしてそれをもう証明しました。",
-        "最も強い対戦相手にも必ず弱点があります。",
-        "マスクをつけるまで誰も私に興味を持ちませんでした。",
-        "自分を信じない限り、すべての努力は無駄です。"
-    ]
-  },
-  pt: {
-    name: "TiddyPink",
-    next: "Próximo",
-    restart: "Tentar novamente",
-    zx7uj2r: "Usar um coringa", // elemento coringa
-    toManyWC: "Você usou muitos curingas recentemente, precisa esperar antes de usar mais. :)",
-    exit: "Sair",
-    loading: "Carregando...",
-    purchase: "Obter todas as imagens",
-    purchase1: "Obter todas as imagens",
-    modal_title: "Você deve continuar apenas se for maior de 18 anos.",
-    modal_purchase_title: "Obter todas as imagens:",
-    modal_content: "Você pode obter todas as imagens, tanto na versão vestida quanto na versão nua, através dessas duas opções:",
-    total_text: "Total de imagens: ",
-    acept: "Continuar",
-    ia_tag: "Gerado por IA",
-    footer: "Todos os direitos reservados - © TiddyPink 2024",
-    score: "Pontuação: ",
-    musicOn: "Música",
-    MusicOff: "Música",
-    home: "Jogar",
-    nm: "Vestir",
-    nd: "Despir",
-    howto: "Como jogar",
-    more: "Saber mais",
-    analitics: "Minhas estatísticas",
-    statslabel: "Minhas estatísticas:",
-    end: "Você falhou estrepitosamente. Sua pontuação foi:",
-    matches: "Partidas jogadas: ",
-    wmatches: "Partidas vencidas: ",
-    corrects: "Acertos totais: ",
-    mistakes: "Erros totais: ",
-    seenimages: "Meninas vestidas vistas: ",
-    seennimages: "Meninas nuas vistas: ",
-    titlehowto: "Como jogar:",
-    texthowto: "Adivinhe a cor do mamilo da menina entre 6 opções. Se acertar, verá a menina nua; se errar, passará para a próxima imagem. A primeira rodada mostrará a opção correta, depois você segue sozinho. À medida que avança, as imagens serão mais explícitas, e com uma pontuação perfeita, haverá uma surpresa especial.",
-    start: "Começar agora!",
-    moretitle: "Você pode obter todas as imagens deste jogo 😈",
-    successMessage: "Incrível, você acertou todas as imagens 😳 Tenho um prêmio para você 🥵 Aparecerá em: ",
-    exitMessage: [
-        "Este botão não faz nada :v",
-        "Eu te disse que esse botão não faz nada.",
-        "Por favor, me ouça. Este botão não faz nada.",
-        "(O botão ainda não faz nada *)",
-        "Este botão continua não fazendo nada, como seu ex.",
-        "Clique com cuidado, esse botão tem baixa autoestima.",
-        "Este botão está como os sentimentos dela, vazio...",
-        "Cada vez que você clicar neste botão, um gatinho morre em algum lugar.",
-        "Este botão tem sentimentos e eles estão prestes a se quebrar.",
-        "Este botão está aqui apenas para decorar.",
-        "Se clicar novamente, você é g4y.",
-        "Eu sabia...",
-        "A inteligência te persegue, mas você é mais rápido.",
-        "Eu a perdi quando mais a amava.",
-        "Messirve...",
-        "Lembre-se de que você tem coisas importantes para fazer uwu.",
-        "Siiuuuuuuuu.",
-        "Cada clique neste botão é um lembrete de que nada é para sempre.",
-        "Obrigado pelo seu precioso tempo, mas ainda não aconteceu nada.",
-        "Por favor, procure felicidade em outro lugar.",
-        "Clique novamente para perder mais um segundo da sua vida.",
-        "O que não destrói esse botão, o torna mais forte.",
-        "Esse botão promete não fazer nada, e cumpre.",
-        "Esse botão é tão útil quanto um guarda-chuva no deserto.",
-        "Esse botão tem metas, mas diz que começa amanhã.",
-        "Às vezes é preciso aceitar que nem tudo é como a gente quer.",
-        "Esse botão não está quebrado, ele simplesmente não faz nada.",
-        "Vejo que você gosta de se sentir ignorado digitalmente.",
-        "Esse botão se sente lisonjeado... mas continua não fazendo nada.",
-        "Enquanto você insiste nisso, o mundo continua acontecendo...",
-        "Nada muda... tudo fica igual...",
-        "Esse botão não faz nada, mas você ainda acredita.",
-        "Cada clique é uma pequena vitória.",
-        "Ocorreram 0 resultados.",
-        "Há pessoas que são lentas para entender.",
-        "Esse botão não faz nada, mas você já sabia disso.",
-        "Esse botão pela manhã não faz nada e à tarde descansa.",
-        "Esse botão está mais vazio que sua conta bancária.",
-        "Esse botão está mais ausente que o amor dela.",
-        "Esse botão está mais perdido que seu celular quando você coloca no modo silencioso.",
-        "Esse botão está mais quebrado que suas promessas de ano novo.",
-        "Esse botão está mais estagnado que seu progresso com ela.",
-        "Esse botão está mais vazio que sua caixa de entrada.",
-        "Esse botão precisa do seu espaço...",
-        "Esse botão está mais tenso que você quando alguém pega seu celular.",
-        "Esse botão está ficando desconfortável.",
-        "Esse botão está mais vazio que seu chat com a pessoa que você gosta.",
-        "Nem tente.",
-        "Melhor sorte da próxima vez.",
-        "Não se preocupe, você vai se sair bem.",
-        "Não tenha medo, apenas relaxe.",
-        "Bem feito, você se atreve a tentar novamente?",
-        "Prometo que esse botão nunca fará nada.",
-        "Não se preocupe, esse botão também está vazio por dentro.",
-        "Há apoio, o que falta é talento.",
-        "Esse botão é como a pessoa que você gosta, não responde.",
-        "Olhe para você... você não está consciente, mas continua tentando mostrar ao mundo o que pode fazer... e já provou.",
-        "Até o oponente mais forte sempre tem uma fraqueza.",
-        "Ninguém se importava quem eu era até eu colocar uma máscara.",
-        "Todos os esforços são inúteis se você não acreditar em si mesmo."
-    ]
-  },
-  zh: {
-    name: "TiddyPink",
-    next: "下一步",
-    restart: "重试",
-    zx7uj2r: "使用通配符", // 通配符元素
-    toManyWC: "您最近使用了太多通配符，需要等待一段时间才能再使用。:)",
-    exit: "退出",
-    loading: "加载中...",
-    purchase: "获取所有图片",
-    purchase1: "获取所有图片",
-    modal_title: "您必须在确认年满18岁后继续。",
-    modal_purchase_title: "获取所有图片：",
-    modal_content: "您可以通过以下两种方式获取所有图片，分别是着装和裸露版本：",
-    total_text: "图片总数：",
-    acept: "继续",
-    ia_tag: "由AI生成",
-    footer: "版权所有 - © TiddyPink 2024",
-    score: "分数：",
-    musicOn: "音乐",
-    MusicOff: "音乐",
-    home: "开始游戏",
-    nm: "穿衣",
-    nd: "脱衣",
-    howto: "怎么玩",
-    more: "了解更多",
-    analitics: "我的统计",
-    statslabel: "我的统计：",
-    end: "你失败了。你的得分是：",
-    matches: "已玩局数：",
-    wmatches: "已赢局数：",
-    corrects: "总正确数：",
-    mistakes: "总错误数：",
-    seenimages: "已查看穿衣女孩：",
-    seennimages: "已查看裸露女孩：",
-    titlehowto: "怎么玩：",
-    texthowto: "猜出女孩乳头的颜色，选出六个选项中的正确答案。如果你猜对了，你将看到裸露的女孩；如果错了，你将进入下一张图片。第一轮会显示正确选项，然后你就得自己继续了。随着游戏进展，图片会变得更加露骨，完美的得分将解锁一个特别惊喜。",
-    start: "立即开始！",
-    moretitle: "你可以获取所有这款游戏的图片 😈",
-    successMessage: "太棒了，你猜对了所有图片 😳 我有一个奖品给你 🥵 它将在这里显示：",
-    exitMessage: [
-        "这个按钮什么也不做 :v",
-        "我告诉过你，这个按钮什么也不做。",
-        "请听我说，这个按钮什么也不做。",
-        "(按钮仍然什么也不做 *)",
-        "这个按钮依然什么也不做，就像你的前任。",
-        "小心点击，这个按钮自尊心很低。",
-        "这个按钮就像她的感情，空虚...",
-        "每点击一次这个按钮，世界上就有一只小猫死去。",
-        "这个按钮有情感，而且它们快崩溃了。",
-        "这个按钮只是用来装饰的。",
-        "如果你再按一次，你就是g4y。",
-        "我就知道...",
-        "智慧追逐你，但你跑得更快。",
-        "我在最爱她的时候失去了她。",
-        "Messirve...",
-        "记住你还有重要的事情要做uwu。",
-        "Siiuuuuuuuu。",
-        "每点击一次这个按钮，都是一个提醒：没有什么是永恒的。",
-        "谢谢你宝贵的时间，但还是没有发生任何事情。",
-        "请去别的地方寻找幸福。",
-        "再点击一次，你将浪费你生命中的一秒钟。",
-        "这按钮没有毁掉它的东西，它变得更强。",
-        "这个按钮承诺什么都不做，并且实现了。",
-        "这个按钮就像沙漠里的伞一样没用。",
-        "这个按钮有目标，但说它明天开始。",
-        "有时我们必须接受并不是一切都如我们所愿。",
-        "这个按钮并没有坏，只是它什么也不做。",
-        "我看得出来你喜欢数字化地被忽略。",
-        "这个按钮感到被夸奖...但它仍然什么也不做。",
-        "当你坚持这一点时，世界上其他事情继续发生...",
-        "没有改变... 一切依旧...",
-        "这个按钮什么也不做，但你依然保持信念。",
-        "每点击一次都是一次小胜利。",
-        "没有结果。",
-        "有些人理解起来比较慢。",
-        "这个按钮什么也不做，但你已经知道了。",
-        "这个按钮早上什么也不做，下午休息。",
-        "这个按钮比你的银行账户还空。",
-        "这个按钮比她的感情还空。",
-        "这个按钮比你把手机放在静音时还迷失。",
-        "这个按钮比你的新年承诺还破碎。",
-        "这个按钮比你和她的进展还停滞不前。",
-        "这个按钮比你的收件箱还空。",
-        "这个按钮需要一点空间...",
-        "这个按钮比你在别人拿你手机时还紧张。",
-        "这个按钮开始让人不舒服了。",
-        "这个按钮比你和你喜欢的人的聊天还空。",
-        "别试了。",
-        "下次好运。",
-        "别担心，你会做得很好。",
-        "别怕，放松一下。",
-        "做得好，你敢再来一次吗？",
-        "我保证这个按钮永远不会做任何事情。",
-        "别担心，这个按钮里面也是空的。",
-        "有支持，缺的只是才华。",
-        "这个按钮就像你喜欢的人，不回应。",
-        "看看你自己...你还没有意识到，但你坚持要向全世界展示你能做什么...其实你已经做到了。",
-        "即使是最强的对手也总有一个弱点。",
-        "没人关心我是谁，直到我戴上面具。",
-        "如果你不相信自己，所有的努力都是徒劳的。"
-    ]
+    paypal_success_thanks: "Gracias!",
+    paypal_success_message: 'Tu compra ha sido exitosa, el material ha sido enviado al correo electronico indicado en la compra, o bien al correo vinculado a tu cuenta de paypal.',
+    paypal_success_ok: 'Listo',
+    paypal_error: 'Hubo un error en el proceso de pago.'
   }
 };
 
