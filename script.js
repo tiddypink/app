@@ -480,10 +480,18 @@ function dldi(url, i2) {
       canvas.width = bitmap.width;
       canvas.height = bitmap.height;
       let ctx = canvas.getContext("2d");
+
+      // Dibujar la imagen original
       ctx.drawImage(bitmap, 0, 0);
 
+      // Configurar la marca de agua
+      ctx.fillStyle = "rgba(#ff206e 0.6)";
+      ctx.textAlign = "right";
+      ctx.fillText("tiddypink.com", canvas.width - 20, canvas.height - 20);
+
+      // Descargar como JPG
       let link = document.createElement("a");
-      link.href = canvas.toDataURL("image/jpeg", 1.0); // Convierte a JPG
+      link.href = canvas.toDataURL("image/jpeg", 1.0);
       link.download = nombre.endsWith(".jpg") ? nombre : nombre + ".jpg";
       document.body.appendChild(link);
       link.click();
