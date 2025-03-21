@@ -476,51 +476,39 @@ function dldi(url1, url2) {
   nombre = 'td';
   textoMarca = 'tiddypink.com'
   WebFont.load({
-    google: { families: ["Fredoka One"] },
-    active: function () { // Se ejecuta cuando la fuente está cargada
-        Promise.all([
-            fetch(url1).then(res => res.blob()).then(blob => createImageBitmap(blob)),
-            fetch(url2).then(res => res.blob()).then(blob => createImageBitmap(blob))
-        ]).then(([img1, img2]) => {
-            // Definir tamaño del canvas para unir las imágenes
-            let canvas = document.createElement("canvas");
-            canvas.width = img1.width + img2.width; // Sumar anchos
-            canvas.height = Math.max(img1.height, img2.height); // Tomar la altura mayor
-            let ctx = canvas.getContext("2d");
+        google: { families: ["Fredoka One"] },
+        active: function () { // Se ejecuta cuando la fuente está cargada
+            Promise.all([
+                fetch(url1).then(res => res.blob()).then(blob => createImageBitmap(blob)),
+                fetch(url2).then(res => res.blob()).then(blob => createImageBitmap(blob))
+            ]).then(([img1, img2]) => {
+                // Definir tamaño del canvas para unir las imágenes
+                let canvas = document.createElement("canvas");
+                canvas.width = img1.width + img2.width; // Sumar anchos
+                canvas.height = Math.max(img1.height, img2.height); // Tomar la altura mayor
+                let ctx = canvas.getContext("2d");
 
-            // Dibujar la primera imagen con borde
-            let bordeColor1 = "#FF206E"; // Color del borde para la primera imagen
-            let bordeGrosor1 = 5;   // Grosor del borde
-            ctx.strokeStyle = bordeColor1;
-            ctx.lineWidth = bordeGrosor1;
-            ctx.strokeRect(0, 0, img1.width + bordeGrosor1, img1.height + bordeGrosor1);
-            ctx.drawImage(img1, bordeGrosor1, bordeGrosor1); // Dibujar la imagen ajustada al borde
+                // Dibujar ambas imágenes
+                ctx.drawImage(img1, 0, 0);
+                ctx.drawImage(img2, img1.width, 0); // Colocar la segunda imagen a la derecha
 
-            // Dibujar la segunda imagen con borde
-            let bordeColor2 = "#FF206E"; // Color del borde para la segunda imagen
-            let bordeGrosor2 = 5;   // Grosor del borde
-            ctx.strokeStyle = bordeColor2;
-            ctx.lineWidth = bordeGrosor2;
-            ctx.strokeRect(img1.width, 0, img2.width + bordeGrosor2, img2.height + bordeGrosor2);
-            ctx.drawImage(img2, img1.width + bordeGrosor2, bordeGrosor2); // Dibujar la imagen ajustada al borde
+                // Ajustar tamaño de la fuente basado en la imagen
+                let fontSize = Math.floor(canvas.width * 0.5); // 5% del ancho
+                ctx.font = `${fontSize}px 'Fredoka One', cursive`;
+                ctx.fillStyle = "rgba(255, 32, 110, 0.4)"; // Blanco semi-transparente
+                ctx.textAlign = "center";
+                ctx.fillText(textoMarca, canvas.width - 20, canvas.height - 20);
 
-            // Ajustar tamaño de la fuente basado en la imagen
-            let fontSize = Math.floor(canvas.width * 0.05); // 5% del ancho
-            ctx.font = `${fontSize}px 'Fredoka One', cursive`;
-            ctx.fillStyle = "rgba(255, 32, 110, 0.4)"; // Blanco semi-transparente
-            ctx.textAlign = "center";
-            ctx.fillText(textoMarca, canvas.width - 20, canvas.height - 20);
-
-            // Descargar la imagen unida con bordes y marca de agua
-            let link = document.createElement("a");
-            link.href = canvas.toDataURL("image/jpeg", 1.0);
-            link.download = nombre.endsWith(".jpg") ? nombre : nombre + ".jpg";
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }).catch(error => console.error("Error al unir imágenes:", error));
-    }
-});
+                // Descargar la imagen unida con la marca de agua
+                let link = document.createElement("a");
+                link.href = canvas.toDataURL("image/jpeg", 1.0);
+                link.download = nombre.endsWith(".jpg") ? nombre : nombre + ".jpg";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }).catch(error => console.error("Error al unir imágenes:", error));
+        }
+    });
 }
 
 function next() {
