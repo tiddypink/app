@@ -485,8 +485,8 @@ function dldi(url, i2) {
       ctx.drawImage(bitmap, 0, 0);
 
       // Configurar la marca de agua
-      let fontSize = Math.floor(canvas.width * 0.20);
-      ctx.font = `${fontSize}px`;
+      let fontSize = Math.floor(canvas.width * 0.50);
+      ctx.font = `${fontSize}px Arial`;
       ctx.fillStyle = "rgba(255, 32, 110, 0.5)"; // Blanco semi-transparente
       ctx.textAlign = "right";
       ctx.fillText("tiddypink.com", canvas.width - 20, canvas.height - 20);
