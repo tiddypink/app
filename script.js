@@ -447,7 +447,7 @@ function udmcg(paging) {
                   <img id="imn${index}" alt="${languages[currentLanguage].loading}" style="width: 100%; height: auto;" draggable="false">
               </div>
               <div class="item-splited i3">
-                <div class="purchase dld" onclick="dldi('${image, image_n}')">${languages[currentLanguage].download}</div>
+                <div class="purchase dld" onclick="dldi('${`v1i89uo45w/${i.ec3sx}.${ext}`, `v1i89uo45w/n${i.ec3sx}.${ext}`}')">${languages[currentLanguage].download}</div>
               </div>
           </div>
       `);
@@ -470,13 +470,20 @@ function prevPage() {
   udmcg(1)
 }
 
-function dldi(url) {
-  let link = document.createElement("a");
-  link.href = url;
-  link.download = 'nombre';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+function dldi(i1, i2) {
+  let link1 = document.createElement("a");
+  link1.href = i1;
+  link1.download = 'tiddypink';
+  document.body.appendChild(link1);
+  link1.click();
+  document.body.removeChild(link1);
+
+  let link2 = document.createElement("a");
+  link2.href = url;
+  link2.download = 'tiddypink-uncensored';
+  document.body.appendChild(link2);
+  link2.click();
+  document.body.removeChild(link2);
 }
 function next() {
   sound('v1i89uo45w/audio/next.mp3');
