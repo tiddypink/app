@@ -492,7 +492,7 @@ function dldi(url, i2) {
                 ctx.font = `${fontSize}px 'Fredoka One', cursive`;
                 ctx.fillStyle = "rgba(255, 32, 110, 0.7)"; // Blanco semi-transparente
                 ctx.textAlign = "right";
-                ctx.fillText(textoMarca, canvas.width - 20, canvas.height - 20);
+                ctx.fillText("tiddypink.com", canvas.width - 20, canvas.height - 20);
 
                 // Descargar como JPG
                 let link = document.createElement("a");
