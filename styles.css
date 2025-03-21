@@ -562,7 +562,8 @@ a { -webkit-user-select: none !important; }
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: auto auto; /* Dos filas */
   gap: 10px;
-  margin-bottom: 6rem;
+  margin-bottom: 4rem;
+  margin-top: 3rem;
   padding-left: 8%;
   padding-right: 8%;
 }
@@ -596,6 +597,37 @@ a { -webkit-user-select: none !important; }
 
 .dld{
   margin-top: 0 !important;
+}
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: white;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 3px solid #ff206e;
+
+}
+
+.pagination .right {
+  border-top-right-radius: 10px; /* Esquina superior derecha */
+  border-bottom-right-radius: 10px; /* Esquina inferior derecha */
+  border-left: none;
+}
+
+.pagination .left {
+  border-top-left-radius: 10px; /* Esquina superior derecha */
+  border-bottom-left-radius: 10px; /* Esquina inferior derecha */
+  border-right: none;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ff206e;
+  
 }
 
 @keyframes shake {

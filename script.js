@@ -410,68 +410,73 @@ document.addEventListener("DOMContentLoaded", function () {
 // });
 
 
-function udmcg() {
+
+var page = 1
+var total_pages = 0
+var per_page = 16;
+
+function udmcg(paging) {
   var hgb9qyzx = hgb9qyz
+  total_pages = Math.ceil(hgb9qyzx.length / per_page)
+
+  $('#page').text(page);
+  $('#total_pages').text(total_pages);
 
   //shufle array
-  let m = hgb9qyzx.length, t, i;
+  if (!paging) {
+      let m = hgb9qyzx.length, t, i;
     while (m) {
         i = Math.floor(Math.random() * m--);
         t = hgb9qyzx[m];
         hgb9qyzx[m] = hgb9qyzx[i];
         hgb9qyzx[i] = t;
     }
+  }
 
-    hgb9qyzx.slice(0, 10).forEach((i, index) => {
+
+    hgb9qyzx.slice((page * per_page) - per_page , page * per_page).forEach((i, index) => {
       isLocal ? image = `v1i89uo45w/${i.ec3sx}.${ext}` : image = shelterImage(`v1i89uo45w/${i.ec3sx}.${ext}`, `#im${index}`);
       isLocal ? image_n = `v1i89uo45w/n${i.ec3sx}.${ext}` : image_n = shelterImage(`v1i89uo45w/n${i.ec3sx}.${ext}`, `#imn${index}`);
       
-      $('#udmcg').append(`
-          <div class='splited-image'>
+      $('#udmcge').append(`
+          <div class='splited-image' id="splited-image${index}">
               <div class="item-splited i1 gallery-item">
-                  <img id="im${index}" alt="imagen" style="width: 100%; height: auto;" draggable="false">
+                  <img id="im${index}" alt="${languages[currentLanguage].loading}" style="width: 100%; height: auto;" draggable="false">
               </div>
               <div class="item-splited i2 gallery-item">
-                  <img id="imn${index}" alt="imagen" style="width: 100%; height: auto;" draggable="false">
+                  <img id="imn${index}" alt="${languages[currentLanguage].loading}" style="width: 100%; height: auto;" draggable="false">
               </div>
               <div class="item-splited i3">
-                <div class="purchase dld" onclick="dldi('${image}','${image_n}')">${languages[currentLanguage].download}</div>
+                <div class="purchase dld" onclick="dldi('${image, image_n}')">${languages[currentLanguage].download}</div>
               </div>
           </div>
       `);
-      isLocal ? image = `v1i89uo45w/${i.ec3sx}.${ext}` : image = shelterImage(`v1i89uo45w/${i.ec3sx}.${ext}`, `#im${index}`);
-      isLocal ? image_n = `v1i89uo45w/n${i.ec3sx}.${ext}` : image_n = shelterImage(`v1i89uo45w/n${i.ec3sx}.${ext}`, `#imn${index}`);
+      isLocal ? $(`#im${index}`).attr('src', `v1i89uo45w/${i.ec3sx}.${ext}`) : shelterImage(`v1i89uo45w/${i.ec3sx}.${ext}`, `#im${index}`);
+      isLocal ? $(`#imn${index}`).attr('src', `v1i89uo45w/n${i.ec3sx}.${ext}`) : shelterImage(`v1i89uo45w/n${i.ec3sx}.${ext}`, `#imn${index}`);
+      // isLocal ? image = `v1i89uo45w/${i.ec3sx}.${ext}` : image = shelterImage(`v1i89uo45w/${i.ec3sx}.${ext}`, `#im${index}`);
+      // isLocal ? image_n = `v1i89uo45w/n${i.ec3sx}.${ext}` : image_n = shelterImage(`v1i89uo45w/n${i.ec3sx}.${ext}`, `#imn${index}`);
   });
 }
-function dldi(i1,i2) {
-  fetch(i1)
-    .then(response => response.blob())
-    .then(blob => {
-      const urlBlob = URL.createObjectURL(blob);
-      const $enlace = $('<a>')
-          .attr('href', urlBlob)
-          .attr('download', 'tiddypink')
-          .appendTo('body');
+function nextPage() {
+  page++
+  $('#udmcge').empty();
+  $('html, body').animate({ scrollTop: 0 }, 'slow');
+  udmcg(1)
+}
+function prevPage() {
+  page--
+  $('#udmcge').empty();
+  $('html, body').animate({ scrollTop: 0 }, 'slow');
+  udmcg(1)
+}
 
-      $enlace[0].click();
-      $enlace.remove();
-      URL.revokeObjectURL(urlBlob); // Liberar memoria
-    })
-    .catch(error => console.error('Error:', error));
-    fetch(i2)
-    .then(response => response.blob())
-    .then(blob => {
-      const urlBlob = URL.createObjectURL(blob);
-      const $enlace = $('<a>')
-          .attr('href', urlBlob)
-          .attr('download', 'tiddypink-uncensored')
-          .appendTo('body');
-
-      $enlace[0].click();
-      $enlace.remove();
-      URL.revokeObjectURL(urlBlob); // Liberar memoria
-  })
-  .catch(error => console.error('Error:', error));
+function dldi(url) {
+  let link = document.createElement("a");
+  link.href = url;
+  link.download = 'nombre';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
 function next() {
   sound('v1i89uo45w/audio/next.mp3');
@@ -616,9 +621,6 @@ function setArray(xpz1t9k, limit) {
   return result;
 }
 
-function get() {
-
-}
 
 function selectTabN() {
   $('#nd').addClass('active')
