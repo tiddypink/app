@@ -447,7 +447,7 @@ function udmcg(paging) {
                   <img id="imn${index}" alt="${languages[currentLanguage].loading}" style="width: 100%; height: auto;" draggable="false">
               </div>
               <div class="item-splited i3">
-                <div class="purchase dld" onclick="dldi('${`v1i89uo45w/${i.ec3sx}.${ext}`, `v1i89uo45w/n${i.ec3sx}.${ext}`}')">${languages[currentLanguage].download}</div>
+                <div class="purchase dld" onclick="dldi('${`v1i89uo45w/${i.ec3sx}.${ext}`}', '${`v1i89uo45w/n${i.ec3sx}.${ext}`}')">${languages[currentLanguage].download}</div>
               </div>
           </div>
       `);
@@ -471,6 +471,8 @@ function prevPage() {
 }
 
 function dldi(url1, url2) {
+  console.log(url1)
+  console.log(url2)
   nombre = 'td';
   textoMarca = 'tiddypink.com'
   WebFont.load({
