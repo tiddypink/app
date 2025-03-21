@@ -493,7 +493,7 @@ function dldi(url1, url2) {
             let bordeGrosor1 = 5;   // Grosor del borde
             ctx.strokeStyle = bordeColor1;
             ctx.lineWidth = bordeGrosor1;
-            ctx.strokeRect(0, 0, img1.width, img1.height); // Borde alrededor de la primera imagen
+            ctx.strokeRect(0, 0, img1.width + bordeGrosor1, img1.height + bordeGrosor1);
             ctx.drawImage(img1, bordeGrosor1, bordeGrosor1); // Dibujar la imagen ajustada al borde
 
             // Dibujar la segunda imagen con borde
@@ -501,14 +501,14 @@ function dldi(url1, url2) {
             let bordeGrosor2 = 5;   // Grosor del borde
             ctx.strokeStyle = bordeColor2;
             ctx.lineWidth = bordeGrosor2;
-            ctx.strokeRect(img1.width, 0, img2.width, img2.height); // Borde alrededor de la segunda imagen
+            ctx.strokeRect(img1.width, 0, img2.width + bordeGrosor2, img2.height + bordeGrosor2);
             ctx.drawImage(img2, img1.width + bordeGrosor2, bordeGrosor2); // Dibujar la imagen ajustada al borde
 
             // Ajustar tamaño de la fuente basado en la imagen
             let fontSize = Math.floor(canvas.width * 0.05); // 5% del ancho
             ctx.font = `${fontSize}px 'Fredoka One', cursive`;
             ctx.fillStyle = "rgba(255, 32, 110, 0.4)"; // Blanco semi-transparente
-            ctx.textAlign = "right";
+            ctx.textAlign = "center";
             ctx.fillText(textoMarca, canvas.width - 20, canvas.height - 20);
 
             // Descargar la imagen unida con bordes y marca de agua
