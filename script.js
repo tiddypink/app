@@ -413,7 +413,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 var page = 1
 var total_pages = 0
-var per_page = 2000;
+var per_page = 20;
 
 function udmcg(paging) {
   var hgb9qyzx = hgb9qyz
