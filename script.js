@@ -422,23 +422,23 @@ function udmcg() {
         hgb9qyzx[i] = t;
     }
 
-    hgb9qyzx.slice(0, 10).forEach(i => {
-      isLocal ? image = `v1i89uo45w/${i.ec3sx}.${ext}` : image = shelterImage(`v1i89uo45w/${i.ec3sx}.${ext}`, 1);
-      isLocal ? image_n = `v1i89uo45w/n${i.ec3sx}.${ext}` : image_n = shelterImage(`v1i89uo45w/n${i.ec3sx}.${ext}`, 1);
+    hgb9qyzx.slice(0, 10).forEach((i, index) => {
       
       $('#udmcg').append(`
           <div class='splited-image'>
               <div class="item-splited i1 gallery-item">
-                  <img alt="imagen" style="width: 100%; height: auto;" draggable="false" src=${image}>
+                  <img id="im${index}" alt="imagen" style="width: 100%; height: auto;" draggable="false">
               </div>
               <div class="item-splited i2 gallery-item">
-                  <img alt="imagen" style="width: 100%; height: auto;" draggable="false" src=${image_n}>
+                  <img id="imn${index}" alt="imagen" style="width: 100%; height: auto;" draggable="false">
               </div>
               <div class="item-splited i3">
                 <div class="purchase dld" onclick="dldi('${image}','${image_n}')">${languages[currentLanguage].download}</div>
               </div>
           </div>
       `);
+      isLocal ? image = `v1i89uo45w/${i.ec3sx}.${ext}` : image = shelterImage(`v1i89uo45w/${i.ec3sx}.${ext}`, `im${index}`);
+      isLocal ? image_n = `v1i89uo45w/n${i.ec3sx}.${ext}` : image_n = shelterImage(`v1i89uo45w/n${i.ec3sx}.${ext}`, `imn${index}`);
   });
 }
 function dldi(i1,i2) {
@@ -675,22 +675,22 @@ function stopMusic() {
 }
 
 function shelterImage(imagePath, udmcg) {
-  var base64Image
   fetch(imagePath)  // Usa la ruta o URL de la imagen
   .then(response => response.blob())  // Convierte la respuesta a un Blob
   .then(blob => {
       var reader = new FileReader();
       reader.onloadend = function () {
-          base64Image = reader.result;  // La imagen convertida a Base64
-
-          $('#image').attr('src', base64Image);
+          var base64Image = reader.result;  // La imagen convertida a Base64
+          if (udmcg) {
+            $(udmcg).attr('src', base64Image);
+          } else {
+            $('#image').attr('src', base64Image);
+          }
+          
       };
       reader.readAsDataURL(blob);  // Lee el Blob como URL de datos (Base64)
   })
   .catch(error => console.log('Error getting image', error));
-  if (udmcg) {
-    return base64Image
-  }
 }
 
 function setAnalitics(kd84bd0,assert,fail,nd,match,wmatch){
