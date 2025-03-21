@@ -423,8 +423,8 @@ function udmcg() {
     }
 
     hgb9qyzx.slice(0, 10).forEach(i => {
-      isLocal ? image = `v1i89uo45w/${i.ec3sx}.${ext}` : image = shelterImage(`v1i89uo45w/${i.ec3sx}.${ext}`);
-      isLocal ? image_n = `v1i89uo45w/n${i.ec3sx}.${ext}` : image_n = shelterImage(`v1i89uo45w/n${i.ec3sx}.${ext}`);
+      isLocal ? image = `v1i89uo45w/${i.ec3sx}.${ext}` : image = shelterImage(`v1i89uo45w/${i.ec3sx}.${ext}`, 1);
+      isLocal ? image_n = `v1i89uo45w/n${i.ec3sx}.${ext}` : image_n = shelterImage(`v1i89uo45w/n${i.ec3sx}.${ext}`, 1);
       
       $('#udmcg').append(`
           <div class='splited-image'>
@@ -674,13 +674,16 @@ function stopMusic() {
   
 }
 
-function shelterImage(imagePath) {
+function shelterImage(imagePath, udmcg) {
   fetch(imagePath)  // Usa la ruta o URL de la imagen
   .then(response => response.blob())  // Convierte la respuesta a un Blob
   .then(blob => {
       var reader = new FileReader();
       reader.onloadend = function () {
           var base64Image = reader.result;  // La imagen convertida a Base64
+          if (udmcg) {
+            return base64Image
+          }
           $('#image').attr('src', base64Image);
       };
       reader.readAsDataURL(blob);  // Lee el Blob como URL de datos (Base64)
