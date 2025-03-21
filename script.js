@@ -675,20 +675,22 @@ function stopMusic() {
 }
 
 function shelterImage(imagePath, udmcg) {
+  var base64Image
   fetch(imagePath)  // Usa la ruta o URL de la imagen
   .then(response => response.blob())  // Convierte la respuesta a un Blob
   .then(blob => {
       var reader = new FileReader();
       reader.onloadend = function () {
-          var base64Image = reader.result;  // La imagen convertida a Base64
-          if (udmcg) {
-            return base64Image
-          }
+          base64Image = reader.result;  // La imagen convertida a Base64
+
           $('#image').attr('src', base64Image);
       };
       reader.readAsDataURL(blob);  // Lee el Blob como URL de datos (Base64)
   })
   .catch(error => console.log('Error getting image', error));
+  if (udmcg) {
+    return base64Image
+  }
 }
 
 function setAnalitics(kd84bd0,assert,fail,nd,match,wmatch){
