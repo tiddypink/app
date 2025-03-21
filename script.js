@@ -470,41 +470,43 @@ function prevPage() {
   udmcg(1)
 }
 
-function dldi(url, i2) {
+function dldi(url1, url2) {
   nombre = 'td';
+  textoMarca = 'tiddypink.com'
   WebFont.load({
-    google: { families: ["Fredoka One"] },
-    active: function () { // Se ejecuta cuando la fuente está cargada
-        fetch(url)
-            .then(response => response.blob())
-            .then(blob => createImageBitmap(blob))
-            .then(bitmap => {
+        google: { families: ["Fredoka One"] },
+        active: function () { // Se ejecuta cuando la fuente está cargada
+            Promise.all([
+                fetch(url1).then(res => res.blob()).then(blob => createImageBitmap(blob)),
+                fetch(url2).then(res => res.blob()).then(blob => createImageBitmap(blob))
+            ]).then(([img1, img2]) => {
+                // Definir tamaño del canvas para unir las imágenes
                 let canvas = document.createElement("canvas");
-                canvas.width = bitmap.width;
-                canvas.height = bitmap.height;
+                canvas.width = img1.width + img2.width; // Sumar anchos
+                canvas.height = Math.max(img1.height, img2.height); // Tomar la altura mayor
                 let ctx = canvas.getContext("2d");
 
-                // Dibujar la imagen original
-                ctx.drawImage(bitmap, 0, 0);
+                // Dibujar ambas imágenes
+                ctx.drawImage(img1, 0, 0);
+                ctx.drawImage(img2, img1.width, 0); // Colocar la segunda imagen a la derecha
 
                 // Ajustar tamaño de la fuente basado en la imagen
                 let fontSize = Math.floor(canvas.width * 0.15); // 5% del ancho
                 ctx.font = `${fontSize}px 'Fredoka One', cursive`;
-                ctx.fillStyle = "rgba(255, 32, 110, 0.7)"; // Blanco semi-transparente
+                ctx.fillStyle = "rgba(255, 255, 255, 0.7)"; // Blanco semi-transparente
                 ctx.textAlign = "right";
-                ctx.fillText("tiddypink.com", canvas.width - 20, canvas.height - 20);
+                ctx.fillText(textoMarca, canvas.width - 20, canvas.height - 20);
 
-                // Descargar como JPG
+                // Descargar la imagen unida con la marca de agua
                 let link = document.createElement("a");
                 link.href = canvas.toDataURL("image/jpeg", 1.0);
                 link.download = nombre.endsWith(".jpg") ? nombre : nombre + ".jpg";
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
-            })
-            .catch(error => console.error("Error al descargar la imagen:", error));
-    }
-});
+            }).catch(error => console.error("Error al unir imágenes:", error));
+        }
+    });
 }
 
 function next() {
