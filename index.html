@@ -49,40 +49,42 @@
 
 <body>
     <div id="welcome" class="">Tiddypink</div>
+    <header class="header">
+        <div class="menu-toggle" aria-label="Toggle navigation" style="display: flex;">
+            <h1 class="logo">TiddyPink</h1>
+            <button class="menu-toggle" aria-label="Toggle navigation">&#9776;</button>
+        </div>
+
+        <nav class="nav">
+            <a href="#play" id="home" class="menu-item"></a>
+            <a href="#how-to-play" id="howto" href="howto.html"  class="menu-item"></a>
+            <a id="more" href="#know-more"  class="menu-item"></a>
+            <a href="#stats" id="analitics"  class="menu-item"></a>
+        </nav>
+        <div class="musicswitch"><label class="switch">
+                <input type="checkbox">
+                <span class="slider"></span>
+            </label>
+            <span id="musicOn" class="label-text">Music On</span>
+        </div>
+
+
+        <div id="language-selector">
+            <select id="language-select">
+                <option hreflang value="es">Español</option>
+                <option hreflang="es" value="en">English</option>
+                <option value="fr">Français</option>
+                <option value="ko">한국어</option>
+                <option value="de">Deutsch</option>
+                <option value="ja">日本語</option>
+                <option value="pt">Português</option>
+                <option value="zh">中文</option>
+                <option value="ar">عربي</option>
+            </select>
+        </div>
+    </header>
     <div id="game">
-        <header class="header">
-            <div class="menu-toggle" aria-label="Toggle navigation" style="display: flex;">
-                <h1 class="logo">TiddyPink</h1>
-                <button class="menu-toggle" aria-label="Toggle navigation">&#9776;</button>
-            </div>
 
-            <nav class="nav">
-                <a href="#play" id="home"></a>
-                <a href="#how-to-play" id="howto" href="howto.html"></a>
-                <a id="more" href="#know-more"></a>
-                <a href="#stats" id="analitics"></a>
-            </nav>
-            <div class="musicswitch"><label class="switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                </label>
-                <span id="musicOn" class="label-text">Music On</span>
-            </div>
-
-
-            <div id="language-selector">
-                <select id="language-select">
-                    <option hreflang value="es">Español</option>
-                    <option hreflang="es" value="en">English</option>
-                    <option value="fr">Français</option>
-                    <option value="ko">한국어</option>
-                    <option value="de">Deutsch</option>
-                    <option value="ja">日本語</option>
-                    <option value="pt">Português</option>
-                    <option value="zh">中文</option>
-                </select>
-            </div>
-        </header>
         <section class="gallery" id="play">
             <!-- <h2 class="score" id="score"></h2> -->
             <div class="gallery-grid game">
@@ -170,7 +172,7 @@
                 <p style="margin-top: 15px;" id="total_text"><span style="color: #ff206e;font-size: 1.8rem;" id="total"></span></p>
                 <style>.pp-QSUBVTVFWU5KE{text-align:center;border:none;border-radius:0.25rem;min-width:11.625rem;padding:0 2rem;height:2.625rem;font-weight:bold;background-color:#FFD140;color:#000000;font-family:"Helvetica Neue",Arial,sans-serif;font-size:1rem;line-height:1.25rem;cursor:pointer;margin-top:1.5rem;}</style>
                 <form action="https://www.paypal.com/ncp/payment/QSUBVTVFWU5KE" method="post" target="_blank" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;">
-                    <input class="pp-QSUBVTVFWU5KE" type="submit" id="buy-button" value="Comprar ahora" />
+                    <input class="pp-QSUBVTVFWU5KE" type="submit" id="buy_button"/>
                     <img src=v1i89uo45w/cards-logo.svg alt="cards" />
                 </form>
             </div>
@@ -195,16 +197,15 @@
     <section id="udmcg" style="text-align: center;">
         <div class="" id="">
             <div id="udmcge" class="">
-                <!-- <div class="gallery-item image imagecanvaitem">
-                    <img id="imageex" alt="imagen" style="width: 100%; height: auto;" draggable="false">
-                </div>
-                <div class="gallery-item image imagecanvaitem">
-                    <img id="imageex1" alt="imagen" style="width: 100%; height: auto;" draggable="false">
-                </div> -->
+                <div id="pager-header"><span id="page_text"></span> <span class="page"></span> <span id="of"></span> <span class="total_pages"></span></div>
             </div>
             <div class="pagination">
                 <a class="left" onclick="prevPage()">&laquo;</a>
-                <a href="#"><span id="page"></span> de <span id="total_pages"></span></a>
+                <a>
+                    <select id="page-select">
+                    </select> 
+                    <span id="of1"></span> <span class="total_pages"></span>
+                </a>
                 <a class="right" onclick="nextPage()">&raquo;</a>
             </div>
     </section>

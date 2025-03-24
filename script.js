@@ -17,6 +17,7 @@ var zQlnx2  = 3;  //wildcards
 var x8dlH61 = false  //wildcardUsed
 var zmidr4 = 0 //storage WC
 var uxdmcg = 0 // flag for render images
+var pagep = null
 const isLocal = window.location.protocol === "file:";
 var analitics = {
     matches: 0,
@@ -42,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   currentLanguage = (navigator.language || navigator.userLanguage).split("-")[0];
 
-  if (!['es','en','fr','ko','de','ja', 'pt','zh'].includes(currentLanguage)) {
+  if (!['es','en','fr','ko','de','ja', 'pt','zh','ar'].includes(currentLanguage)) {
     currentLanguage = 'en'
   }
   
@@ -58,6 +59,11 @@ document.addEventListener("DOMContentLoaded", function () {
     currentLanguage = language
     setLanguage(language);
     $('.score').text(getScoreLabel());
+  });
+
+  $('#page-select').on('change', function() {
+    const p = $(this).val();
+    udmcg(p)
   });
 
  $('#steps').text(`${stepIndex} / ${zsf4ns9g4}`)
@@ -85,6 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const params = new URLSearchParams(window.location.search);
   params.get('uxdmcg') == 1 ?  uxdmcg = 1 : uxdmcg = 0;
+  params.get('page') ?  pagep = params.get('page') : pagep = null;
   if (uxdmcg) {
     $('#game').hide()
     $('#udmcg').show()
@@ -114,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
     $('#welcome').hide()
     $("body").css("overflow", "auto");
 //  }, Math.floor(Math.random() * (3000 - 1750 + 1)) + 1750);
-}, 1);
+}, 5);
 
 
   let defaultImage = hgb9qyz.find(item => item.ec3sx == 82)
@@ -355,6 +362,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  $('.menu-item').click(function () {
+    uxdmcg = 1
+    $('#game').show()
+    $('#udmcg').hide()
+    $('#modal').hide()
+
+  })
+
   $('#start').click(function () {
     if (!gameStarted) {
       gameStarted = true
@@ -409,30 +424,67 @@ document.addEventListener("DOMContentLoaded", function () {
 //   e.preventDefault();
 // });
 
+function mulberry32(seed) {
+  return function() {
+      let t = (seed += 0x6D2B79F5);
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
 
+function shuffleWithSeed(array, seed) {
+  let random = mulberry32(seed);
+  let m = array.length, t, i;
+
+  while (m) {
+      i = Math.floor(random() * m--);
+      t = array[m];
+      array[m] = array[i];
+      array[i] = t;
+  }
+  return array
+}
 
 var page = 1
 var total_pages = 0
 var per_page = 20;
 
+
 function udmcg(paging) {
-  var hgb9qyzx = hgb9qyz
-  total_pages = Math.ceil(hgb9qyzx.length / per_page)
+  var hgb9qyzx = hgb9qyz;
 
-  $('#page').text(page);
-  $('#total_pages').text(total_pages);
-
-  //shufle array
   if (!paging) {
-      let m = hgb9qyzx.length, t, i;
-    while (m) {
-        i = Math.floor(Math.random() * m--);
-        t = hgb9qyzx[m];
-        hgb9qyzx[m] = hgb9qyzx[i];
-        hgb9qyzx[i] = t;
+    if (pagep) {
+      page = pagep
     }
+    
+    hgb9qyzx = shuffleWithSeed(hgb9qyzx, 376)
+    total_pages = Math.ceil(hgb9qyzx.length / per_page)
+    let pfp = ["8","1257","613","608","447","175","126","1237","45","78","88","1306","1360","1187","161","278","201","240","140","1349","464","383" ,"819","273","612","641","657", "672", "690", "742", "757", "793", "519", "952", "987","119", "999", "1066", "1105","1129","1139","1160", "1166", "148", "431", "1235", "935", "1206", "1313","295","1358" ]
+    hgb9qyzx = hgb9qyzx.sort((a, b) => {
+      let indexA = pfp.indexOf(a.ec3sx);
+      let indexB = pfp.indexOf(b.ec3sx);
+  
+      if (indexA === -1) indexA = Infinity;
+      if (indexB === -1) indexB = Infinity;
+  
+      return indexA - indexB;
+    });
+
+    for (let index = 0; index <= total_pages; index++) {
+       $('#page-select').append(`
+          <option value="${index}"  ${(index == page)? 'selected' : ''}>${index}</option>
+        `)
+    }
+  } else {
+    let url = new URL(window.location);
+    url.searchParams.set("page", page);
+    window.history.replaceState({}, '', url);
   }
 
+  $('.page').text(page);
+  $('.total_pages').text(total_pages);
 
     hgb9qyzx.slice((page * per_page) - per_page , page * per_page).forEach((i, index) => {
       isLocal ? image = `v1i89uo45w/${i.ec3sx}.${ext}` : image = shelterImage(`v1i89uo45w/${i.ec3sx}.${ext}`, `#im${index}`);
@@ -447,7 +499,7 @@ function udmcg(paging) {
                   <img id="imn${index}" alt="${languages[currentLanguage].loading}" style="width: 100%; height: auto;" draggable="false">
               </div>
               <div class="item-splited i3">
-                <div class="purchase dld" onclick="dldi('${`v1i89uo45w/${i.ec3sx}.${ext}`}', '${`v1i89uo45w/n${i.ec3sx}.${ext}`}')">${languages[currentLanguage].download}</div>
+                <div id="download" class="purchase dld" onclick="dldi('${`v1i89uo45w/${i.ec3sx}.${ext}`}', '${`v1i89uo45w/n${i.ec3sx}.${ext}`}')">${languages[currentLanguage].download} ${i.ec3sx}</div>
               </div>
           </div>
       `);
@@ -458,16 +510,20 @@ function udmcg(paging) {
   });
 }
 function nextPage() {
+  if(page == total_pages)
+    return;
   page++
-  $('#udmcge').empty();
+  $('#udmcge').children(':not(#pager-header)').remove();
   $('html, body').animate({ scrollTop: 0 }, 'slow');
-  udmcg(1)
+  udmcg(page)
 }
 function prevPage() {
+  if(page == 1)
+    return;
   page--
-  $('#udmcge').empty();
+  $('#udmcge').children(':not(#pager-header)').remove();
   $('html, body').animate({ scrollTop: 0 }, 'slow');
-  udmcg(1)
+  udmcg(page)
 }
 
 function dldi(url1, url2) {
@@ -609,6 +665,10 @@ function setLanguage(currentLanguage) {
 
   Object.entries(languages[currentLanguage]).forEach(([key, value]) => {
     const element = document.getElementById(key);
+    if (element?.attributes[2]?.value == 'buy_button') {
+      console.log(element)
+      element.value = value
+    }
     if (element) {
         const firstChild = element.firstChild;
         
@@ -845,8 +905,8 @@ function setAnaliticsLabels(){
   $('#wmatchesx').text(analitics.wmatches)
   $('#correctsx').text(analitics.corrects)
   $('#mistakesx').text(analitics.mistakes)
-  $('#seenimagesx').text(analitics.seenimages.length + ' de '+ (hgb9qyz.length + u4qhgfty2))
-  $('#seennimagesx').text(analitics.seennimages.length + ' de '+ (hgb9qyz.length + u4qhgfty2))
+  $('#seenimagesx').text(analitics.seenimages.length + languages[currentLanguage].of + (hgb9qyz.length + u4qhgfty2))
+  $('#seennimagesx').text(analitics.seennimages.length + languages[currentLanguage].of + (hgb9qyz.length + u4qhgfty2))
 }
 
 
@@ -903,16 +963,447 @@ const languages = {
     titlehowto: "Cómo jugar:",
     texthowto: "Adivina el color del pezón de la chica entre 6 opciones. Si aciertas, verás a la chica desnuda; si fallas, pasas a la siguiente imagen. La primera ronda te mostrará la opción correcta, luego sigues solo. A medida que avanzas, las imágenes serán más explícitas, y con puntuación perfecta, habrá una sorpresa especial.",
     start: "¡Empezar ya!",
+    page_text: "Página",
     download: "Descargar",
+    of: "de",
+    of1: "de",
     moretitle: "Puedes obtener todas las imágenes de este juego 😈",
     successMessage: "Increíble, has acertado todas las imágenes 😳 Tengo un premio para ti 🥵 Aparecerá en: ",
+    donate: "Donar para mejorar el juego",
+    back_to_play: "Volver a jugar",
+    buy_button: "Comprar ahora",
     paypal_message: "Debes anotar tu correo en los detalles del pago, pagar $10, y en breve recibiras las 100 imagenes en tu correo electrónico",
     paypal_button: "Continuar con paypal",
     paypal_success_thanks: "Gracias!",
     paypal_success_message: 'Tu compra ha sido exitosa, el material ha sido enviado al correo electronico indicado en la compra, o bien al correo vinculado a tu cuenta de paypal.',
     paypal_success_ok: 'Listo',
     paypal_error: 'Hubo un error en el proceso de pago.'
+  },
+  en: {
+    name: "TiddyPink",
+    next: "Next",
+    restart: "Try again",
+    zx7uj2r: "Use a wildcard", // wildcard element
+    toManyWC: "You have used too many wildcards recently, you must wait to use more. :)",
+    exit: "Exit",
+    loading: "Loading...",
+    purchase: "Get all images",
+    purchase1: "Get all images",
+    modal_title: "You should continue only if you are over 18 years old.",
+    modal_purchase_title: "Get all images:",
+    modal_content: "You can get all the images, both dressed and nude versions, through these two options:",
+    total_text: "Total images: ",
+    acept: "Continue",
+    ia_tag: "AI-generated",
+    footer: "All rights reserved - © TiddyPink 2024",
+    score: "Score: ",
+    musicOn: "Music",
+    MusicOff: "Music",
+    home: "Play",
+    nm: "Dress",
+    nd: "Undress",
+    howto: "How to play",
+    more: "Learn more",
+    analitics: "My stats",
+    statslabel: "My stats:",
+    end: "You have failed miserably. Your score was:",
+    matches: "Games played: ",
+    wmatches: "Games won: ",
+    corrects: "Total correct guesses: ",
+    mistakes: "Total mistakes: ",
+    seenimages: "Dressed girls seen: ",
+    seennimages: "Nude girls seen: ",
+    titlehowto: "How to play:",
+    texthowto: "Guess the color of the girl's nipple from 6 options. If you guess correctly, you will see the girl naked; if you fail, you move on to the next image. The first round will show you the correct option, then you're on your own. As you progress, the images will become more explicit, and with a perfect score, there will be a special surprise.",
+    start: "Start now!",
+    page_text: "Page",
+    download: "Download",
+    of: "of",
+    of1: "of",
+    moretitle: "You can get all the images from this game 😈",
+    successMessage: "Amazing, you got all the images right 😳 I have a reward for you 🥵 It will appear in: ",
+    donate: "Donate to improve the game",
+    back_to_play: "Play again",
+    buy_button: "Buy now",
+    paypal_message: "You must enter your email in the payment details, pay $10, and soon you will receive the 100 images in your email.",
+    paypal_button: "Continue with PayPal",
+    paypal_success_thanks: "Thank you!",
+    paypal_success_message: "Your purchase was successful, the material has been sent to the email provided in the purchase or to the email linked to your PayPal account.",
+    paypal_success_ok: "Done",
+    paypal_error: "There was an error in the payment process."
+  },
+  fr: {
+    name: "TiddyPink",
+    next: "Suivant",
+    restart: "Réessayer",
+    zx7uj2r: "Utiliser un joker", // élément joker
+    toManyWC: "Vous avez utilisé trop de jokers récemment, vous devez attendre pour en utiliser davantage. :)",
+    exit: "Quitter",
+    loading: "Chargement...",
+    purchase: "Obtenir toutes les images",
+    purchase1: "Obtenir toutes les images",
+    modal_title: "Vous ne devez continuer que si vous avez plus de 18 ans.",
+    modal_purchase_title: "Obtenir toutes les images :",
+    modal_content: "Vous pouvez obtenir toutes les images, en version habillée et en version nue, via ces deux options :",
+    total_text: "Total d'images : ",
+    acept: "Continuer",
+    ia_tag: "Généré par IA",
+    footer: "Tous droits réservés - © TiddyPink 2024",
+    score: "Score : ",
+    musicOn: "Musique",
+    MusicOff: "Musique",
+    home: "Jouer",
+    nm: "Habiller",
+    nd: "Déshabiller",
+    howto: "Comment jouer",
+    more: "En savoir plus",
+    analitics: "Mes statistiques",
+    statslabel: "Mes statistiques :",
+    end: "Vous avez échoué lamentablement. Votre score est de :",
+    matches: "Parties jouées : ",
+    wmatches: "Parties gagnées : ",
+    corrects: "Réponses correctes : ",
+    mistakes: "Erreurs totales : ",
+    seenimages: "Filles habillées vues : ",
+    seennimages: "Filles nues vues : ",
+    titlehowto: "Comment jouer :",
+    texthowto: "Devinez la couleur du téton de la fille parmi 6 options. Si vous trouvez la bonne réponse, vous verrez la fille nue ; si vous échouez, vous passez à l’image suivante. Le premier tour vous montre la bonne réponse, ensuite, vous êtes seul. Au fur et à mesure que vous progressez, les images deviennent plus explicites, et avec un score parfait, une surprise spéciale vous attend.",
+    start: "Commencer maintenant !",
+    page_text: "Page",
+    download: "Télécharger",
+    of: "de",
+    of1: "de",
+    moretitle: "Vous pouvez obtenir toutes les images de ce jeu 😈",
+    successMessage: "Incroyable, vous avez tout trouvé 😳 J’ai une récompense pour vous 🥵 Elle apparaîtra dans : ",
+    donate: "Faire un don pour améliorer le jeu",
+    back_to_play: "Rejouer",
+    buy_button: "Acheter maintenant",
+    paypal_message: "Vous devez noter votre e-mail dans les détails du paiement, payer 10 $, et bientôt vous recevrez les 100 images dans votre boîte mail.",
+    paypal_button: "Continuer avec PayPal",
+    paypal_success_thanks: "Merci !",
+    paypal_success_message: "Votre achat a été effectué avec succès, le contenu a été envoyé à l'adresse e-mail indiquée lors de l'achat ou à celle liée à votre compte PayPal.",
+    paypal_success_ok: "Terminé",
+    paypal_error: "Une erreur est survenue lors du processus de paiement."
+  },
+  ko: {
+    name: "TiddyPink",
+    next: "다음",
+    restart: "다시 시도하기",
+    zx7uj2r: "와일드카드 사용", // 와일드카드 요소
+    toManyWC: "최근에 너무 많은 와일드카드를 사용했습니다. 더 사용하려면 기다려야 합니다. :)",
+    exit: "나가기",
+    loading: "로딩 중...",
+    purchase: "모든 이미지 얻기",
+    purchase1: "모든 이미지 얻기",
+    modal_title: "18세 이상인 경우에만 계속 진행하세요.",
+    modal_purchase_title: "모든 이미지 얻기:",
+    modal_content: "모든 이미지를 얻을 수 있으며, 옷을 입은 버전과 누드 버전이 포함됩니다. 아래 두 가지 옵션 중에서 선택하세요:",
+    total_text: "총 이미지 수: ",
+    acept: "계속하기",
+    ia_tag: "AI 생성",
+    footer: "모든 권리 보유 - © TiddyPink 2024",
+    score: "점수: ",
+    musicOn: "음악",
+    MusicOff: "음악",
+    home: "플레이",
+    nm: "입히기",
+    nd: "벗기기",
+    howto: "게임 방법",
+    more: "더 알아보기",
+    analitics: "내 통계",
+    statslabel: "내 통계:",
+    end: "완전히 실패했습니다. 당신의 점수는:",
+    matches: "플레이한 게임 수: ",
+    wmatches: "승리한 게임 수: ",
+    corrects: "총 정답 수: ",
+    mistakes: "총 오답 수: ",
+    seenimages: "본 옷 입은 여성 수: ",
+    seennimages: "본 누드 여성 수: ",
+    titlehowto: "게임 방법:",
+    texthowto: "여성의 유두 색상을 6가지 옵션 중에서 맞혀보세요. 정답을 맞히면 여성이 누드 상태로 보이며, 틀리면 다음 이미지로 넘어갑니다. 첫 번째 라운드에서는 정답이 표시되지만 이후에는 스스로 맞혀야 합니다. 진행할수록 이미지는 점점 더 노골적으로 변하며, 완벽한 점수를 얻으면 특별한 보상이 있습니다.",
+    start: "지금 시작!",
+    page_text: "페이지",
+    download: "다운로드",
+    of: "중",
+    of1: "중",
+    moretitle: "이 게임의 모든 이미지를 얻을 수 있습니다 😈",
+    successMessage: "놀랍습니다! 모든 이미지를 맞혔어요 😳 특별한 보상이 있어요 🥵 곧 나타납니다: ",
+    donate: "게임 개선을 위한 기부",
+    back_to_play: "다시 플레이하기",
+    buy_button: "지금 구매하기",
+    paypal_message: "결제 세부 정보에 이메일을 입력하고 $10을 결제하면, 100장의 이미지를 이메일로 받을 수 있습니다.",
+    paypal_button: "PayPal로 계속하기",
+    paypal_success_thanks: "감사합니다!",
+    paypal_success_message: "구매가 성공적으로 완료되었습니다. 구매 시 입력한 이메일 또는 PayPal 계정에 연결된 이메일로 자료가 전송되었습니다.",
+    paypal_success_ok: "확인",
+    paypal_error: "결제 처리 중 오류가 발생했습니다."
+  },
+  pt: {
+    name: "TiddyPink",
+    next: "Próximo",
+    restart: "Tentar novamente",
+    zx7uj2r: "Usar um curinga", // elemento curinga
+    toManyWC: "Você usou muitos curingas recentemente. Aguarde um pouco para usar mais. :)",
+    exit: "Sair",
+    loading: "Carregando...",
+    purchase: "Obter todas as imagens",
+    purchase1: "Obter todas as imagens",
+    modal_title: "Você deve continuar apenas se tiver mais de 18 anos.",
+    modal_purchase_title: "Obter todas as imagens:",
+    modal_content: "Você pode obter todas as imagens, nas versões vestida e nua, através destas duas opções:",
+    total_text: "Total de imagens: ",
+    acept: "Continuar",
+    ia_tag: "Gerado por IA",
+    footer: "Todos os direitos reservados - © TiddyPink 2024",
+    score: "Pontuação: ",
+    musicOn: "Música",
+    MusicOff: "Música",
+    home: "Jogar",
+    nm: "Vestir",
+    nd: "Despir",
+    howto: "Como jogar",
+    more: "Saiba mais",
+    analitics: "Minhas estatísticas",
+    statslabel: "Minhas estatísticas:",
+    end: "Você falhou miseravelmente. Sua pontuação foi:",
+    matches: "Partidas jogadas: ",
+    wmatches: "Partidas vencidas: ",
+    corrects: "Total de acertos: ",
+    mistakes: "Total de erros: ",
+    seenimages: "Mulheres vestidas vistas: ",
+    seennimages: "Mulheres nuas vistas: ",
+    titlehowto: "Como jogar:",
+    texthowto: "Adivinhe a cor do mamilo da garota entre 6 opções. Se acertar, verá a garota nua; se errar, passará para a próxima imagem. Na primeira rodada, a opção correta será mostrada, depois você segue sozinho. Conforme avança, as imagens se tornam mais explícitas e, com uma pontuação perfeita, há uma surpresa especial.",
+    start: "Começar agora!",
+    page_text: "Página",
+    download: "Baixar",
+    of: "de",
+    of1: "de",
+    moretitle: "Você pode obter todas as imagens deste jogo 😈",
+    successMessage: "Incrível, você acertou todas as imagens 😳 Tenho um prêmio para você 🥵 Ele aparecerá em: ",
+    donate: "Doar para melhorar o jogo",
+    back_to_play: "Jogar novamente",
+    buy_button: "Comprar agora",
+    paypal_message: "Você deve anotar seu e-mail nos detalhes do pagamento, pagar $10 e, em breve, receberá as 100 imagens no seu e-mail.",
+    paypal_button: "Continuar com PayPal",
+    paypal_success_thanks: "Obrigado!",
+    paypal_success_message: "Sua compra foi concluída com sucesso. O material foi enviado para o e-mail informado na compra ou para o e-mail vinculado à sua conta PayPal.",
+    paypal_success_ok: "Pronto",
+    paypal_error: "Ocorreu um erro no processo de pagamento."
+  },
+  de: {
+    name: "TiddyPink",
+    next: "Weiter",
+    restart: "Erneut versuchen",
+    zx7uj2r: "Einen Joker verwenden", // Joker-Element
+    toManyWC: "Du hast in letzter Zeit zu viele Joker benutzt. Bitte warte, bevor du weitere verwendest. :)",
+    exit: "Beenden",
+    loading: "Lädt...",
+    purchase: "Alle Bilder erhalten",
+    purchase1: "Alle Bilder erhalten",
+    modal_title: "Du darfst nur fortfahren, wenn du über 18 Jahre alt bist.",
+    modal_purchase_title: "Alle Bilder erhalten:",
+    modal_content: "Du kannst alle Bilder sowohl in bekleideter als auch in nackter Version erhalten – wähle eine der beiden Optionen:",
+    total_text: "Gesamtzahl der Bilder: ",
+    acept: "Weiter",
+    ia_tag: "KI-generiert",
+    footer: "Alle Rechte vorbehalten - © TiddyPink 2024",
+    score: "Punktzahl: ",
+    musicOn: "Musik",
+    MusicOff: "Musik",
+    home: "Spielen",
+    nm: "Anziehen",
+    nd: "Ausziehen",
+    howto: "Spielanleitung",
+    more: "Mehr erfahren",
+    analitics: "Meine Statistiken",
+    statslabel: "Meine Statistiken:",
+    end: "Du bist kläglich gescheitert. Deine Punktzahl beträgt:",
+    matches: "Gespielte Spiele: ",
+    wmatches: "Gewonnene Spiele: ",
+    corrects: "Gesamte richtige Antworten: ",
+    mistakes: "Gesamte falsche Antworten: ",
+    seenimages: "Gesehene bekleidete Frauen: ",
+    seennimages: "Gesehene nackte Frauen: ",
+    titlehowto: "Spielanleitung:",
+    texthowto: "Errate die Brustwarzenfarbe der Frau aus 6 Optionen. Wenn du richtig liegst, siehst du die Frau nackt; wenn du falsch liegst, geht es zum nächsten Bild. In der ersten Runde wird dir die richtige Antwort gezeigt, danach musst du alleine weitermachen. Je weiter du kommst, desto expliziter werden die Bilder. Bei einer perfekten Punktzahl gibt es eine besondere Überraschung.",
+    start: "Jetzt starten!",
+    page_text: "Seite",
+    download: "Herunterladen",
+    of: "von",
+    of1: "von",
+    moretitle: "Du kannst alle Bilder dieses Spiels erhalten 😈",
+    successMessage: "Unglaublich, du hast alle Bilder richtig erraten 😳 Ich habe eine Belohnung für dich 🥵 Sie erscheint in: ",
+    donate: "Spenden, um das Spiel zu verbessern",
+    back_to_play: "Erneut spielen",
+    buy_button: "Jetzt kaufen",
+    paypal_message: "Gib deine E-Mail in den Zahlungsdetails an, zahle $10 und du erhältst die 100 Bilder bald per E-Mail.",
+    paypal_button: "Mit PayPal fortfahren",
+    paypal_success_thanks: "Danke!",
+    paypal_success_message: "Dein Kauf war erfolgreich. Das Material wurde an die beim Kauf angegebene oder mit deinem PayPal-Konto verknüpfte E-Mail-Adresse gesendet.",
+    paypal_success_ok: "Fertig",
+    paypal_error: "Es gab einen Fehler bei der Zahlungsabwicklung."
+  },
+  ja: {
+    name: "TiddyPink",
+    next: "次へ",
+    restart: "もう一度試す",
+    zx7uj2r: "ワイルドカードを使う", // ワイルドカード要素
+    toManyWC: "最近ワイルドカードを使いすぎました。もう少し待ってから使ってください。 :)",
+    exit: "終了",
+    loading: "読み込み中...",
+    purchase: "すべての画像を入手",
+    purchase1: "すべての画像を入手",
+    modal_title: "18歳以上の場合のみ続行できます。",
+    modal_purchase_title: "すべての画像を入手:",
+    modal_content: "すべての画像（服を着たバージョンと裸のバージョン）を次の2つのオプションで入手できます。",
+    total_text: "画像の合計: ",
+    acept: "続ける",
+    ia_tag: "AI生成",
+    footer: "All rights reserved - © TiddyPink 2024",
+    score: "スコア: ",
+    musicOn: "音楽",
+    MusicOff: "音楽",
+    home: "プレイ",
+    nm: "着る",
+    nd: "脱ぐ",
+    howto: "遊び方",
+    more: "詳細",
+    analitics: "自分の統計",
+    statslabel: "自分の統計:",
+    end: "大失敗しました。あなたのスコアは:",
+    matches: "プレイ回数: ",
+    wmatches: "勝利回数: ",
+    corrects: "正解数: ",
+    mistakes: "間違えた回数: ",
+    seenimages: "見た服を着た女性の数: ",
+    seennimages: "見た裸の女性の数: ",
+    titlehowto: "遊び方:",
+    texthowto: "6つの選択肢から女性の乳首の色を当ててください。正解すると、その女性の裸が見られます。不正解なら次の画像に進みます。最初のラウンドでは正解が表示されますが、それ以降は自分で判断してください。進むにつれて画像はより過激になり、完璧なスコアを達成すると特別なサプライズがあります。",
+    start: "今すぐ始める！",
+    page_text: "ページ",
+    download: "ダウンロード",
+    of: "の",
+    of1: "の",
+    moretitle: "このゲームのすべての画像を入手できます 😈",
+    successMessage: "すごい！すべての画像を正解しました 😳 ご褒美があります 🥵 表示されるまで: ",
+    donate: "ゲーム向上のために寄付",
+    back_to_play: "もう一度プレイ",
+    buy_button: "今すぐ購入",
+    paypal_message: "支払いの詳細にメールアドレスを入力し、$10を支払うと、100枚の画像がメールに送られます。",
+    paypal_button: "PayPalで続ける",
+    paypal_success_thanks: "ありがとうございます！",
+    paypal_success_message: "購入が成功しました。購入時に指定したメールアドレス、またはPayPalアカウントに関連付けられたメールアドレスに素材が送信されました。",
+    paypal_success_ok: "OK",
+    paypal_error: "支払い処理中にエラーが発生しました。"
+  },
+  zh: {
+    name: "TiddyPink",
+    next: "下一步",
+    restart: "重试",
+    zx7uj2r: "使用万能牌", // 万能牌元素
+    toManyWC: "你最近使用了太多万能牌，需要等待一段时间才能继续使用。:)",
+    exit: "退出",
+    loading: "加载中...",
+    purchase: "获取所有图片",
+    purchase1: "获取所有图片",
+    modal_title: "只有年满18岁才能继续。",
+    modal_purchase_title: "获取所有图片：",
+    modal_content: "你可以通过以下两种方式获取所有图片，包括穿衣版和裸体版：",
+    total_text: "图片总数：",
+    acept: "继续",
+    ia_tag: "AI 生成",
+    footer: "版权所有 - © TiddyPink 2024",
+    score: "得分：",
+    musicOn: "音乐",
+    MusicOff: "音乐",
+    home: "开始游戏",
+    nm: "穿上",
+    nd: "脱掉",
+    howto: "游戏规则",
+    more: "了解更多",
+    analitics: "我的统计数据",
+    statslabel: "我的统计数据：",
+    end: "你惨败了。你的得分是：",
+    matches: "游戏场次：",
+    wmatches: "获胜场次：",
+    corrects: "正确次数：",
+    mistakes: "错误次数：",
+    seenimages: "查看过的穿衣女性：",
+    seennimages: "查看过的裸体女性：",
+    titlehowto: "游戏规则：",
+    texthowto: "从6个选项中猜测女孩的乳头颜色。如果猜对，你将看到女孩的裸体；如果猜错，你将进入下一张图片。第一轮会显示正确答案，之后你需要独自判断。随着游戏进展，图片会变得更加露骨。如果获得完美分数，将会有特别惊喜。",
+    start: "立即开始！",
+    page_text: "页面",
+    download: "下载",
+    of: "的",
+    of1: "的",
+    moretitle: "你可以获取本游戏的所有图片 😈",
+    successMessage: "太棒了，你答对了所有图片 😳 这里有一个奖励给你 🥵 将在以下时间出现：",
+    donate: "捐赠以改进游戏",
+    back_to_play: "重新开始",
+    buy_button: "立即购买",
+    paypal_message: "请在付款详情中填写你的邮箱，支付$10，稍后你将收到100张图片的邮件。",
+    paypal_button: "使用 PayPal 继续",
+    paypal_success_thanks: "谢谢！",
+    paypal_success_message: "你的购买已成功，内容已发送至你在购买时填写的邮箱，或与你的 PayPal 账户关联的邮箱。",
+    paypal_success_ok: "完成",
+    paypal_error: "支付过程中发生错误。"
+  },
+  ar: {
+    name: "TiddyPink",
+    next: "التالي",
+    restart: "إعادة المحاولة",
+    zx7uj2r: "استخدام بطاقة عشوائية", // عنصر بطاقة عشوائية
+    toManyWC: "لقد استخدمت العديد من البطاقات العشوائية مؤخرًا، يجب عليك الانتظار قبل استخدامها مرة أخرى. :)",
+    exit: "خروج",
+    loading: "جاري التحميل...",
+    purchase: "احصل على جميع الصور",
+    purchase1: "احصل على جميع الصور",
+    modal_title: "يجب أن تتابع فقط إذا كنت أكبر من 18 عامًا.",
+    modal_purchase_title: "احصل على جميع الصور:",
+    modal_content: "يمكنك الحصول على جميع الصور سواء في النسخة الملبسة أو النسخة العارية من خلال الخيارين التاليين:",
+    total_text: "إجمالي الصور: ",
+    acept: "استمرار",
+    ia_tag: "تم إنشاؤها بواسطة الذكاء الاصطناعي",
+    footer: "جميع الحقوق محفوظة - © TiddyPink 2024",
+    score: "النقاط: ",
+    musicOn: "الموسيقى",
+    MusicOff: "الموسيقى",
+    home: "العب الآن",
+    nm: "ارتداء",
+    nd: "خلع",
+    howto: "طريقة اللعب",
+    more: "مزيد من المعلومات",
+    analitics: "إحصائياتي",
+    statslabel: "إحصائياتي:",
+    end: "لقد فشلت بشكل كارثي. كانت نتيجتك: ",
+    matches: "المباريات التي تم لعبها: ",
+    wmatches: "المباريات التي فزت بها: ",
+    corrects: "الإجابات الصحيحة: ",
+    mistakes: "الإجابات الخاطئة: ",
+    seenimages: "الفتيات الملبسات اللواتي شاهدتهن: ",
+    seennimages: "الفتيات العاريات اللواتي شاهدتهن: ",
+    titlehowto: "طريقة اللعب:",
+    texthowto: "تخمين لون حلمة الثدي لدى الفتاة من بين 6 خيارات. إذا خمنت بشكل صحيح، سترى الفتاة عارية؛ وإذا أخطأت، تنتقل إلى الصورة التالية. ستعرض لك الجولة الأولى الإجابة الصحيحة، ثم عليك المتابعة بمفردك. مع تقدمك، ستصبح الصور أكثر وضوحًا، وإذا حصلت على نقاط كاملة، سيكون هناك مفاجأة خاصة.",
+    start: "ابدأ الآن!",
+    page_text: "الصفحة",
+    download: "تنزيل",
+    of: "من",
+    of1: "من",
+    moretitle: "يمكنك الحصول على جميع الصور من هذه اللعبة 😈",
+    successMessage: "رائع! لقد أجبت بشكل صحيح على جميع الصور 😳 لدي جائزة لك 🥵 ستظهر في: ",
+    donate: "تتبرع لتحسين اللعبة",
+    back_to_play: "إعادة اللعب",
+    buy_button: "اشترِ الآن",
+    paypal_message: "يجب عليك إدخال بريدك الإلكتروني في تفاصيل الدفع، دفع 10 دولارات، وستتلقى قريبًا 100 صورة عبر بريدك الإلكتروني",
+    paypal_button: "استمرار مع باي بال",
+    paypal_success_thanks: "شكرًا لك!",
+    paypal_success_message: "تمت عملية الشراء بنجاح، وتم إرسال المحتوى إلى البريد الإلكتروني الذي تم إدخاله في عملية الشراء، أو إلى البريد الإلكتروني المرتبط بحساب باي بال الخاص بك.",
+    paypal_success_ok: "تم",
+    paypal_error: "حدث خطأ في عملية الدفع."
   }
+
 };
 
 async function testConnectionSpeed() {

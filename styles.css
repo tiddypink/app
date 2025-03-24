@@ -599,6 +599,13 @@ a { -webkit-user-select: none !important; }
   margin-top: 0 !important;
 }
 
+#pager-header{
+  text-align: left;
+  padding-left: 8%;
+  padding-right: 8%;
+  font-size: 1.5rem;
+}
+
 .pagination {
   display: inline-block;
 }
@@ -813,6 +820,14 @@ input:checked + .slider:before {
   font-size: 16px;
   color: white;
   vertical-align: middle;
+}
+
+#page-select {
+  background-color: page-select;
+  color: white;
+  border: none;
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.5rem;
 }
 
 @media (max-width: 992px) {
