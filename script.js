@@ -58,12 +58,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const language = $(this).val();
     currentLanguage = language
     setLanguage(language);
+    somePage(page)
     $('.score').text(getScoreLabel());
   });
 
-  $('#page-select').on('change', function() {
+  $('#page-select1').on('change', function() {
     const p = $(this).val();
-    udmcg(p)
+    somePage(p)
+  });
+
+  $('#page-select2').on('change', function() {
+    const p = $(this).val();
+    somePage(p)
   });
 
  $('#steps').text(`${stepIndex} / ${zsf4ns9g4}`)
@@ -454,6 +460,8 @@ var per_page = 20;
 function udmcg(paging) {
   var hgb9qyzx = hgb9qyz;
 
+  paging = Number(paging);
+
   if (!paging) {
     if (pagep) {
       page = pagep
@@ -472,8 +480,11 @@ function udmcg(paging) {
       return indexA - indexB;
     });
 
-    for (let index = 0; index <= total_pages; index++) {
-       $('#page-select').append(`
+    for (let index = 1; index <= total_pages; index++) {
+       $('#page-select1').append(`
+          <option value="${index}"  ${(index == page)? 'selected' : ''}>${index}</option>
+        `);
+        $('#page-select2').append(`
           <option value="${index}"  ${(index == page)? 'selected' : ''}>${index}</option>
         `)
     }
@@ -484,22 +495,28 @@ function udmcg(paging) {
   }
 
   $('.page').text(page);
+  $('#page-select1').val(page);
+  $('#page-select2').val(page);
   $('.total_pages').text(total_pages);
 
     hgb9qyzx.slice((page * per_page) - per_page , page * per_page).forEach((i, index) => {
       isLocal ? image = `v1i89uo45w/${i.ec3sx}.${ext}` : image = shelterImage(`v1i89uo45w/${i.ec3sx}.${ext}`, `#im${index}`);
       isLocal ? image_n = `v1i89uo45w/n${i.ec3sx}.${ext}` : image_n = shelterImage(`v1i89uo45w/n${i.ec3sx}.${ext}`, `#imn${index}`);
+
+      var iatag = `<span id='ia_tag' class='ia-tag'>${languages[currentLanguage].ia_tag}</span>`
       
       $('#udmcge').append(`
           <div class='splited-image' id="splited-image${index}">
               <div class="item-splited i1 gallery-item">
                   <img id="im${index}" alt="${languages[currentLanguage].loading}" style="width: 100%; height: auto;" draggable="false">
+                  ${i.ia_generated ? iatag : ""}
               </div>
               <div class="item-splited i2 gallery-item">
                   <img id="imn${index}" alt="${languages[currentLanguage].loading}" style="width: 100%; height: auto;" draggable="false">
+                  ${i.ia_generated ? iatag : ""}
               </div>
               <div class="item-splited i3">
-                <div id="download" class="purchase dld" onclick="dldi('${`v1i89uo45w/${i.ec3sx}.${ext}`}', '${`v1i89uo45w/n${i.ec3sx}.${ext}`}')">${languages[currentLanguage].download} ${i.ec3sx}</div>
+                <div id="download" class="purchase dld" onclick="dldi('${`v1i89uo45w/${i.ec3sx}.${ext}`}', '${`v1i89uo45w/n${i.ec3sx}.${ext}`}')">${languages[currentLanguage].download}</div>
               </div>
           </div>
       `);
@@ -523,6 +540,12 @@ function prevPage() {
   page--
   $('#udmcge').children(':not(#pager-header)').remove();
   $('html, body').animate({ scrollTop: 0 }, 'slow');
+  udmcg(page)
+}
+function somePage(pages) {
+  $('#udmcge').children(':not(#pager-header)').remove();
+  $('html, body').animate({ scrollTop: 0 }, 'slow');
+  page = pages
   udmcg(page)
 }
 
@@ -555,7 +578,7 @@ function dldi(url1, url2) {
 
                 // Descargar la imagen unida con la marca de agua
                 let link = document.createElement("a");
-                link.href = canvas.toDataURL("image/jpeg", 1.0);
+                link.href = canvas.toDataURL("image/jpeg", 0.8);
                 link.download = nombre.endsWith(".jpg") ? nombre : nombre + ".jpg";
                 document.body.appendChild(link);
                 link.click();

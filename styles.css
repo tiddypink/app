@@ -613,11 +613,15 @@ a { -webkit-user-select: none !important; }
 .pagination a {
   color: white;
   float: left;
-  padding: 8px 16px;
+  padding: 10px 16px;
   text-decoration: none;
   transition: background-color .3s;
   border: 3px solid #ff206e;
 
+}
+
+.pagination .center {
+  padding: 6px 16px;
 }
 
 .pagination .right {
@@ -822,12 +826,17 @@ input:checked + .slider:before {
   vertical-align: middle;
 }
 
-#page-select {
-  background-color: page-select;
+#page-select1,#page-select2 {
+  vertical-align: middle;
+  background-color: #ff206e;
   color: white;
   border: none;
   font-family: 'Fredoka One', cursive;
-  font-size: 1.5rem;
+  font-size: 1rem;
+  padding-bottom: 6px;
+  padding-left: 2px;
+  border-radius: 1.1rem;
+  text-align: center;
 }
 
 @media (max-width: 992px) {

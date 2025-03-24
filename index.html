@@ -165,7 +165,6 @@
         </section>
         <section id="modalPurchase" class="">
             <div class="purchase-form">
-                <span class="close">&times;</span>
                 <h2 id="modal_purchase_title"></h2>
                 <p style="margin-top: 15px;" id="modal_content"></p>
                 <div id="paypal-button-container" class="restart"></div>
@@ -197,12 +196,12 @@
     <section id="udmcg" style="text-align: center;">
         <div class="" id="">
             <div id="udmcge" class="">
-                <div id="pager-header"><span id="page_text"></span> <span class="page"></span> <span id="of"></span> <span class="total_pages"></span></div>
+                <div id="pager-header"><span id="page_text" style="margin-right: .5rem;"></span><select style="margin-bottom: 3px;font-size: 1.1rem;" id="page-select1"></select>  <span id="of"></span> <span class="total_pages"></span></div>
             </div>
             <div class="pagination">
                 <a class="left" onclick="prevPage()">&laquo;</a>
-                <a>
-                    <select id="page-select">
+                <a class="center">
+                    <select id="page-select2">
                     </select> 
                     <span id="of1"></span> <span class="total_pages"></span>
                 </a>
